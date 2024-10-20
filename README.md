@@ -4,7 +4,7 @@
 
 https://docs.google.com/document/d/1QTCraUHNuCLcFJseHwiC8NwYbF1CgmqnvdOWSUJhHrQ/edit?tab=t.0
 
-## Sitemap
+## Sitemap & Storyboard
 
 https://www.figma.com/board/P0SnIFfbC4I7OlGrCkxOy9/Sitemap?node-id=0-1&t=VuXU9Zk6VppqnLMZ-1
 
