@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/kTc5Kj6y58/vYFOe5qelLQlbgda9ZSMzD6NllT6L1nFMR9N9/EjZs9rr/dDe5KCLFctdlnXZZ/IkQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="bg-gray-100 flex justify-center items-center h-screen">
+    <div class="w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
+        <!-- Icon above the title -->
+        <div class="flex justify-center mb-0">
+            <a href="/">
+                <img src="/assets/Logo No Text Big.png" alt="Site Logo">
+              </a>
+        </div>
+        <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
+        <p class="text-sm text-gray-500 text-center mb-6">Keep track of all your orders</p>
+        <form>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700" for="email">Email</label>
+                <input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black" type="email" id="email" placeholder="email@example.com">
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700" for="password">Password</label>
+                <input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black" type="password" id="password" placeholder="••••••••">
+                <a href="#" class="text-sm text-black hover:underline block text-right mt-2">Forgot your password?</a>
+            </div>
+            <button type="submit" class="w-full py-2 bg-black text-white font-semibold rounded-md hover:bg-gray-800">Login</button>
+        </form>
+        <p class="text-center text-sm mt-4">Don't have an account? 
+            <!-- Redirection to Sign Up -->
+            <a href="register.html" class="text-black hover:underline">Sign Up</a>
+        </p>
+    </div>
+</body>
+</html>

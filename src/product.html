@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  <!-- Header Include -->
+  <div id="header"></div>
+
+    <!-- Product Section -->
+    <section class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- Image Gallery -->
+            <div class="bg-white p-4 rounded-lg shadow">
+                <div class="h-96 bg-gray-200 rounded-lg"></div> <!-- Placeholder for main product image -->
+                <div class="mt-4 grid grid-cols-5 gap-2">
+                    <div class="h-16 bg-gray-300 rounded"></div> <!-- Thumbnail images -->
+                    <div class="h-16 bg-gray-300 rounded"></div>
+                    <div class="h-16 bg-gray-300 rounded"></div>
+                    <div class="h-16 bg-gray-300 rounded"></div>
+                    <div class="h-16 bg-gray-300 rounded"></div>
+                </div>
+                <p class="mt-4 text-gray-600">Product description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vehicula elit et nisi.</p>
+            </div>
+
+            <!-- Product Details -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-lg font-medium text-gray-500">Product Category</h2>
+                <h1 class="text-3xl font-bold text-gray-900">Product Name</h1>
+                <p class="mt-4 text-2xl text-gray-800">$189.90</p>
+                
+                <!-- Size Selection -->
+                <div class="mt-6">
+                    <h3 class="text-lg font-medium text-gray-900">Select Size</h3>
+                    <div class="grid grid-cols-4 gap-2 mt-2">
+                        <button class="border border-gray-300 rounded-md py-2">6</button>
+                        <button class="border border-gray-300 rounded-md py-2">7</button>
+                        <button class="border border-gray-300 rounded-md py-2">8</button>
+                        <button class="border border-gray-300 rounded-md py-2">9</button>
+                        <button class="border border-gray-300 rounded-md py-2">10</button>
+                        <button class="border border-gray-300 rounded-md py-2">11</button>
+                    </div>
+                    <a href="#" class="text-sm text-gray-500 mt-2 inline-block">Size Chart</a>
+                </div>
+
+                <!-- Add to Bag Button -->
+                <div class="mt-8">
+                    <button class="w-full bg-black text-white py-3 rounded-lg text-lg font-medium">Add to Bag</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Product Details Section -->
+        <div class="mt-12">
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-xl font-bold text-gray-900">Details</h3>
+                <p class="mt-4 text-gray-700">Fast forward, rewind. This shoe takes retro into the future. The V2K remasters everything you love about the Vomero...</p>
+                <ul class="list-disc ml-6 mt-4 text-gray-700">
+                    <li>Mesh upper feels light and airy.</li>
+                    <li>Dual-density foam midsole creates a comfortable ride.</li>
+                    <li>Translucent plastic accents reference the classic Nike Vomero 5.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Shipping and Returns -->
+        <div class="mt-6">
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-xl font-bold text-gray-900">Shipping and Returns</h3>
+                <p class="mt-4 text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vehicula elit et nisi.</p>
+            </div>
+        </div>
+    </section>
+
+  <!-- Footer Include -->
+  <div id="footer"></div>
+
+  <!-- Script to load header and footer -->
+  <script>
+    // Load header
+    fetch('header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header').innerHTML = data;
+      });
+
+    // Load footer
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer').innerHTML = data;
+      });
+  </script>
+</body>
+</html>
