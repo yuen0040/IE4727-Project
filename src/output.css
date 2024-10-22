@@ -732,6 +732,11 @@ video {
   height: 2rem;
 }
 
+.size-24 {
+  width: 6rem;
+  height: 6rem;
+}
+
 .h-16 {
   height: 4rem;
 }
@@ -831,6 +836,10 @@ video {
 
 .items-center {
   align-items: center;
+}
+
+.justify-start {
+  justify-content: flex-start;
 }
 
 .justify-center {
