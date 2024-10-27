@@ -1,94 +1,105 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Men's Shoes - Shop Page</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
-  <!-- Header Include -->
-  <div id="header"></div>
+    <script>
+      async function loadContent() {
+        // Load header
+        const headerResponse = await fetch("header.html");
+        const headerData = await headerResponse.text();
+        document.getElementById("header").innerHTML = headerData;
 
-    <!-- Category Navigation -->
-    <section class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold mb-4">Men's Shoes</h1>
+        // Load footer
+        const footerResponse = await fetch("footer.html");
+        const footerData = await footerResponse.text();
+        document.getElementById("footer").innerHTML = footerData;
+
+        // Show the main content after loading header and footer
+        document.getElementById("main-content").style.display = "block";
+      }
+
+      // Load content when the DOM is fully loaded
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("main-content").style.display = "none"; // Hide main content initially
+        loadContent();
+      });
+    </script>
+  </head>
+  <body class="bg-gray-100">
+    <!-- Header Include -->
+    <div id="header"></div>
+
+    <div id="main-content" style="display: none">
+      <!-- Category Navigation -->
+      <section class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <h1 class="mb-4 text-3xl font-bold">Men's Shoes</h1>
         <nav class="mb-6">
-            <ul class="flex space-x-6 text-lg font-medium">
-                <li class="border-b-2 border-black">Sneakers</li>
-                <li>Running</li>
-                <li>Training and Gym</li>
-                <li>Skateboarding</li>
-                <li>Basketball</li>
-            </ul>
+          <ul class="flex space-x-6 text-lg font-medium">
+            <li class="border-b-2 border-black">Sneakers</li>
+            <li>Running</li>
+            <li>Training and Gym</li>
+            <li>Skateboarding</li>
+            <li>Basketball</li>
+          </ul>
         </nav>
 
         <!-- Product Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Product Card 1 -->
-            <div class="bg-white p-4 rounded-lg shadow">
-                <div class="h-48 bg-gray-300 rounded"></div>
-                <h3 class="mt-4 font-medium">Product Name</h3>
-                <p class="text-gray-500">Product Category</p>
-                <p class="mt-2">
-                    <span class="text-red-600 font-bold">$79.90</span>
-                    <span class="text-gray-500 line-through ml-2">$189.90</span>
-                </p>
-            </div>
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <!-- Product Card 1 -->
+          <div class="rounded-lg bg-white p-4 shadow">
+            <div class="h-48 rounded bg-gray-300"></div>
+            <h3 class="mt-4 font-medium">Product Name</h3>
+            <p class="text-gray-500">Product Category</p>
+            <p class="mt-2">
+              <span class="font-bold text-red-600">$79.90</span>
+              <span class="ml-2 text-gray-500 line-through">$189.90</span>
+            </p>
+          </div>
 
-            <!-- Product Card 2 -->
-            <div class="bg-white p-4 rounded-lg shadow">
-                <div class="h-48 bg-gray-300 rounded"></div>
-                <h3 class="mt-4 font-medium">Product Name</h3>
-                <p class="text-gray-500">Product Category</p>
-                <p class="mt-2 font-bold">$189.90</p>
-            </div>
+          <!-- Product Card 2 -->
+          <div class="rounded-lg bg-white p-4 shadow">
+            <div class="h-48 rounded bg-gray-300"></div>
+            <h3 class="mt-4 font-medium">Product Name</h3>
+            <p class="text-gray-500">Product Category</p>
+            <p class="mt-2 font-bold">$189.90</p>
+          </div>
 
-            <!-- Product Card 3 -->
-            <div class="bg-white p-4 rounded-lg shadow">
-                <div class="h-48 bg-gray-300 rounded"></div>
-                <h3 class="mt-4 font-medium">Product Name</h3>
-                <p class="text-gray-500">Product Category</p>
-                <p class="mt-2">
-                    <span class="text-red-600 font-bold">$79.90</span>
-                    <span class="text-gray-500 line-through ml-2">$189.90</span>
-                </p>
-            </div>
+          <!-- Product Card 3 -->
+          <div class="rounded-lg bg-white p-4 shadow">
+            <div class="h-48 rounded bg-gray-300"></div>
+            <h3 class="mt-4 font-medium">Product Name</h3>
+            <p class="text-gray-500">Product Category</p>
+            <p class="mt-2">
+              <span class="font-bold text-red-600">$79.90</span>
+              <span class="ml-2 text-gray-500 line-through">$189.90</span>
+            </p>
+          </div>
 
-            <!-- Product Card 4 -->
-            <div class="bg-white p-4 rounded-lg shadow">
-                <div class="h-48 bg-gray-300 rounded"></div>
-                <h3 class="mt-4 font-medium">Product Name</h3>
-                <p class="text-gray-500">Product Category</p>
-                <p class="mt-2 font-bold">$189.90</p>
-            </div>
+          <!-- Product Card 4 -->
+          <div class="rounded-lg bg-white p-4 shadow">
+            <div class="h-48 rounded bg-gray-300"></div>
+            <h3 class="mt-4 font-medium">Product Name</h3>
+            <p class="text-gray-500">Product Category</p>
+            <p class="mt-2 font-bold">$189.90</p>
+          </div>
 
-            <!-- Add more product cards similarly -->
+          <!-- Add more product cards similarly -->
         </div>
 
         <!-- Load More Button -->
-        <div class="text-center mt-8">
-            <button class="bg-black text-white py-3 px-6 rounded-full text-lg font-medium">Load More</button>
+        <div class="mt-8 text-center">
+          <button
+            class="rounded-full bg-black px-6 py-3 text-lg font-medium text-white"
+          >
+            Load More
+          </button>
         </div>
-    </section>
-  <!-- Footer Include -->
-  <div id="footer"></div>
-
-  <!-- Script to load header and footer -->
-  <script>
-    // Load header
-    fetch('header.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('header').innerHTML = data;
-      });
-
-    // Load footer
-    fetch('footer.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('footer').innerHTML = data;
-      });
-  </script>
-</body>
+      </section>
+    </div>
+    <!-- Footer Include -->
+    <div id="footer"></div>
+  </body>
 </html>

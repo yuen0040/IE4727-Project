@@ -1,128 +1,150 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SoleGood</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
-  <!-- Header Include -->
-  <div id="header"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SoleGood</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      async function loadContent() {
+        // Load header
+        const headerResponse = await fetch("header.html");
+        const headerData = await headerResponse.text();
+        document.getElementById("header").innerHTML = headerData;
 
-  <!-- Main Content -->
-    <!-- Hero Section -->
-    <section class="bg-gray-200 h-96 flex items-top justify-left relative">
+        // Load footer
+        const footerResponse = await fetch("footer.html");
+        const footerData = await footerResponse.text();
+        document.getElementById("footer").innerHTML = footerData;
+
+        // Show the main content after loading header and footer
+        document.getElementById("main-content").style.display = "block";
+      }
+
+      // Load content when the DOM is fully loaded
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("main-content").style.display = "none"; // Hide main content initially
+        loadContent();
+      });
+    </script>
+  </head>
+  <body class="bg-gray-100">
+    <!-- Header Include -->
+    <div id="header"></div>
+
+    <!-- Main Content -->
+    <div id="main-content" style="display: none">
+      <!-- Hero Section -->
+      <section class="items-top justify-left relative flex h-96 bg-gray-200">
         <a href="/">
-            <img src="../assets/banner_cropped.jpg" alt="Banner Image" class="absolute inset-0 w-full h-full object-cover opacity-50" />
+          <img
+            src="../assets/banner_cropped.jpg"
+            alt="Banner Image"
+            class="absolute inset-0 h-full w-full object-cover opacity-50"
+          />
         </a>
-        <div class="text-left relative z-10 ml-10 mt-10">
-            <h1 class="text-4xl font-bold opacity-65">Street Pulse</h1>
-            <p class="mt-4 text-lg opacity-50">Get the new product, a take on street fashion by Japanese designer Hige Daedric</p>
+        <div class="relative z-10 ml-10 mt-10 text-left">
+          <h1 class="text-4xl font-bold opacity-65">Street Pulse</h1>
+          <p class="mt-4 text-lg opacity-50">
+            Get the new product, a take on street fashion by Japanese designer
+            Hige Daedric
+          </p>
         </div>
-    </section>
+      </section>
 
-    <!-- New Section -->
-    <section class="py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold mb-6">New</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Product Card -->
-                <div class="bg-white p-4 rounded-lg shadow">
-                    <div class="h-48 bg-gray-300 rounded"></div>
-                    <h3 class="mt-4 font-medium">Product Name</h3>
-                    <p class="text-gray-500">Product Category</p>
-                    <p class="mt-2 font-bold">$199.00</p>
-                </div>
-                <!-- Repeat for more product cards -->
-                <div class="bg-white p-4 rounded-lg shadow">
-                    <div class="h-48 bg-gray-300 rounded"></div>
-                    <h3 class="mt-4 font-medium">Product Name</h3>
-                    <p class="text-gray-500">Product Category</p>
-                    <p class="mt-2 font-bold">$199.00</p>
-                </div>
-                <!-- Add more product items as needed -->
+      <!-- New Section -->
+      <section class="py-12">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 class="mb-6 text-3xl font-bold">New</h2>
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <!-- Product Card -->
+            <div class="rounded-lg bg-white p-4 shadow">
+              <div class="h-48 rounded bg-gray-300"></div>
+              <h3 class="mt-4 font-medium">Product Name</h3>
+              <p class="text-gray-500">Product Category</p>
+              <p class="mt-2 font-bold">$199.00</p>
             </div>
-            <div class="mt-6 text-center">
-                <a href="#" class="inline-block bg-black text-white px-6 py-2 rounded-lg">View All</a>
+            <!-- Repeat for more product cards -->
+            <div class="rounded-lg bg-white p-4 shadow">
+              <div class="h-48 rounded bg-gray-300"></div>
+              <h3 class="mt-4 font-medium">Product Name</h3>
+              <p class="text-gray-500">Product Category</p>
+              <p class="mt-2 font-bold">$199.00</p>
             </div>
+            <!-- Add more product items as needed -->
+          </div>
+          <div class="mt-6 text-center">
+            <a
+              href="#"
+              class="inline-block rounded-lg bg-black px-6 py-2 text-white"
+              >View All</a
+            >
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- Shop By Category Section -->
-    <section class="py-12 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold mb-6">Shop By Category</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <!-- Category Card -->
-                <div class="bg-white p-4 rounded-lg shadow">
-                    <div class="h-48 bg-gray-300 rounded"></div>
-                    <h3 class="mt-4 text-center font-medium">Women</h3>
-                </div>
-                <div class="bg-white p-4 rounded-lg shadow">
-                    <div class="h-48 bg-gray-300 rounded"></div>
-                    <h3 class="mt-4 text-center font-medium">Men</h3>
-                </div>
-                <div class="bg-white p-4 rounded-lg shadow">
-                    <div class="h-48 bg-gray-300 rounded"></div>
-                    <h3 class="mt-4 text-center font-medium">Kids</h3>
-                </div>
+      <!-- Shop By Category Section -->
+      <section class="bg-gray-50 py-12">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 class="mb-6 text-3xl font-bold">Shop By Category</h2>
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            <!-- Category Card -->
+            <div class="rounded-lg bg-white p-4 shadow">
+              <div class="h-48 rounded bg-gray-300"></div>
+              <h3 class="mt-4 text-center font-medium">Women</h3>
             </div>
+            <div class="rounded-lg bg-white p-4 shadow">
+              <div class="h-48 rounded bg-gray-300"></div>
+              <h3 class="mt-4 text-center font-medium">Men</h3>
+            </div>
+            <div class="rounded-lg bg-white p-4 shadow">
+              <div class="h-48 rounded bg-gray-300"></div>
+              <h3 class="mt-4 text-center font-medium">Kids</h3>
+            </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- Sale Section -->
-    <section class="py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold mb-6">Sale</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Sale Product Card -->
-                <div class="bg-white p-4 rounded-lg shadow">
-                    <div class="h-48 bg-gray-300 rounded"></div>
-                    <h3 class="mt-4 font-medium">Product Name</h3>
-                    <p class="text-gray-500">Product Category</p>
-                    <div class="mt-2 flex items-center space-x-2">
-                        <p class="font-bold text-red-500">$99.00</p>
-                        <p class="line-through text-gray-400">$149.00</p>
-                    </div>
-                </div>
-                <!-- Repeat for more sale product cards -->
-                <div class="bg-white p-4 rounded-lg shadow">
-                    <div class="h-48 bg-gray-300 rounded"></div>
-                    <h3 class="mt-4 font-medium">Product Name</h3>
-                    <p class="text-gray-500">Product Category</p>
-                    <div class="mt-2 flex items-center space-x-2">
-                        <p class="font-bold text-red-500">$99.00</p>
-                        <p class="line-through text-gray-400">$149.00</p>
-                    </div>
-                </div>
-                <!-- Add more sale items as needed -->
+      <!-- Sale Section -->
+      <section class="py-12">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 class="mb-6 text-3xl font-bold">Sale</h2>
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <!-- Sale Product Card -->
+            <div class="rounded-lg bg-white p-4 shadow">
+              <div class="h-48 rounded bg-gray-300"></div>
+              <h3 class="mt-4 font-medium">Product Name</h3>
+              <p class="text-gray-500">Product Category</p>
+              <div class="mt-2 flex items-center space-x-2">
+                <p class="font-bold text-red-500">$99.00</p>
+                <p class="text-gray-400 line-through">$149.00</p>
+              </div>
             </div>
-            <div class="mt-6 text-center">
-                <a href="#" class="inline-block bg-black text-white px-6 py-2 rounded-lg">View All</a>
+            <!-- Repeat for more sale product cards -->
+            <div class="rounded-lg bg-white p-4 shadow">
+              <div class="h-48 rounded bg-gray-300"></div>
+              <h3 class="mt-4 font-medium">Product Name</h3>
+              <p class="text-gray-500">Product Category</p>
+              <div class="mt-2 flex items-center space-x-2">
+                <p class="font-bold text-red-500">$99.00</p>
+                <p class="text-gray-400 line-through">$149.00</p>
+              </div>
             </div>
+            <!-- Add more sale items as needed -->
+          </div>
+          <div class="mt-6 text-center">
+            <a
+              href="#"
+              class="inline-block rounded-lg bg-black px-6 py-2 text-white"
+              >View All</a
+            >
+          </div>
         </div>
-    </section>
+      </section>
+    </div>
 
-  <!-- Footer Include -->
-  <div id="footer"></div>
-
-  <!-- Script to load header and footer -->
-  <script>
-    // Load header
-    fetch('header.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('header').innerHTML = data;
-      });
-
-    // Load footer
-    fetch('footer.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('footer').innerHTML = data;
-      });
-  </script>
-</body>
+    <!-- Footer Include -->
+    <div id="footer"></div>
+  </body>
 </html>
