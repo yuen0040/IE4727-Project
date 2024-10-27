@@ -8,7 +8,7 @@ INSERT INTO Products VALUES (
   "Running",
   "Women",
   "Ivory",
-  DEFAULT,
+  DEFAULT
 ),(
   NULL,
   "Nike Interact Run",
@@ -19,7 +19,7 @@ INSERT INTO Products VALUES (
   "Running",
   "Women",
   "Pale Blue",
-  DEFAULT,
+  DEFAULT
 ),(
   NULL,
   "Nike Calm",
@@ -30,7 +30,7 @@ INSERT INTO Products VALUES (
   "Slides",
   "Women",
   "Lime",
-  DEFAULT,
+  DEFAULT
 ),(
   NULL,
   "Jordan Sophia",
@@ -41,7 +41,7 @@ INSERT INTO Products VALUES (
   "Slides",
   "Women",
   "Pale Brown",
-  DEFAULT,
+  DEFAULT
 ),(
   NULL,
   "Nike TC 7900 Premium",
@@ -52,7 +52,7 @@ INSERT INTO Products VALUES (
   "Sneakers",
   "Women",
   "Ivory",
-  DEFAULT,
+  DEFAULT
 ),(
   NULL,
   "Nike Gamma Force",
@@ -63,7 +63,7 @@ INSERT INTO Products VALUES (
   "Sneakers",
   "Women",
   "Off-White",
-  DEFAULT,
+  DEFAULT
 );
 
 INSERT INTO images VALUES (
