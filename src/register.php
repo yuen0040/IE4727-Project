@@ -1,16 +1,6 @@
 <?php
 // Connect to MySQL database
-$servername = "localhost"; // Or your server hostname
-$username = "root";
-$password = "";
-$dbname = "solegood";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require 'db.php'; // Include your database connection
 
 // Validate and sanitize input
 $first_name = filter_input(INPUT_POST, 'first-name', FILTER_SANITIZE_STRING);
@@ -24,18 +14,31 @@ $address = ""; // Adjust to retrieve from form or static value
 $postal_code = ""; // Adjust to retrieve from form or static value
 $gender = ""; // Adjust to retrieve from form or static value
 
-// Prepare the SQL statement
-$stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password_hash, phone_number, address, postal_code, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("ssssssss", $first_name, $last_name, $email, $password, $phone_number, $address, $postal_code, $gender);
+// Check if the email already exists
+$email_check_stmt = $conn->prepare("SELECT user_id FROM users WHERE email = ?");
+$email_check_stmt->bind_param("s", $email);
+$email_check_stmt->execute();
+$email_check_stmt->store_result();
 
-// Execute the statement
-if ($stmt->execute()) {
-    echo "Account created successfully!";
+if ($email_check_stmt->num_rows > 0) {
+    echo "Error: Email is already registered.";
 } else {
-    echo "Error: " . $stmt->error;
+    // Prepare the SQL statement to insert a new user
+    $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password_hash, phone_number, address, postal_code, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssss", $first_name, $last_name, $email, $password, $phone_number, $address, $postal_code, $gender);
+
+    // Execute the statement
+    if ($stmt->execute()) {
+        echo "Account created successfully!";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    // Close the statement
+    $stmt->close();
 }
 
-// Close the statement and connection
-$stmt->close();
+// Close the email check statement and connection
+$email_check_stmt->close();
 $conn->close();
 ?>
