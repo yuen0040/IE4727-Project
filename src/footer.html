@@ -1,7 +1,7 @@
 <footer class="bg-white shadow-md">
   <div class="container mx-auto flex items-start justify-between px-6 py-4">
-    <div class="flex flex-col items-center md:items-start">
-      <a href="/">
+    <div class="mt-8 flex flex-col items-center md:items-start">
+      <a href="home.html">
         <svg
           width="89"
           height="64"
@@ -42,25 +42,21 @@
         &copy; 2024 SoleGood. All Rights Reserved.
       </p>
     </div>
-    <div class="flex flex-col items-center md:items-start">
-      <h3 class="mb-2 text-xl font-semibold text-black">Products</h3>
-      <!-- Black header -->
-      <a href="/women" class="mb-1 text-gray-800 hover:underline">Women</a>
-      <!-- Dark gray links -->
-      <a href="/men" class="mb-1 text-gray-800 hover:underline">Men</a>
-      <a href="/kids" class="mb-1 text-gray-800 hover:underline">Kids</a>
-      <a href="/sale" class="mb-1 text-gray-800 hover:underline">Sale</a>
-    </div>
-    <div class="flex flex-col items-center md:items-start">
-      <h3 class="mb-2 text-xl font-semibold text-black">Account</h3>
-      <!-- Black header -->
-      <a href="/account" class="mb-1 text-gray-800 hover:underline"
-        >My Account</a
-      >
-      <!-- Dark gray links -->
-      <a href="/order-history" class="mb-1 text-gray-800 hover:underline"
-        >Order History</a
-      >
-    </div>
+    <div style="margin-right: 48rem" class="flex flex-col md:flex-row space-x-32">
+      <div class="flex flex-col items-center md:items-start md:mr-8">
+        <!-- Black header -->
+        <h3 class="mb-2 text-xl font-semibold text-black">Products</h3>
+        <!-- Dark gray links -->
+        <a href="shop.html?segment=women" class="mb-1 text-gray-800 hover:underline">Women</a>
+        <a href="shop.html?segment=men" class="mb-1 text-gray-800 hover:underline">Men</a>
+        <a href="shop.html?segment=kids" class="mb-1 text-gray-800 hover:underline">Kids</a>
+        <a href="shop.html?segment=sale" class="mb-1 text-gray-800 hover:underline">Sale</a>
+      </div>
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="mb-2 text-xl font-semibold text-black">Account</h3>
+        <a href="account.php" class="mb-1 text-gray-800 hover:underline">My Account</a>
+        <a href="orderHistory.php" class="mb-1 text-gray-800 hover:underline">Order History</a>
+      </div>
+    </div>    
   </div>
 </footer>

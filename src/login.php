@@ -1,8 +1,8 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 session_start();
-require 'db.php'; // Include your database connection
+require 'db.php';
 
 // Capture form input
 $email = $_POST['email'] ?? '';
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $email && $password) {
         $user_id = $user['user_id'];
         $session_id = bin2hex(random_bytes(16)); // Generate session ID
         $expires_at = date('Y-m-d H:i:s', strtotime('+1 year')); // Set expiry date
-        
+
         // Insert session into database
         $stmt = $conn->prepare("INSERT INTO sessions (session_id, user_id, created_at, expires_at, status) VALUES (?, ?, NOW(), ?, 'Active')");
         $stmt->bind_param("sis", $session_id, $user_id, $expires_at);
@@ -74,4 +74,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $email && $password) {
         echo "Invalid email or password.<br>";
     }
 }
-?>

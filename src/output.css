@@ -1255,6 +1255,11 @@ video {
   padding-right: 0.75rem;
 }
 
+.text-transform {
+  backface-visibility: hidden;
+  perspective: 1000;
+}
+
 .text-left {
   text-align: left;
 }

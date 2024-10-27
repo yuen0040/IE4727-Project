@@ -6,6 +6,29 @@
     <title>SoleGood</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      .hide-scrollbar::-webkit-scrollbar {
+        display: block;
+        width: 8px;
+        height: 8px;
+        background: #fff;
+        background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+      }
+      .hide-scrollbar:hover::-webkit-scrollbar {
+        display: block;
+        width: 8px;
+        height: 8px;
+        background-color: #e0e0e0; /* Light grey background */
+        border-radius: 10px; /* Rounded edges */
+      }
+      .hide-scrollbar:hover::-webkit-scrollbar-thumb {
+        background: #8e8e8e; /* Muted grey for thumb */
+        border-radius: 10px; /* Rounded edges */
+      }
+    </style>
     <script>
       async function loadContent() {
         // Load header
@@ -37,7 +60,7 @@
     <div id="main-content" style="display: none">
       <!-- Hero Section -->
       <section class="items-top justify-left relative flex h-96 bg-gray-200">
-        <a href="/">
+        <a href="#new-section">
           <img
             src="../assets/banner_cropped.jpg"
             alt="Banner Image"
@@ -57,29 +80,8 @@
       <section class="py-12">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 class="mb-6 text-3xl font-bold">New</h2>
-          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <!-- Product Card -->
-            <div class="rounded-lg bg-white p-4 shadow">
-              <div class="h-48 rounded bg-gray-300"></div>
-              <h3 class="mt-4 font-medium">Product Name</h3>
-              <p class="text-gray-500">Product Category</p>
-              <p class="mt-2 font-bold">$199.00</p>
-            </div>
-            <!-- Repeat for more product cards -->
-            <div class="rounded-lg bg-white p-4 shadow">
-              <div class="h-48 rounded bg-gray-300"></div>
-              <h3 class="mt-4 font-medium">Product Name</h3>
-              <p class="text-gray-500">Product Category</p>
-              <p class="mt-2 font-bold">$199.00</p>
-            </div>
-            <!-- Add more product items as needed -->
-          </div>
-          <div class="mt-6 text-center">
-            <a
-              href="#"
-              class="inline-block rounded-lg bg-black px-6 py-2 text-white"
-              >View All</a
-            >
+          <div class="hide-scrollbar overflow-x-scroll overscroll-none">
+            <div id="new-section" class="flex space-x-6 py-4"></div>
           </div>
         </div>
       </section>
@@ -90,18 +92,42 @@
           <h2 class="mb-6 text-3xl font-bold">Shop By Category</h2>
           <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
             <!-- Category Card -->
-            <div class="rounded-lg bg-white p-4 shadow">
-              <div class="h-48 rounded bg-gray-300"></div>
-              <h3 class="mt-4 text-center font-medium">Women</h3>
-            </div>
-            <div class="rounded-lg bg-white p-4 shadow">
-              <div class="h-48 rounded bg-gray-300"></div>
-              <h3 class="mt-4 text-center font-medium">Men</h3>
-            </div>
-            <div class="rounded-lg bg-white p-4 shadow">
-              <div class="h-48 rounded bg-gray-300"></div>
-              <h3 class="mt-4 text-center font-medium">Kids</h3>
-            </div>
+            <a href="shop.html?segment=women">
+              <div
+                class="transform rounded-lg bg-white p-4 shadow transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+              >
+                <img
+                  src="../assets/womens_shoes_cropped.jpg"
+                  alt="Women"
+                  class="h-auto w-full rounded object-cover"
+                />
+                <h3 class="mt-4 text-center font-medium">Women</h3>
+              </div>
+            </a>
+            <a href="shop.html?segment=men">
+              <div
+                class="transform rounded-lg bg-white p-4 shadow transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+              >
+                <img
+                  src="../assets/mens_shoes_cropped.jpg"
+                  alt="Men"
+                  class="h-auto w-full rounded object-cover"
+                />
+                <h3 class="mt-4 text-center font-medium">Men</h3>
+              </div>
+            </a>
+            <a href="shop.html?segment=kids">
+              <div
+                class="transform rounded-lg bg-white p-4 shadow transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+              >
+                <img
+                  src="../assets/kids_shoes_cropped.jpg"
+                  alt="Kids"
+                  class="h-auto w-full rounded object-cover"
+                />
+                <h3 class="mt-4 text-center font-medium">Kids</h3>
+              </div>
+            </a>
           </div>
         </div>
       </section>
@@ -110,40 +136,45 @@
       <section class="py-12">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 class="mb-6 text-3xl font-bold">Sale</h2>
-          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <!-- Sale Product Card -->
-            <div class="rounded-lg bg-white p-4 shadow">
-              <div class="h-48 rounded bg-gray-300"></div>
-              <h3 class="mt-4 font-medium">Product Name</h3>
-              <p class="text-gray-500">Product Category</p>
-              <div class="mt-2 flex items-center space-x-2">
-                <p class="font-bold text-red-500">$99.00</p>
-                <p class="text-gray-400 line-through">$149.00</p>
-              </div>
-            </div>
-            <!-- Repeat for more sale product cards -->
-            <div class="rounded-lg bg-white p-4 shadow">
-              <div class="h-48 rounded bg-gray-300"></div>
-              <h3 class="mt-4 font-medium">Product Name</h3>
-              <p class="text-gray-500">Product Category</p>
-              <div class="mt-2 flex items-center space-x-2">
-                <p class="font-bold text-red-500">$99.00</p>
-                <p class="text-gray-400 line-through">$149.00</p>
-              </div>
-            </div>
-            <!-- Add more sale items as needed -->
-          </div>
+          <div
+            id="sales-section"
+            class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
+          ></div>
           <div class="mt-6 text-center">
             <a
-              href="#"
-              class="inline-block rounded-lg bg-black px-6 py-2 text-white"
+              href="shop.html?segment=sale"
+              class="rounded-full bg-black px-6 py-3 text-lg font-medium text-white hover:bg-gray-500"
               >View All</a
             >
           </div>
         </div>
       </section>
     </div>
+    <script>
+      async function showProducts(section) {
+        const response = await fetch(`home.php?section=${section}`);
+        const data = await response.text();
+        console.log(data);
+        const sectionGrid = document.getElementById(section);
+        sectionGrid.innerHTML = data;
+        // // Insert the fetched HTML for new products
+        // document.querySelector("#new-section .grid").innerHTML =
+        //   doc.querySelector("#new-products").innerHTML;
 
+        // // Insert the fetched HTML for sale products
+        // document.querySelector(".sale-section .grid").innerHTML =
+        //   doc.querySelector(".sale-products").innerHTML;
+
+        // const productGrid = document.getElementById("product-grid");
+
+        if (data === "") {
+        }
+
+        // productGrid.innerHTML = data;
+      }
+      showProducts("new-section");
+      showProducts("sales-section");
+    </script>
     <!-- Footer Include -->
     <div id="footer"></div>
   </body>

@@ -1,9 +1,12 @@
+<!--TODO:
+filters-->
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Men's Shoes - Shop Page</title>
+    <title>Women's Shoes - Shop Page</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       async function loadContent() {
@@ -35,70 +38,176 @@
     <div id="main-content" style="display: none">
       <!-- Category Navigation -->
       <section class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <h1 class="mb-4 text-3xl font-bold">Men's Shoes</h1>
+        <h1 class="mb-4 text-3xl font-bold" id="segment-title">
+          Women's Shoes
+        </h1>
         <nav class="mb-6">
-          <ul class="flex space-x-6 text-lg font-medium">
-            <li class="border-b-2 border-black">Sneakers</li>
-            <li>Running</li>
-            <li>Training and Gym</li>
-            <li>Skateboarding</li>
-            <li>Basketball</li>
+          <ul id="category-list" class="flex space-x-6 text-lg font-medium">
+            <li
+              class="cursor-pointer border-b-2 border-transparent hover:text-blue-500"
+              onclick="showProducts(selectedSegment, 'sneakers', this)"
+            >
+              Sneakers
+            </li>
+            <li
+              class="cursor-pointer border-b-2 border-transparent hover:text-blue-500"
+              onclick="showProducts(selectedSegment, 'running', this)"
+            >
+              Running
+            </li>
+            <li
+              class="cursor-pointer border-b-2 border-transparent hover:text-blue-500"
+              onclick="showProducts(selectedSegment, 'training', this)"
+            >
+              Training and Gym
+            </li>
+            <li
+              class="cursor-pointer border-b-2 border-transparent hover:text-blue-500"
+              onclick="showProducts(selectedSegment, 'skateboarding', this)"
+            >
+              Skateboarding
+            </li>
+            <li
+              class="cursor-pointer border-b-2 border-transparent hover:text-blue-500"
+              onclick="showProducts(selectedSegment, 'basketball', this)"
+            >
+              Basketball
+            </li>
           </ul>
         </nav>
 
         <!-- Product Grid -->
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <!-- Product Card 1 -->
-          <div class="rounded-lg bg-white p-4 shadow">
-            <div class="h-48 rounded bg-gray-300"></div>
-            <h3 class="mt-4 font-medium">Product Name</h3>
-            <p class="text-gray-500">Product Category</p>
-            <p class="mt-2">
-              <span class="font-bold text-red-600">$79.90</span>
-              <span class="ml-2 text-gray-500 line-through">$189.90</span>
-            </p>
-          </div>
-
-          <!-- Product Card 2 -->
-          <div class="rounded-lg bg-white p-4 shadow">
-            <div class="h-48 rounded bg-gray-300"></div>
-            <h3 class="mt-4 font-medium">Product Name</h3>
-            <p class="text-gray-500">Product Category</p>
-            <p class="mt-2 font-bold">$189.90</p>
-          </div>
-
-          <!-- Product Card 3 -->
-          <div class="rounded-lg bg-white p-4 shadow">
-            <div class="h-48 rounded bg-gray-300"></div>
-            <h3 class="mt-4 font-medium">Product Name</h3>
-            <p class="text-gray-500">Product Category</p>
-            <p class="mt-2">
-              <span class="font-bold text-red-600">$79.90</span>
-              <span class="ml-2 text-gray-500 line-through">$189.90</span>
-            </p>
-          </div>
-
-          <!-- Product Card 4 -->
-          <div class="rounded-lg bg-white p-4 shadow">
-            <div class="h-48 rounded bg-gray-300"></div>
-            <h3 class="mt-4 font-medium">Product Name</h3>
-            <p class="text-gray-500">Product Category</p>
-            <p class="mt-2 font-bold">$189.90</p>
-          </div>
-
-          <!-- Add more product cards similarly -->
-        </div>
-
+        <div
+          id="product-grid"
+          class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
+        ></div>
         <!-- Load More Button -->
         <div class="mt-8 text-center">
           <button
-            class="rounded-full bg-black px-6 py-3 text-lg font-medium text-white"
+            id="load-more-button"
+            class="rounded-full bg-black px-6 py-3 text-lg font-medium text-white hover:bg-gray-500"
           >
             Load More
           </button>
+          <div id="message-container" class="mt-4"></div>
         </div>
       </section>
     </div>
+    <script>
+      document
+        .getElementById("load-more-button")
+        .addEventListener("click", function () {
+          // Show the message
+          document.getElementById("message-container").innerHTML =
+            "<p>No more products available.</p>";
+
+          // Hide the button
+          this.style.display = "none";
+        });
+
+      document
+        .getElementById("category-list")
+        .addEventListener("click", function () {
+          // Clear the message
+          document.getElementById("message-container").innerHTML = "";
+
+          const loadMoreButton = document.getElementById("load-more-button");
+          loadMoreButton.style.display = "inline-block"; // or remove this line to use default
+        });
+
+      function getSegmentFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("segment") || "women"; // Default to sneakers
+      }
+
+      async function showProducts(
+        segment,
+        category,
+        selectedCategory,
+        fade = true,
+      ) {
+        const response = await fetch(
+          `shop.php?segment=${segment}&category=${category}`,
+        );
+
+        const data = await response.text();
+
+        const productGrid = document.getElementById("product-grid");
+        const loadMoreButton = document.getElementById("load-more-button");
+        const segmentTitle = document.getElementById("segment-title");
+
+        // Format the segment title
+        const formattedSegment =
+          segment.charAt(0).toUpperCase() + segment.slice(1);
+        // Set segment title
+        if (formattedSegment == "Sale") {
+          segmentTitle.innerText = `${formattedSegment}`;
+          // Update the document title
+          document.title = `${formattedSegment} Page`;
+        } else {
+          segmentTitle.innerText = `${formattedSegment}'s Shoes`;
+          // Update the document title
+          document.title = `${formattedSegment}'s Shoes - Shop Page`;
+        }
+
+            if (data === "") {
+                fade = false
+            }
+
+        if (fade) {
+          productGrid.classList.add(
+            "opacity-0",
+            "transition-opacity",
+            "duration-300",
+          ); // Start fade out
+          loadMoreButton.classList.add(
+            "opacity-0",
+            "transition-opacity",
+            "duration-300",
+          ); // Start fade out
+        }
+        // Update border color for selected category
+        const categoryItems = document.querySelectorAll("#category-list li");
+        categoryItems.forEach((item) => {
+          item.classList.remove("border-black");
+          item.classList.add("border-transparent");
+        });
+        selectedCategory.classList.remove("border-transparent");
+        selectedCategory.classList.add("border-black");
+
+        setTimeout(
+          () => {
+            productGrid.innerHTML = ""; // Clear existing products
+            productGrid.innerHTML = data;
+
+            // Fade in the new products if fade is true
+            if (fade) {
+              productGrid.classList.remove("opacity-0"); // Remove fade out class
+              loadMoreButton.classList.remove("opacity-0"); // Remove fade out class
+              productGrid.classList.add("opacity-100"); // Add fade in class
+              loadMoreButton.classList.add("opacity-100"); // Add fade in class
+
+              // Cleanup after fade in
+              setTimeout(() => {
+                productGrid.classList.remove("opacity-100");
+                loadMoreButton.classList.remove("opacity-100");
+              }, 300); // Duration of fade-in effect
+            }
+          },
+          fade ? 300 : 0,
+        ); // Duration of fade-out effect or 0 if not fading
+      }
+
+      // On page load, get the category from the URL and display products
+      const selectedSegment = getSegmentFromURL();
+      // Show sneakers by default without fading
+      showProducts(
+        selectedSegment,
+        "sneakers",
+        document.querySelector("#category-list li:first-child"),
+        false,
+      );
+    </script>
     <!-- Footer Include -->
     <div id="footer"></div>
   </body>

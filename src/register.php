@@ -1,6 +1,7 @@
 <?php
-// Connect to MySQL database
-require 'db.php'; // Include your database connection
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+require 'db.php';
 
 // Validate and sanitize input
 $first_name = filter_input(INPUT_POST, 'first-name', FILTER_SANITIZE_STRING);
@@ -41,4 +42,3 @@ if ($email_check_stmt->num_rows > 0) {
 // Close the email check statement and connection
 $email_check_stmt->close();
 $conn->close();
-?>

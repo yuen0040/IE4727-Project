@@ -1,6 +1,8 @@
 <?php
 // db.php
 
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 $host = 'localhost'; // Your database host
 $username = 'root'; // Your database username
 $password = ''; // Your database password
@@ -16,5 +18,3 @@ if ($conn->connect_error) {
 
 // Optional: Set character set
 $conn->set_charset("utf8");
-
-?>

@@ -1,4 +1,6 @@
 <?php
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 session_start();
 require 'db.php';
 
@@ -20,4 +22,3 @@ session_destroy();
 // Redirect to login page
 header("Location: login.html");
 exit();
-?>
