@@ -7,10 +7,11 @@ require 'db.php';
 // Capture form input
 $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
+$response = ['success' => false, 'error' => 'Invalid email or password.'];
 
 // Debugging: Print received email and password
-echo "Received email: $email<br>";
-echo "Received password: " . (!empty($password) ? '****' : 'empty') . "<br>";
+// echo "Received email: $email<br>";
+// echo "Received password: " . (!empty($password) ? '****' : 'empty') . "<br>";
 
 // Check for existing session (if user is already logged in)
 if (isset($_COOKIE['session_id'])) {
@@ -22,14 +23,13 @@ if (isset($_COOKIE['session_id'])) {
     $result = $stmt->get_result()->fetch_assoc();
 
     // Debugging: Check session result
-    echo "Session result: ";
-    var_dump($result);
+    // echo "Session result: ";
+    // var_dump($result);
 
     if ($result && strtotime($result['expires_at']) > time()) {
-        // If the session is still valid, retrieve the user info and redirect to homepage
         $_SESSION['user_id'] = $result['user_id'];
-        header("Location: index.php");
-        exit();
+        $response = ['success' => true];
+        echo json_encode($response);
     }
 }
 
@@ -42,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $email && $password) {
     $user = $stmt->get_result()->fetch_assoc();
 
     // Debugging: Check user result
-    echo "User result: ";
-    var_dump($user);
+    // echo "User result: ";
+    // var_dump($user);
 
     if ($user && password_verify($password, $user['password_hash'])) {
         // User authenticated, create session
@@ -63,14 +63,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $email && $password) {
 
             // Set user session
             $_SESSION['user_id'] = $user_id;
-
-            header("Location: index.php");
-            exit();
+            $response = ['success' => true];
         } else {
-            echo "Failed to create session.<br>";
+            $response['error'] = "Failed to create session. Please try again.";
         }
-    } else {
-        // Invalid login
-        echo "Invalid email or password.<br>";
     }
 }
+
+header('Content-Type: application/json');
+echo json_encode($response);

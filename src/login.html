@@ -12,6 +12,80 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <script>
+      // Function to handle form submission with AJAX
+      function submitLogin(event) {
+        event.preventDefault();
+        const form = document.getElementById("login-form");
+        const formData = new FormData(form);
+
+        fetch("login.php", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const errorContainer = document.getElementById("error-message");
+            if (data.success) {
+              showAlert();
+              window.location.href = "index.php"; // Redirect on successful login
+            } else {
+              errorContainer.textContent = data.error;
+              errorContainer.classList.remove("hidden");
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+      function validateForm() {
+        event.preventDefault(); // Prevent default form submission
+        let isValid = true;
+
+        // Get form elements
+        const emailInput = document.getElementById("email");
+        const emailError = document.getElementById("email-error");
+        const passwordInput = document.getElementById("password");
+        const passwordError = document.getElementById("password-error");
+
+        // Email validation
+        if (!emailInput.checkValidity()) {
+          emailError.textContent = emailInput.validity.valueMissing
+            ? "Email is required."
+            : "Please enter a valid email address.";
+          emailError.classList.remove("hidden");
+          isValid = false;
+        } else {
+          emailError.classList.add("hidden");
+        }
+
+        // Password validation
+        if (!passwordInput.checkValidity()) {
+          passwordError.textContent = passwordInput.validity.valueMissing
+            ? "Password is required."
+            : "Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character.";
+          passwordError.classList.remove("hidden");
+          isValid = false;
+        } else {
+          passwordError.classList.add("hidden");
+        }
+
+        if (isValid) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      function showAlert() {
+        const alertBox = document.getElementById("alert");
+        alertBox.classList.remove("hidden");
+        setTimeout(() => {
+          alertBox.classList.add("hidden");
+        }, 3000); // Automatically hide after 3 seconds
+      }
+      function closeAlert() {
+        const alertBox = document.getElementById("alert");
+        alertBox.classList.add("hidden");
+      }
+    </script>
   </head>
   <body class="flex h-screen items-center justify-center bg-gray-100">
     <div class="w-full max-w-sm rounded-lg bg-white p-6 shadow-md">
@@ -50,7 +124,23 @@
       <p class="mb-4 text-left text-sm text-gray-500">
         Keep track of all your orders
       </p>
-      <form action="login.php" method="POST">
+      <div
+        id="alert"
+        class="fixed right-4 top-4 hidden rounded bg-green-500 p-4 text-white shadow-lg"
+      >
+        <span class="font-bold">Success!</span> Logged in successfully!
+        <button onclick="closeAlert()" class="ml-4 font-bold text-white">
+          ×
+        </button>
+      </div>
+      <!-- Error message container -->
+      <div
+        id="error-message"
+        class="mb-4 hidden rounded-md bg-red-100 p-3 text-red-700"
+      ></div>
+
+      <!-- Login Form -->
+      <form id="login-form" onsubmit="if (validateForm()) submitLogin(event)" novalidate>
         <div class="mb-4">
           <label class="block text-sm font-medium text-gray-700" for="email"
             >Email</label
@@ -63,6 +153,9 @@
             placeholder="email@example.com"
             required
           />
+          <p id="email-error" class="mt-1 hidden text-sm text-red-500">
+            Invalid email format
+          </p>
         </div>
         <div class="mb-4">
           <label class="block text-sm font-medium text-gray-700" for="password"
@@ -76,6 +169,9 @@
             placeholder="••••••••"
             required
           />
+          <p id="password-error" class="mt-1 hidden text-sm text-red-500">
+            Invalid password
+          </p>
           <a
             href="#"
             class="mt-2 block text-right text-sm text-black hover:underline"

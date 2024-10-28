@@ -10,6 +10,8 @@ $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hash the password
 $phone_number = filter_input(INPUT_POST, 'phone', FILTER_UNSAFE_RAW);
 
+$response = ['success' => false, 'error' => 'An error occurred during registration.'];
+
 // Additional fields (you may want to add these to the form or hardcode them as needed)
 $address = NULL; // Adjust to retrieve from form or static value
 $postal_code = NULL; // Adjust to retrieve from form or static value
@@ -22,7 +24,7 @@ $email_check_stmt->execute();
 $email_check_stmt->store_result();
 
 if ($email_check_stmt->num_rows > 0) {
-    echo "Error: Email is already registered.";
+    $response['error'] = "Email is already registered.";
 } else {
     // Prepare the SQL statement to insert a new user
     $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password_hash, phone_number, address, postal_code, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
@@ -30,9 +32,9 @@ if ($email_check_stmt->num_rows > 0) {
 
     // Execute the statement
     if ($stmt->execute()) {
-        echo "Account created successfully!";
+        $response['success'] = true;
     } else {
-        echo "Error: " . $stmt->error;
+        $response['error'] = "Registration failed. Please try again.";
     }
 
     // Close the statement
@@ -42,3 +44,6 @@ if ($email_check_stmt->num_rows > 0) {
 // Close the email check statement and connection
 $email_check_stmt->close();
 $conn->close();
+
+header('Content-Type: application/json');
+echo json_encode($response);

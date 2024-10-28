@@ -14,17 +14,118 @@
     />
     <!-- Add JavaScript for password validation -->
     <script>
-      function validateForm() {
-        const password = document.getElementById("password").value;
-        const confirmPassword =
-          document.getElementById("confirm-password").value;
+      // Function to handle AJAX form submission for registration
+      function submitRegistration(event) {
+        event.preventDefault();
+        const form = document.getElementById("registration-form");
+        const formData = new FormData(form);
 
-        if (password !== confirmPassword) {
-          // Show an alert message or update a DOM element to display error
-          alert("Passwords do not match.");
-          return false; // Prevent form submission
+        fetch("register.php", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const errorContainer = document.getElementById("error-message");
+            if (data.success) {
+              showAlert();
+              window.location.href = "login.html"; // Redirect on successful registration
+            } else {
+              errorContainer.textContent = data.error;
+              errorContainer.classList.remove("hidden");
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+      function validateForm() {
+        event.preventDefault(); // Prevent form submission
+
+        let isValid = true;
+
+        // Get form elements
+        const firstNameInput = document.getElementById("first-name");
+        const firstNameError = document.getElementById("first-name-error");
+        const lastNameInput = document.getElementById("last-name");
+        const lastNameError = document.getElementById("last-name-error");
+        const emailInput = document.getElementById("email");
+        const emailError = document.getElementById("email-error");
+        const passwordInput = document.getElementById("password");
+        const passwordError = document.getElementById("password-error");
+        const confirmPasswordInput =
+          document.getElementById("confirm-password");
+        const confirmPasswordError = document.getElementById(
+          "confirm-password-error",
+        );
+
+        // First Name validation
+        if (!firstNameInput.checkValidity()) {
+          firstNameError.textContent = firstNameInput.validity.valueMissing
+            ? "First Name is required."
+            : "Invalid first name";
+          firstNameError.classList.remove("hidden");
+          isValid = false;
+        } else {
+          firstNameError.classList.add("hidden");
         }
-        return true; // Allow form submission if passwords match
+
+        // Last Name validation
+        if (!lastNameInput.checkValidity()) {
+          lastNameError.textContent = lastNameInput.validity.valueMissing
+            ? "Last Name is required."
+            : "Invalid last name";
+          lastNameError.classList.remove("hidden");
+          isValid = false;
+        } else {
+          lastNameError.classList.add("hidden");
+        }
+
+        // Email validation
+        if (!emailInput.checkValidity()) {
+          emailError.textContent = emailInput.validity.valueMissing
+            ? "Email is required."
+            : "Please enter a valid email address.";
+          emailError.classList.remove("hidden");
+          isValid = false;
+        } else {
+          emailError.classList.add("hidden");
+        }
+
+        // Password validation
+        if (!passwordInput.checkValidity()) {
+          passwordError.textContent = passwordInput.validity.valueMissing
+            ? "Password is required."
+            : "Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character.";
+          passwordError.classList.remove("hidden");
+          isValid = false;
+        } else {
+          passwordError.classList.add("hidden");
+        }
+
+        // Password match validation
+        if (passwordInput.value !== confirmPasswordInput.value) {
+          confirmPasswordError.textContent = "Passwords do not match.";
+          confirmPasswordError.classList.remove("hidden");
+          isValid = false;
+        } else {
+          confirmPasswordError.classList.add("hidden");
+        }
+
+        if (isValid) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      function showAlert() {
+        const alertBox = document.getElementById("alert");
+        alertBox.classList.remove("hidden");
+        setTimeout(() => {
+          alertBox.classList.add("hidden");
+        }, 3000); // Automatically hide after 3 seconds
+      }
+      function closeAlert() {
+        const alertBox = document.getElementById("alert");
+        alertBox.classList.add("hidden");
       }
     </script>
   </head>
@@ -69,10 +170,25 @@
       <p class="mb-4 text-left text-sm text-gray-500">
         Enter your information to create an account
       </p>
+      <div
+        id="alert"
+        class="fixed right-4 top-4 hidden rounded bg-green-500 p-4 text-white shadow-lg"
+      >
+        <span class="font-bold">Success!</span> Registered successfully!
+        <button onclick="closeAlert()" class="ml-4 font-bold text-white">
+          ×
+        </button>
+      </div>
+      <!-- Error message container -->
+      <div
+        id="error-message"
+        class="mb-4 hidden rounded-md bg-red-100 p-3 text-red-700"
+      ></div>
+
       <form
-        action="register.php"
-        method="POST"
-        onsubmit="return validateForm()"
+        id="registration-form"
+        onsubmit="if (validateForm()) submitRegistration(event)"
+        novalidate
       >
         <div class="mb-4 grid grid-cols-2 gap-4">
           <div>
@@ -91,6 +207,9 @@
               pattern="[A-Za-z][A-Za-z\s]*"
               title="Please enter only letters and spaces"
             />
+            <p id="first-name-error" class="mt-1 hidden text-sm text-red-500">
+              Invalid first name
+            </p>
           </div>
           <div>
             <label
@@ -108,6 +227,9 @@
               pattern="[A-Za-z][A-Za-z\s]*"
               title="Please enter only letters and spaces"
             />
+            <p id="last-name-error" class="mt-1 hidden text-sm text-red-500">
+              Invalid last name
+            </p>
           </div>
         </div>
         <!-- General Email Regex (RFC 5322 Official Standard) -->
@@ -124,6 +246,9 @@
             required
             pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|&quot;(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*&quot;)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])1(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|&quot;(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*&quot;)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])"
           />
+          <p id="email-error" class="mt-1 hidden text-sm text-red-500">
+            Invalid email format
+          </p>
         </div>
         <div class="mb-4">
           <label class="block text-sm font-medium text-gray-700" for="password"
@@ -139,6 +264,11 @@
             pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
             title="Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character."
           />
+          <p id="password-error" class="mt-1 hidden text-sm text-red-500">
+            Password must be at least 8 characters long, include at least one
+            uppercase letter, one lowercase letter, one number, and one special
+            character
+          </p>
         </div>
         <div class="mb-4">
           <label
@@ -156,6 +286,12 @@
             pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
             title="Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character."
           />
+          <p
+            id="confirm-password-error"
+            class="mt-1 hidden text-sm text-red-500"
+          >
+            Passwords do not match
+          </p>
         </div>
         <div class="mb-4">
           <label class="block text-sm font-medium text-gray-700" for="phone"

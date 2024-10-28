@@ -8,13 +8,13 @@ $section = isset($_GET['section']) ? $_GET['section'] : '';
 
 // SQL query to get the latest 5 products by created_at and 3 random sale items with sale_price not NULL
 $sql = "
-    SELECT p.product_id, p.name, p.category, p.segment, p.price, p.sale_price, i.image_url 
-    FROM products p 
-    JOIN images i ON p.product_id = i.product_id 
-    WHERE i.image_url IS NOT NULL 
-    AND p.created_at IS NOT NULL 
-    GROUP BY p.product_id 
-    ORDER BY p.created_at DESC 
+    SELECT p.product_id, p.name, p.category, p.segment, p.price, p.sale_price, i.image_url
+    FROM products p
+    JOIN images i ON p.product_id = i.product_id
+    WHERE i.image_url IS NOT NULL
+    AND p.created_at IS NOT NULL
+    GROUP BY p.product_id
+    ORDER BY p.created_at DESC
     LIMIT 6;
 ";
 $stmt = $conn->prepare($sql); // Prepare statement
@@ -55,13 +55,13 @@ if ($section == 'new-section') {
 // Fetch random sale items with sale_price not NULL, limit to 3
 if ($section == 'sales-section') {
     $sql_random_sales = "
-    SELECT p.product_id, p.name, p.category, p.segment, p.price, p.sale_price, i.image_url 
-    FROM products p 
-    JOIN images i ON p.product_id = i.product_id 
-    WHERE p.sale_price IS NOT NULL 
+    SELECT p.product_id, p.name, p.category, p.segment, p.price, p.sale_price, i.image_url
+    FROM products p
+    JOIN images i ON p.product_id = i.product_id
+    WHERE p.sale_price IS NOT NULL
     AND i.image_url IS NOT NULL
-    GROUP BY p.product_id 
-    ORDER BY RAND() 
+    GROUP BY p.product_id
+    ORDER BY RAND()
     LIMIT 3;
 ";
     $stmt_random_sales = $conn->prepare($sql_random_sales);
