@@ -145,10 +145,10 @@ CREATE TABLE `users` (
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
-  `phone_number` varchar(20) NOT NULL,
-  `address` text NOT NULL,
-  `postal_code` int(11) NOT NULL,
-  `gender` tinyint(1) NOT NULL
+  `phone_number` varchar(20) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `postal_code` int(11) DEFAULT NULL,
+  `gender` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

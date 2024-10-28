@@ -7,8 +7,48 @@ require 'db.php';
 $segment = isset($_GET['segment']) ? $_GET['segment'] : '';
 $category = isset($_GET['category']) ? $_GET['category'] : '';
 
+// Fetch random sale items with sale_price not NULL
+if ($segment == 'sale') {
+    $sql_random_sales = "
+    SELECT p.product_id, p.name, p.category, p.segment, p.price, p.sale_price, i.image_url 
+    FROM products p 
+    JOIN images i ON p.product_id = i.product_id 
+    WHERE p.sale_price IS NOT NULL 
+    AND i.image_url IS NOT NULL
+    GROUP BY p.product_id 
+    ORDER BY RAND();
+";
+    $stmt_random_sales = $conn->prepare($sql_random_sales);
+    $stmt_random_sales->execute();
+    $result_random_sales = $stmt_random_sales->get_result();
+
+    // Output sale products
+    if ($result_random_sales->num_rows > 0) {
+        while ($row = $result_random_sales->fetch_assoc()) {
+            $segment = strtolower($row['segment']);
+            $category = strtolower($row['category']);
+            $price = "$" . $row["price"];
+            $salePrice = "$" . $row["sale_price"];
+
+            echo '<a href="product.html?name=' . urlencode($row['name']) . '">';
+            echo '<div class="transform rounded-lg bg-white p-4 shadow transition-transform duration-300 hover:scale-105 hover:shadow-lg">';
+            echo '<div class="h-48 rounded bg-gray-300" style="background-image: url(\'' . htmlspecialchars($row['image_url']) . '\'); background-size: cover; background-position: center;"></div>';
+            echo '<h3 class="mt-4 font-medium">' . htmlspecialchars($row['name']) . '</h3>';
+            echo '<p class="text-gray-500">' . ucfirst($category) . '</p>';
+            echo '<div class="mt-2 flex items-center space-x-2">';
+            echo "<span class='font-bold text-red-500'>$salePrice</span>";
+            echo "<span class='text-gray-400 line-through'>$price</span>";
+            echo '</div>';
+            echo '</div>';
+            echo '</a>';
+        }
+    }
+    $stmt_random_sales->close();
+}
+
 // Prepare the SQL query
-$sql = "
+else {
+    $sql = "
     SELECT p.product_id, p.segment, p.name, p.category, p.price, p.sale_price, i.image_url 
     FROM products AS p
     LEFT JOIN images AS i ON p.product_id = i.product_id
@@ -50,6 +90,7 @@ if ($result->num_rows > 0) {
         echo '</a>';
     }
 }
-
 $stmt->close();
+}
+
 $conn->close();

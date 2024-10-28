@@ -4,16 +4,16 @@
 require 'db.php';
 
 // Validate and sanitize input
-$first_name = filter_input(INPUT_POST, 'first-name', FILTER_SANITIZE_STRING);
-$last_name = filter_input(INPUT_POST, 'last-name', FILTER_SANITIZE_STRING);
+$first_name = filter_input(INPUT_POST, 'first-name', FILTER_UNSAFE_RAW);
+$last_name = filter_input(INPUT_POST, 'last-name', FILTER_UNSAFE_RAW);
 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hash the password
-$phone_number = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING);
+$phone_number = filter_input(INPUT_POST, 'phone', FILTER_UNSAFE_RAW);
 
 // Additional fields (you may want to add these to the form or hardcode them as needed)
-$address = ""; // Adjust to retrieve from form or static value
-$postal_code = ""; // Adjust to retrieve from form or static value
-$gender = ""; // Adjust to retrieve from form or static value
+$address = NULL; // Adjust to retrieve from form or static value
+$postal_code = NULL; // Adjust to retrieve from form or static value
+$gender = NULL; // Adjust to retrieve from form or static value
 
 // Check if the email already exists
 $email_check_stmt = $conn->prepare("SELECT user_id FROM users WHERE email = ?");
