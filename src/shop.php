@@ -13,12 +13,13 @@ if ($segment == 'sale') {
     SELECT p.product_id, p.name, p.category, p.segment, p.price, p.sale_price, i.image_url 
     FROM products p 
     JOIN images i ON p.product_id = i.product_id 
-    WHERE p.sale_price IS NOT NULL 
+    WHERE p.sale_price IS NOT NULL AND p.category = ? 
     AND i.image_url IS NOT NULL
     GROUP BY p.product_id 
     ORDER BY RAND();
 ";
     $stmt_random_sales = $conn->prepare($sql_random_sales);
+    $stmt_random_sales->bind_param('s', $category);
     $stmt_random_sales->execute();
     $result_random_sales = $stmt_random_sales->get_result();
 
@@ -56,41 +57,41 @@ else {
     GROUP BY p.product_id
 ";
 
-// Prepare and execute the statement
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('ss', $segment, $category); // Bind parameters
-$stmt->execute();
-$result = $stmt->get_result();
+    // Prepare and execute the statement
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ss', $segment, $category); // Bind parameters
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        // Convert segment and category to lowercase for CSS classes if needed
-        $segment = strtolower($row['segment']);
-        $category = strtolower($row['category']);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            // Convert segment and category to lowercase for CSS classes if needed
+            $segment = strtolower($row['segment']);
+            $category = strtolower($row['category']);
 
-        // Determine the price format, applying sale price if available
-        $price = "$" . $row["price"];
-        $salePrice = $row["sale_price"] ? "$" . $row["sale_price"] : "";
+            // Determine the price format, applying sale price if available
+            $price = "$" . $row["price"];
+            $salePrice = $row["sale_price"] ? "$" . $row["sale_price"] : "";
 
-        // HTML output for each product
-        echo '<a href="product.html?name=' . urlencode($row['name']) . '">';
-        echo '<div class="transform rounded-lg bg-white p-4 shadow transition-transform duration-300 hover:scale-105 hover:shadow-lg">';
-        echo '<div class="h-48 rounded bg-gray-300" style="background-image: url(\'' . $row['image_url'] . '\'); background-size: cover; background-position: center;"></div>';
-        echo '<h3 class="mt-4 font-medium overflow-ellipsis overflow-hidden whitespace-nowrap w-48">' . htmlspecialchars($row['name']) . '</h3>';
-        echo '<p class="text-gray-500">' . ucfirst($category) . '</p>';
-        echo '<p class="mt-2">';
-        if (!empty($salePrice)) {
-            echo "<span class='font-bold text-red-500'>$price</span>";
-            echo "<span class='ml-2 text-gray-500 line-through'>$salePrice</span>";
-        } else {
-            echo "<span class='font-bold'>$price</span>";
+            // HTML output for each product
+            echo '<a href="product.html?name=' . urlencode($row['name']) . '">';
+            echo '<div class="transform rounded-lg bg-white p-4 shadow transition-transform duration-300 hover:scale-105 hover:shadow-lg">';
+            echo '<div class="h-48 rounded bg-gray-300" style="background-image: url(\'' . $row['image_url'] . '\'); background-size: cover; background-position: center;"></div>';
+            echo '<h3 class="mt-4 font-medium overflow-ellipsis overflow-hidden whitespace-nowrap w-48">' . htmlspecialchars($row['name']) . '</h3>';
+            echo '<p class="text-gray-500">' . ucfirst($category) . '</p>';
+            echo '<p class="mt-2">';
+            if (!empty($salePrice)) {
+                echo "<span class='font-bold text-red-500'>$price</span>";
+                echo "<span class='ml-2 text-gray-500 line-through'>$salePrice</span>";
+            } else {
+                echo "<span class='font-bold'>$price</span>";
+            }
+            echo '</p>';
+            echo '</div>';
+            echo '</a>';
         }
-        echo '</p>';
-        echo '</div>';
-        echo '</a>';
     }
-}
-$stmt->close();
+    $stmt->close();
 }
 
 $conn->close();
