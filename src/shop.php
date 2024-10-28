@@ -49,7 +49,7 @@ if ($segment == 'sale') {
     $stmt_random_sales->close();
 }
 
-else if ($category='all') {
+else if ($category == 'all') {
     $sql_all = "
     SELECT p.product_id, p.segment, p.name, p.category, p.price, p.sale_price, i.image_url 
     FROM products AS p

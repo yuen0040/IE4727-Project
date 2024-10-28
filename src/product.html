@@ -1,9 +1,3 @@
-<!--TODO: query from db update fields (name, details, images, category)
-grey out size options when there isnt any stock
-add to bag (table) - verify quantity of item in cart
-fetch product id from name from URL
-get sizes from that and images and all the other info-->
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -32,6 +26,135 @@ get sizes from that and images and all the other info-->
         document.getElementById("main-content").style.display = "none"; // Hide main content initially
         loadContent();
       });
+
+      // Fetch and populate product details
+      async function loadProductDetails() {
+        const productName = getProductNameFromURL();
+        console.log("Fetching details for product:", productName);
+
+        try {
+          const response = await fetch(
+            `producttest.php?name=${encodeURIComponent(productName)}`,
+          );
+          console.log("Received response from producttest.php");
+
+          const data = await response.json();
+          console.log("Product data received:", data);
+
+          if (data.error) {
+            console.error("Error in data:", data.error);
+            document.getElementById("product-details").innerHTML =
+              `<p class="text-red-500">${data.error}</p>`;
+            return;
+          }
+
+          // Populate main product data
+          document.getElementById("product-name").textContent = productName;
+          document.getElementById("product-category").textContent =
+            data.category;
+          if (data.sale_price != null) {
+            document.getElementById("price-container").style.display = "block";
+            document.getElementById("product-sale-price").textContent =
+              data.sale_price;
+            document.getElementById("product-original-price").textContent =
+              data.price;
+          } else {
+            document.getElementById("price-container").style.display = "none";
+            document.getElementById("product-price").textContent = data.price;
+          }
+          document.getElementById("product-description").textContent =
+            data.description;
+          document.getElementById("product-details-text").innerHTML =
+            data.details;
+
+          console.log("Product main details populated.");
+
+// Populate images
+const imageGallery = document.getElementById("product-images");
+const mainProductImage = document.getElementById("main-product-image");
+
+// Set the first image as the main image by default
+mainProductImage.style.backgroundImage = `url('${data.images[0]}')`;
+
+imageGallery.innerHTML = ""; // Clear any placeholders
+
+data.images.forEach((url, index) => {
+  const imgDiv = document.createElement("div");
+  imgDiv.classList.add("h-32", "w-32", "rounded-lg", "bg-gray-300", "bg-cover", "bg-center", "cursor-pointer");
+  imgDiv.style.backgroundImage = `url('${url}')`;
+
+  // Set the first thumbnail as selected by default
+  if (index === 0) imgDiv.classList.add("ring-1", "ring-gray-500", "brightness-90");
+
+  // Add click event to set as main image and highlight selected thumbnail
+  imgDiv.addEventListener("click", () => {
+    // Update main image
+    mainProductImage.style.backgroundImage = `url('${url}')`;
+    console.log(`Main image updated to URL: ${url}`);
+
+    // Remove selection styles from all thumbnails
+    document.querySelectorAll("#product-images div").forEach(div => {
+      div.classList.remove("ring-1", "ring-gray-500", "brightness-90");
+    });
+
+    // Add selection styles to the clicked thumbnail
+    imgDiv.classList.add("ring-1", "ring-gray-500", "brightness-90");
+  });
+
+  imageGallery.appendChild(imgDiv);
+  console.log(`Image ${index + 1} added with URL: ${url}`);
+});
+
+          // Populate sizes
+          const sizeButtons = document.getElementById("size-buttons");
+          sizeButtons.innerHTML = ""; // Clear previous sizes
+          data.sizes.forEach((size, index) => {
+            const button = document.createElement("button");
+            button.className =
+              "size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white";
+            button.textContent = size.size;
+            button.onclick = () => selectSize(button);
+            if (data.sizes.size != null) {
+              sizeButtons.appendChild(button);
+            } else {
+              const noSizesMessage = document.createElement("p");
+              noSizesMessage.classList.add("text-red-500");
+              noSizesMessage.textContent = "No sizes available"; // Set the message text
+              sizeButtons.appendChild(noSizesMessage); // Append the message to the sizeButtons
+            }
+            console.log(`Size button added: ${size.size}`);
+          });
+          console.log("All sizes populated.");
+        } catch (error) {
+          console.error("Error loading product details:", error);
+        }
+      }
+
+      // Get product name from URL
+      function getProductNameFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get("name") || "Default Product Name";
+        console.log("Product name from URL:", name);
+        return name;
+      }
+
+      // Add selected style to size button
+      function selectSize(button) {
+        console.log("Selecting size:", button.textContent);
+        document.querySelectorAll(".size-button").forEach((btn) => {
+          btn.classList.remove("bg-blue-500", "text-white", "border-blue-500");
+          btn.classList.add("border-gray-300", "text-gray-900");
+        });
+        button.classList.add("bg-blue-500", "text-white", "border-blue-500");
+        console.log("Size selected:", button.textContent);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("DOM fully loaded, initializing page content.");
+        document.getElementById("main-content").style.display = "none";
+        loadContent();
+        loadProductDetails();
+      });
     </script>
   </head>
   <body class="bg-gray-100">
@@ -41,98 +164,145 @@ get sizes from that and images and all the other info-->
     <div id="main-content" style="display: none">
       <!-- Product Section -->
       <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          <!-- Image Gallery -->
-          <div class="rounded-lg bg-white p-4 shadow">
-            <div class="h-96 rounded-lg bg-gray-200"></div>
-            <!-- Placeholder for main product image -->
-            <div class="mt-4 grid grid-cols-5 gap-2">
-              <div class="h-16 rounded bg-gray-300"></div>
-              <!-- Thumbnail images -->
-              <div class="h-16 rounded bg-gray-300"></div>
-              <div class="h-16 rounded bg-gray-300"></div>
-              <div class="h-16 rounded bg-gray-300"></div>
-              <div class="h-16 rounded bg-gray-300"></div>
+        <div class="relative h-full">
+          <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            <!-- Image Gallery -->
+            <div class="rounded-lg bg-white p-4 shadow">
+
+              <!-- Main Product Image -->
+              <div id="main-product-image" class="h-96 rounded-lg bg-gray-200 bg-cover bg-center"></div>
+
+                <!-- Thumbnail Images -->
+                <div id="product-images" class="mt-4 flex gap-4"></div>
+
+
+              <!-- Product Description -->
+              <p id="product-description" class="mt-4 text-gray-600"></p>
             </div>
-            <p class="mt-4 text-gray-600">
-              Product description. Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit. Duis vehicula elit et nisi.
-            </p>
-          </div>
 
-          <!-- Product Details -->
-          <div class="rounded-lg bg-white p-6 shadow">
-            <h2 class="text-lg font-medium text-gray-500">Product Category</h2>
-            <h1 class="text-3xl font-bold text-gray-900">Product Name</h1>
-            <p class="mt-4 text-2xl text-gray-800">$189.90</p>
+            <!-- Product Details -->
+            <div class="rounded-lg bg-white p-6 shadow">
+              <h2
+                id="product-category"
+                class="text-lg font-medium text-gray-500"
+              ></h2>
+              <h1
+                id="product-name"
+                class="text-3xl font-bold text-gray-900"
+              ></h1>
+              <div id="price-container" class="mt-4">
+                <span
+                  id="product-sale-price"
+                  class="mt-4 text-2xl font-bold text-red-500"
+                ></span>
+                <span
+                  id="product-original-price"
+                  class="mt-4 text-2xl text-gray-500 line-through"
+                ></span>
+              </div>
+              <span
+                id="product-price"
+                class="mt-4 text-2xl text-gray-800"
+              ></span>
 
-            <!-- Size Selection -->
-            <div class="mt-6">
-              <h3 class="text-lg font-medium text-gray-900">Select Size</h3>
-              <div class="mt-2 grid grid-cols-4 gap-2">
-                <button
-                  class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
-                  onclick="selectSize(this)"
+              <!-- Size Selection -->
+              <div class="mt-4">
+                <h3 class="text-lg font-medium text-gray-900">Select Size</h3>
+                <div id="size-buttons" class="mt-2 grid grid-cols-4 gap-2">
+                  <button
+                    class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
+                    onclick="selectSize(this)"
+                  >
+                    6
+                  </button>
+                  <button
+                    class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
+                    onclick="selectSize(this)"
+                  >
+                    6.5
+                  </button>
+                  <button
+                    class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
+                    onclick="selectSize(this)"
+                  >
+                    7
+                  </button>
+                  <button
+                    class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
+                    onclick="selectSize(this)"
+                  >
+                    7.5
+                  </button>
+                  <button
+                    class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
+                    onclick="selectSize(this)"
+                  >
+                    8
+                  </button>
+                  <button
+                    class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
+                    onclick="selectSize(this)"
+                  >
+                    8.5
+                  </button>
+                  <button
+                    class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
+                    onclick="selectSize(this)"
+                  >
+                    9
+                  </button>
+                  <button
+                    class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
+                    onclick="selectSize(this)"
+                  >
+                    9.5
+                  </button>
+                  <button
+                    class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
+                    onclick="selectSize(this)"
+                  >
+                    10
+                  </button>
+                  <button
+                    class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
+                    onclick="selectSize(this)"
+                  >
+                    10.5
+                  </button>
+                  <button
+                    class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
+                    onclick="selectSize(this)"
+                  >
+                    11
+                  </button>
+                  <button
+                    class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
+                    onclick="selectSize(this)"
+                  >
+                    11.5
+                  </button>
+                  <button
+                    class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
+                    onclick="selectSize(this)"
+                  >
+                    12
+                  </button>
+                </div>
+                <a
+                  href="../assets/size_chart.png"
+                  class="mt-2 inline-block border-b-2 border-transparent text-sm text-gray-500 hover:border-black hover:text-black"
+                  >Size Chart</a
                 >
-                  6
-                </button>
+              </div>
+
+              <!-- Add to Bag Button -->
+              <div class="absolute bottom-8 left-[53.317%] right-[2%]">
                 <button
-                  class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
-                  onclick="selectSize(this)"
+                  class="w-full rounded-lg bg-black py-3 text-lg font-medium text-white hover:bg-gray-500"
                 >
-                  6.5
-                </button>
-                <button
-                  class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
-                  onclick="selectSize(this)"
-                >
-                  7
-                </button>
-                <button
-                  class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
-                  onclick="selectSize(this)"
-                >
-                  7.5
-                </button>
-                <button
-                  class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
-                  onclick="selectSize(this)"
-                >
-                  8
-                </button>
-                <button
-                  class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
-                  onclick="selectSize(this)"
-                >
-                  8.5
-                </button>
-                <button
-                  class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
-                  onclick="selectSize(this)"
-                >
-                  9
-                </button>
-                <button
-                  class="size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white"
-                  onclick="selectSize(this)"
-                >
-                  9.5
+                  Add to Bag
                 </button>
               </div>
-              <a
-                href="../assets/size_chart.png"
-                class="border-b-2 border-transparent mt-2 inline-block text-sm text-gray-500 hover:text-black hover:border-black"
-                >Size Chart</a
-              >
-            </div>
-
-            <!-- Add to Bag Button -->
-            <div class="mt-48">
-              <button
-                class="w-full rounded-lg bg-black py-3 text-lg font-medium text-white hover:bg-gray-500"
-              >
-                Add to Bag
-              </button>
             </div>
           </div>
         </div>
@@ -141,17 +311,7 @@ get sizes from that and images and all the other info-->
         <div class="mt-12">
           <div class="rounded-lg bg-white p-6 shadow">
             <h3 class="text-xl font-bold text-gray-900">Details</h3>
-            <p class="mt-4 text-gray-700">
-              Fast forward, rewind. This shoe takes retro into the future. The
-              V2K remasters everything you love about the Vomero...
-            </p>
-            <ul class="ml-6 mt-4 list-disc text-gray-700">
-              <li>Mesh upper feels light and airy.</li>
-              <li>Dual-density foam midsole creates a comfortable ride.</li>
-              <li>
-                Translucent plastic accents reference the classic Nike Vomero 5.
-              </li>
-            </ul>
+            <p id="product-details-text" class="mt-4 text-gray-700"></p>
           </div>
         </div>
 
@@ -175,18 +335,7 @@ get sizes from that and images and all the other info-->
         </div>
       </section>
     </div>
-    <script>
-      function selectSize(button) {
-        // Remove active class from all buttons
-        document.querySelectorAll(".size-button").forEach((btn) => {
-          btn.classList.remove("bg-blue-500", "text-white", "border-blue-500");
-          btn.classList.add("border-gray-300", "text-gray-900"); // Reset to default
-        });
 
-        // Add active class to the clicked button
-        button.classList.add("bg-blue-500", "text-white", "border-blue-500");
-      }
-    </script>
     <!-- Footer Include -->
     <div id="footer"></div>
   </body>

@@ -62,7 +62,7 @@ if ($section == 'sales-section') {
     AND i.image_url IS NOT NULL
     GROUP BY p.product_id
     ORDER BY RAND()
-    LIMIT 3;
+    LIMIT 4;
 ";
     $stmt_random_sales = $conn->prepare($sql_random_sales);
     $stmt_random_sales->execute();
