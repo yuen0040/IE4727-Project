@@ -68,76 +68,76 @@ VALUES (NULL, 'Nike Air More Uptempo',
 
 -- Sneakers
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Legend Essential 2', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/0c947911-ed90-49c6-a1fd-f6de3798114f/NIKE+LEGEND+ESSENTIAL+2.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Legend Essential 2'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/0c947911-ed90-49c6-a1fd-f6de3798114f/NIKE+LEGEND+ESSENTIAL+2.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Legend Essential 2', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/1693eda6-6808-4d66-a855-94e83fe8ff64/NIKE+LEGEND+ESSENTIAL+2.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Legend Essential 2'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/1693eda6-6808-4d66-a855-94e83fe8ff64/NIKE+LEGEND+ESSENTIAL+2.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Legend Essential 2', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/2482c899-aa71-42e5-8861-7604fdcd0b60/NIKE+LEGEND+ESSENTIAL+2.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Legend Essential 2'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/2482c899-aa71-42e5-8861-7604fdcd0b60/NIKE+LEGEND+ESSENTIAL+2.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Legend Essential 2', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/fd2c284c-613a-4e3a-b4b9-a74005f59511/NIKE+LEGEND+ESSENTIAL+2.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Legend Essential 2'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/fd2c284c-613a-4e3a-b4b9-a74005f59511/NIKE+LEGEND+ESSENTIAL+2.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Air Force 1 07 LV8', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/7db556e8-e9e8-4a30-a577-099be6e215e5/AIR+FORCE+1+%2707+LV8.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Air Force 1 07 LV8'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/7db556e8-e9e8-4a30-a577-099be6e215e5/AIR+FORCE+1+%2707+LV8.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Air Force 1 07 LV8', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/ff3c2df3-476d-4054-bbea-0ab07db6c771/AIR+FORCE+1+%2707+LV8.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Air Force 1 07 LV8'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/ff3c2df3-476d-4054-bbea-0ab07db6c771/AIR+FORCE+1+%2707+LV8.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Air Force 1 07 LV8', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/a7d721f4-f65f-418f-bd27-865b96c4c4f7/AIR+FORCE+1+%2707+LV8.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Air Force 1 07 LV8'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/a7d721f4-f65f-418f-bd27-865b96c4c4f7/AIR+FORCE+1+%2707+LV8.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Air Force 1 07 LV8', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/6251aea6-6c0d-4cc3-bfe3-319c886e54e6/AIR+FORCE+1+%2707+LV8.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Air Force 1 07 LV8'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/6251aea6-6c0d-4cc3-bfe3-319c886e54e6/AIR+FORCE+1+%2707+LV8.png');
 
 
 -- Running
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Pegasus 41 GORE-TEX', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/de7f0b98-d4ba-44ee-9373-6b9d086b4843/AIR+ZM+PEGASUS+41+GTX.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Pegasus 41 GORE-TEX'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/de7f0b98-d4ba-44ee-9373-6b9d086b4843/AIR+ZM+PEGASUS+41+GTX.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Pegasus 41 GORE-TEX', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/da3d88f3-c9d2-41f8-a0e2-b887c7833f30/AIR+ZM+PEGASUS+41+GTX.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Pegasus 41 GORE-TEX'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/da3d88f3-c9d2-41f8-a0e2-b887c7833f30/AIR+ZM+PEGASUS+41+GTX.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Pegasus 41 GORE-TEX', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/71bc4d61-e0ea-4d4a-a955-a24b0457d757/AIR+ZM+PEGASUS+41+GTX.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Pegasus 41 GORE-TEX'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/71bc4d61-e0ea-4d4a-a955-a24b0457d757/AIR+ZM+PEGASUS+41+GTX.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Pegasus 41 GORE-TEX', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/5a9b4ba7-823d-437f-a0af-bbb2ef7664a9/AIR+ZM+PEGASUS+41+GTX.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Pegasus 41 GORE-TEX'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/5a9b4ba7-823d-437f-a0af-bbb2ef7664a9/AIR+ZM+PEGASUS+41+GTX.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Run Swift 3', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/a0f44d90-7581-4ada-b7e7-44c57cc3f0d8/NIKE+RUN+SWIFT+3.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Run Swift 3'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/a0f44d90-7581-4ada-b7e7-44c57cc3f0d8/NIKE+RUN+SWIFT+3.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Run Swift 3', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/c5036d4d-2773-4236-86d4-d96a3deead84/NIKE+RUN+SWIFT+3.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Run Swift 3'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/c5036d4d-2773-4236-86d4-d96a3deead84/NIKE+RUN+SWIFT+3.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Run Swift 3', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/bb19616e-aed1-4720-8778-3ef2bbb13836/NIKE+RUN+SWIFT+3.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Run Swift 3'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/bb19616e-aed1-4720-8778-3ef2bbb13836/NIKE+RUN+SWIFT+3.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Run Swift 3', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/be3dddc9-e6e4-43c6-abfb-af172c49b95e/NIKE+RUN+SWIFT+3.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Run Swift 3'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/be3dddc9-e6e4-43c6-abfb-af172c49b95e/NIKE+RUN+SWIFT+3.png');
 
 -- Slides
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Jordan Post', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/a5b8115e-03ff-4319-af5e-26ad829598c1/JORDAN+POST+SLIDE.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Jordan Post'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/a5b8115e-03ff-4319-af5e-26ad829598c1/JORDAN+POST+SLIDE.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Jordan Post', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/3b1236be-5e8a-409b-bbf5-49f4c8c23a2d/JORDAN+POST+SLIDE.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Jordan Post'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/3b1236be-5e8a-409b-bbf5-49f4c8c23a2d/JORDAN+POST+SLIDE.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Jordan Post', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/3038d2f9-fb85-49dc-9271-fe94d93deaae/JORDAN+POST+SLIDE.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Jordan Post'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/3038d2f9-fb85-49dc-9271-fe94d93deaae/JORDAN+POST+SLIDE.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Jordan Post', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/80cdfe40-4ed8-403b-beeb-447796d44715/JORDAN+POST+SLIDE.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Jordan Post'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/80cdfe40-4ed8-403b-beeb-447796d44715/JORDAN+POST+SLIDE.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Air More Uptempo', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/482d00c9-54c9-477c-a568-af731014e6a4/AIR+MORE+UPTEMPO+SLIDE.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Air More Uptempo'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/482d00c9-54c9-477c-a568-af731014e6a4/AIR+MORE+UPTEMPO+SLIDE.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Air More Uptempo', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/46416e01-fe20-4701-a4a1-0442f720d7c3/AIR+MORE+UPTEMPO+SLIDE.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Air More Uptempo'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/46416e01-fe20-4701-a4a1-0442f720d7c3/AIR+MORE+UPTEMPO+SLIDE.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Air More Uptempo', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/b3ae099f-6f33-4f53-a765-ad09acbbb361/AIR+MORE+UPTEMPO+SLIDE.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Air More Uptempo'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/b3ae099f-6f33-4f53-a765-ad09acbbb361/AIR+MORE+UPTEMPO+SLIDE.png');
 
 INSERT INTO images (image_id, product_id, image_url)
-VALUES (NULL, SELECT product_id from products WHERE name = 'Nike Air More Uptempo', 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/4f6ba847-871d-4f2c-9432-76d576220f05/AIR+MORE+UPTEMPO+SLIDE.png');
+VALUES (NULL, (SELECT product_id from products WHERE name = 'Nike Air More Uptempo'), 'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/4f6ba847-871d-4f2c-9432-76d576220f05/AIR+MORE+UPTEMPO+SLIDE.png');

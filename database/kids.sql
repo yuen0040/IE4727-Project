@@ -22,7 +22,7 @@ INSERT INTO Products VALUES (
   DEFAULT
 ),(
   NULL,
-  "Jordan Post",
+  "Jordan Post Kids",
   "Cool comfort, packaged in an asymmetrical design. These secure-fitting slides are made from one piece of foam, bringing sleek versatility to your everyday activities.",
   "Country/Region of Origin: Vietnam",
   35,
@@ -100,19 +100,19 @@ INSERT INTO images VALUES (
   "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/9c004a28-aeee-431f-b4d5-7c734a3bdf78/NIKE+STAR+RUNNER+4+NN+%28GS%29.png"
 ),(
   NULL,
-  (SELECT product_id from products WHERE name = "Jordan Post"),
+  (SELECT product_id from products WHERE name = "Jordan Post Kids"),
   "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/06c16e6e-3da4-42b7-bccd-7b6b64bc5649/JORDAN+POST+SLIDE+%28GS%29.png"
 ),(
   NULL,
-  (SELECT product_id from products WHERE name = "Jordan Post"),
+  (SELECT product_id from products WHERE name = "Jordan Post Kids"),
   "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/2e38a3a0-0941-48a3-a4b3-26967f3959e9/JORDAN+POST+SLIDE+%28GS%29.png"
 ),(
   NULL,
-  (SELECT product_id from products WHERE name = "Jordan Post"),
+  (SELECT product_id from products WHERE name = "Jordan Post Kids"),
   "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7210cd9c-8e66-46c4-ac64-6d3167411fc9/JORDAN+POST+SLIDE+%28GS%29.png"
 ),(
   NULL,
-  (SELECT product_id from products WHERE name = "Jordan Post"),
+  (SELECT product_id from products WHERE name = "Jordan Post Kids"),
   "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/8f3a2bce-3a11-46a6-80d9-d3037ff0910c/JORDAN+POST+SLIDE+%28GS%29.png"
 ),(
   NULL,
