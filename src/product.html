@@ -36,7 +36,7 @@
           const response = await fetch(
             `product.php?name=${encodeURIComponent(productName)}`,
           );
-          console.log("Received response from producttest.php");
+          console.log("Received response from product.php");
 
           const data = await response.json();
           console.log("Product data received:", data);
@@ -69,41 +69,57 @@
 
           console.log("Product main details populated.");
 
-// Populate images
-const imageGallery = document.getElementById("product-images");
-const mainProductImage = document.getElementById("main-product-image");
+          // Populate images
+          const imageGallery = document.getElementById("product-images");
+          const mainProductImage =
+            document.getElementById("main-product-image");
 
-// Set the first image as the main image by default
-mainProductImage.style.backgroundImage = `url('${data.images[0]}')`;
+          // Set the first image as the main image by default
+          mainProductImage.style.backgroundImage = `url('${data.images[0]}')`;
 
-imageGallery.innerHTML = ""; // Clear any placeholders
+          imageGallery.innerHTML = ""; // Clear any placeholders
 
-data.images.forEach((url, index) => {
-  const imgDiv = document.createElement("div");
-  imgDiv.classList.add("h-32", "w-32", "rounded-lg", "bg-gray-300", "bg-cover", "bg-center", "cursor-pointer");
-  imgDiv.style.backgroundImage = `url('${url}')`;
+          data.images.forEach((url, index) => {
+            const imgDiv = document.createElement("div");
+            imgDiv.classList.add(
+              "h-32",
+              "w-32",
+              "rounded-lg",
+              "bg-gray-300",
+              "bg-cover",
+              "bg-center",
+              "cursor-pointer",
+            );
+            imgDiv.style.backgroundImage = `url('${url}')`;
 
-  // Set the first thumbnail as selected by default
-  if (index === 0) imgDiv.classList.add("ring-1", "ring-gray-500", "brightness-90");
+            // Set the first thumbnail as selected by default
+            if (index === 0)
+              imgDiv.classList.add("ring-1", "ring-gray-500", "brightness-90");
 
-  // Add click event to set as main image and highlight selected thumbnail
-  imgDiv.addEventListener("click", () => {
-    // Update main image
-    mainProductImage.style.backgroundImage = `url('${url}')`;
-    console.log(`Main image updated to URL: ${url}`);
+            // Add click event to set as main image and highlight selected thumbnail
+            imgDiv.addEventListener("click", () => {
+              // Update main image
+              mainProductImage.style.backgroundImage = `url('${url}')`;
+              console.log(`Main image updated to URL: ${url}`);
 
-    // Remove selection styles from all thumbnails
-    document.querySelectorAll("#product-images div").forEach(div => {
-      div.classList.remove("ring-1", "ring-gray-500", "brightness-90");
-    });
+              // Remove selection styles from all thumbnails
+              document
+                .querySelectorAll("#product-images div")
+                .forEach((div) => {
+                  div.classList.remove(
+                    "ring-1",
+                    "ring-gray-500",
+                    "brightness-90",
+                  );
+                });
 
-    // Add selection styles to the clicked thumbnail
-    imgDiv.classList.add("ring-1", "ring-gray-500", "brightness-90");
-  });
+              // Add selection styles to the clicked thumbnail
+              imgDiv.classList.add("ring-1", "ring-gray-500", "brightness-90");
+            });
 
-  imageGallery.appendChild(imgDiv);
-  console.log(`Image ${index + 1} added with URL: ${url}`);
-});
+            imageGallery.appendChild(imgDiv);
+            console.log(`Image ${index + 1} added with URL: ${url}`);
+          });
 
           // Populate sizes
           const sizeButtons = document.getElementById("size-buttons");
@@ -168,13 +184,14 @@ data.images.forEach((url, index) => {
           <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
             <!-- Image Gallery -->
             <div class="rounded-lg bg-white p-4 shadow">
-
               <!-- Main Product Image -->
-              <div id="main-product-image" class="h-96 rounded-lg bg-gray-200 bg-cover bg-center"></div>
+              <div
+                id="main-product-image"
+                class="h-96 rounded-lg bg-gray-200 bg-cover bg-center"
+              ></div>
 
-                <!-- Thumbnail Images -->
-                <div id="product-images" class="mt-4 flex gap-4"></div>
-
+              <!-- Thumbnail Images -->
+              <div id="product-images" class="mt-4 flex gap-4"></div>
 
               <!-- Product Description -->
               <p id="product-description" class="mt-4 text-gray-600"></p>
@@ -200,10 +217,12 @@ data.images.forEach((url, index) => {
                   class="mt-4 text-2xl text-gray-500 line-through"
                 ></span>
               </div>
-              <span
-                id="product-price"
-                class="mt-4 text-2xl text-gray-800"
-              ></span>
+              <div class="mt-4">
+                <span
+                  id="product-price"
+                  class="mt-4 text-2xl text-gray-800"
+                ></span>
+              </div>
 
               <!-- Size Selection -->
               <div class="mt-4">
