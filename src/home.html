@@ -133,9 +133,9 @@
       </section>
 
       <!-- Sale Section -->
-      <section class="py-12">
+      <section id="sales-bg" class="py-12">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 class="mb-6 text-3xl font-bold">Sale</h2>
+          <h2 id="sales-text" class="mb-6 text-3xl font-bold">Sale</h2>
           <div
             id="sales-section"
             class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
@@ -143,6 +143,7 @@
           <div class="mt-6 text-center">
             <a
               href="shop.html?segment=sale"
+              id="view-all-button"
               class="rounded-full bg-black px-6 py-3 text-lg font-medium text-white hover:bg-gray-500"
               >View All</a
             >
@@ -154,23 +155,39 @@
       async function showProducts(section) {
         const response = await fetch(`home.php?section=${section}`);
         const data = await response.text();
-        console.log(data);
+
+        const salesBg = document.getElementById("sales-bg");
+        const salesText = document.getElementById("sales-text");
+        const salesSection = document.getElementById("sales-section");
+        const viewAllButton = document.getElementById("view-all-button");
         const sectionGrid = document.getElementById(section);
+
         sectionGrid.innerHTML = data;
-        // // Insert the fetched HTML for new products
-        // document.querySelector("#new-section .grid").innerHTML =
-        //   doc.querySelector("#new-products").innerHTML;
 
-        // // Insert the fetched HTML for sale products
-        // document.querySelector(".sale-section .grid").innerHTML =
-        //   doc.querySelector(".sale-products").innerHTML;
-
-        // const productGrid = document.getElementById("product-grid");
-
-        if (data === "") {
+        if (section == "sales-section" && data === "") {
+          salesBg.classList.add(
+            "opacity-100",
+            "transition-opacity",
+            "duration-300",
+            "bg-gray-50",
+          ); // Start fade out
+          salesText.classList.add(
+            "opacity-0",
+            "transition-opacity",
+            "duration-300",
+            "bg-gray-50",
+          ); // Start fade out
+          salesSection.classList.add(
+            "opacity-0",
+            "transition-opacity",
+            "duration-300",
+          ); // Start fade out
+          viewAllButton.classList.add(
+            "opacity-0",
+            "transition-opacity",
+            "duration-300",
+          ); // Start fade out
         }
-
-        // productGrid.innerHTML = data;
       }
       showProducts("new-section");
       showProducts("sales-section");

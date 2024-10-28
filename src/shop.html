@@ -110,9 +110,6 @@ filters-->
         .addEventListener("click", function () {
           // Clear the message
           document.getElementById("message-container").innerHTML = "";
-
-          const loadMoreButton = document.getElementById("load-more-button");
-          loadMoreButton.style.display = "inline-block"; // or remove this line to use default
         });
 
       function getSegmentFromURL() {
@@ -150,9 +147,11 @@ filters-->
           document.title = `${formattedSegment}'s Shoes - Shop Page`;
         }
 
-            if (data === "") {
-                fade = false
-            }
+        if (data === "") {
+          fade = false;
+        }
+
+        loadMoreButton.style.display = "inline-block"; // or remove this line to use default
 
         if (fade) {
           productGrid.classList.add(
