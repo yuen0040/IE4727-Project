@@ -2,6 +2,15 @@
 // error_reporting(E_ALL);
 // ini_set('display_errors', 1);
 require 'db.php';
+require 'resolveCarts.php';
+session_start();
+$session_id = session_id();
+
+// If user is already logged in, redirect to home page
+if (isset($_SESSION['user_id'])) {
+    header("Location: home.html");
+    exit();
+}
 
 // Validate and sanitize input
 $first_name = filter_input(INPUT_POST, 'first-name', FILTER_UNSAFE_RAW);
@@ -32,6 +41,9 @@ if ($email_check_stmt->num_rows > 0) {
 
     // Execute the statement
     if ($stmt->execute()) {
+        $user_id = $stmt->insert_id;
+        resolveCarts($conn, $user_id);
+        $_SESSION['user_id'] = $user_id;
         $response['success'] = true;
     } else {
         $response['error'] = "Registration failed. Please try again.";

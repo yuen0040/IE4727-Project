@@ -1,37 +1,21 @@
 <?php
 // error_reporting(E_ALL);
 // ini_set('display_errors', 1);
-session_start();
 require 'db.php';
+require 'resolveCarts.php';
+session_start();
+$session_id = session_id();
+
+// If user is already logged in, redirect to home page
+if (isset($_SESSION['user_id'])) {
+    header("Location: home.html");
+    exit();
+}
 
 // Capture form input
 $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
 $response = ['success' => false, 'error' => 'Invalid email or password.'];
-
-// Debugging: Print received email and password
-// echo "Received email: $email<br>";
-// echo "Received password: " . (!empty($password) ? '****' : 'empty') . "<br>";
-
-// Check for existing session (if user is already logged in)
-if (isset($_COOKIE['session_id'])) {
-    $session_id = $_COOKIE['session_id'];
-    // Verify session in the database
-    $stmt = $conn->prepare("SELECT user_id, expires_at, status FROM sessions WHERE session_id = ? AND status = 'Active'");
-    $stmt->bind_param("s", $session_id);
-    $stmt->execute();
-    $result = $stmt->get_result()->fetch_assoc();
-
-    // Debugging: Check session result
-    // echo "Session result: ";
-    // var_dump($result);
-
-    if ($result && strtotime($result['expires_at']) > time()) {
-        $_SESSION['user_id'] = $result['user_id'];
-        $response = ['success' => true];
-        echo json_encode($response);
-    }
-}
 
 // If no valid session, proceed with login
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $email && $password) {
@@ -41,32 +25,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $email && $password) {
     $stmt->execute();
     $user = $stmt->get_result()->fetch_assoc();
 
-    // Debugging: Check user result
-    // echo "User result: ";
-    // var_dump($user);
-
     if ($user && password_verify($password, $user['password_hash'])) {
-        // User authenticated, create session
+        // User authenticated
         $user_id = $user['user_id'];
-        $session_id = bin2hex(random_bytes(16)); // Generate session ID
-        $expires_at = date('Y-m-d H:i:s', strtotime('+1 year')); // Set expiry date
-
-        // Insert session into database
-        $stmt = $conn->prepare("INSERT INTO sessions (session_id, user_id, created_at, expires_at, status) VALUES (?, ?, NOW(), ?, 'Active')");
-        $stmt->bind_param("sis", $session_id, $user_id, $expires_at);
-        $stmt->execute();
-
-        // Debugging: Check if session was created
-        if ($stmt->affected_rows > 0) {
-            // Set session in cookies
-            setcookie('session_id', $session_id, time() + (365 * 24 * 60 * 60), "/"); // 1 year expiration
-
-            // Set user session
-            $_SESSION['user_id'] = $user_id;
-            $response = ['success' => true];
-        } else {
-            $response['error'] = "Failed to create session. Please try again.";
-        }
+        resolveCarts($conn, $user_id);
+        // Set user session
+        $_SESSION['user_id'] = $user_id;
+        $response = ['success' => true];
     }
 }
 
