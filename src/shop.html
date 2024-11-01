@@ -4,7 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Women's Shoes - Shop Page</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link href="./output.css" rel="stylesheet" />
     <script>
       async function loadContent() {
         // Load header
@@ -204,11 +210,11 @@
         // Update border color for selected category
         const categoryItems = document.querySelectorAll("#category-list li");
         if (!offsetFlag) {
-        categoryItems.forEach((item) => {
-          item.classList.remove("border-black");
-          item.classList.add("border-transparent");
-        });
-      }
+          categoryItems.forEach((item) => {
+            item.classList.remove("border-black");
+            item.classList.add("border-transparent");
+          });
+        }
         selectedCategory.classList.remove("border-transparent");
         selectedCategory.classList.add("border-black");
 
@@ -240,7 +246,7 @@
       // Show sneakers by default without fading
       showProducts(
         selectedSegment,
-        "sneakers",
+        "all",
         document.querySelector("#category-list li:first-child"),
         false,
         true,
