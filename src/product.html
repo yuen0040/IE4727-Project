@@ -91,7 +91,7 @@
               "h-32",
               "w-32",
               "rounded-lg",
-              "bg-gray-300",
+              "bg-zinc-300",
               "bg-cover",
               "bg-center",
               "cursor-pointer",
@@ -100,7 +100,7 @@
 
             // Set the first thumbnail as selected by default
             if (index === 0)
-              imgDiv.classList.add("ring-1", "ring-gray-500", "brightness-90");
+              imgDiv.classList.add("ring-1", "ring-zinc-500", "brightness-90");
 
             // Add click event to set as main image and highlight selected thumbnail
             imgDiv.addEventListener("click", () => {
@@ -114,13 +114,13 @@
                 .forEach((div) => {
                   div.classList.remove(
                     "ring-1",
-                    "ring-gray-500",
+                    "ring-zinc-500",
                     "brightness-90",
                   );
                 });
 
               // Add selection styles to the clicked thumbnail
-              imgDiv.classList.add("ring-1", "ring-gray-500", "brightness-90");
+              imgDiv.classList.add("ring-1", "ring-zinc-500", "brightness-90");
             });
 
             imageGallery.appendChild(imgDiv);
@@ -133,8 +133,9 @@
           data.sizes.forEach((size, index) => {
             const button = document.createElement("button");
             button.className =
-              "size-button transform rounded-md border border-gray-300 py-2 transition duration-300 ease-in-out hover:border-blue-400 hover:bg-blue-300 hover:text-white";
+              "size-button rounded-md border border-zinc-200 py-2 transition-all hover:bg-zinc-100/90";
             button.textContent = size.size;
+            button.dataset.size_id = size.size_id;
             button.onclick = () => selectSize(button);
             if (size.stock > 0) {
               sizeButtons.appendChild(button);
@@ -164,10 +165,12 @@
       function selectSize(button) {
         console.log("Selecting size:", button.textContent);
         document.querySelectorAll(".size-button").forEach((btn) => {
-          btn.classList.remove("bg-blue-500", "text-white", "border-blue-500");
-          btn.classList.add("border-gray-300", "text-gray-900");
+          btn.classList.remove("bg-zinc-50", "ring", "ring-2", "ring-zinc-700");
+          delete btn.dataset.selected;
         });
-        button.classList.add("bg-blue-500", "text-white", "border-blue-500");
+        button.classList.add("bg-zinc-50", "ring", "ring-2", "ring-zinc-700");
+        button.dataset.selected = true;
+        document.getElementById("add-to-bag").disabled = false;
         console.log("Size selected:", button.textContent);
       }
 
@@ -177,115 +180,160 @@
         loadContent();
         loadProductDetails();
       });
+
+      function addSizeToBag() {
+        const selectedSize = document
+          .querySelector('button[data-selected="true"]')
+          .getAttribute("data-size_id");
+        try {
+          fetch(`addToBag.php?size=${encodeURIComponent(selectedSize)}`)
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) showAlert(true);
+              if (data.error) showAlert(false, data.error);
+            });
+        } catch (error) {
+          console.error("Error loading product details:", error);
+        }
+      }
+
+      function showAlert(success, message) {
+        let alertBox;
+        if (success) {
+          alertBox = document.getElementById("alert-success");
+        } else {
+          alertBox = document.getElementById("alert-error");
+          alertBox.innerText = message;
+        }
+        alertBox.classList.remove("hidden");
+        setTimeout(() => {
+          alertBox.classList.add("hidden");
+        }, 3000); // Automatically hide after 3 seconds
+      }
     </script>
   </head>
-  <body class="bg-gray-100">
+  <body>
     <!-- Header Include -->
     <div id="header"></div>
 
-    <div id="main-content" style="display: none">
-      <!-- Product Section -->
-      <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div class="relative h-full">
-          <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-            <!-- Image Gallery -->
-            <div class="rounded-lg bg-white p-4 shadow">
-              <!-- Main Product Image -->
-              <div
-                id="main-product-image"
-                class="aspect-square rounded-lg bg-gray-200 bg-cover bg-center"
-              ></div>
+    <main id="main-content" style="display: none">
+      <section
+        class="mx-auto grid max-w-[1400px] grid-cols-3 gap-8 p-6 md:p-12"
+      >
+        <div class="col-span-3 grid grid-cols-6 gap-8">
+          <!-- Image Gallery -->
+          <div class="col-span-6 md:col-span-3 lg:col-span-4">
+            <!-- Main Product Image -->
+            <div
+              id="main-product-image"
+              class="aspect-square rounded-lg bg-zinc-200 bg-cover bg-center"
+            ></div>
 
-              <!-- Thumbnail Images -->
-              <div id="product-images" class="mt-4 flex gap-4"></div>
+            <!-- Thumbnail Images -->
+            <div id="product-images" class="mt-4 flex gap-4"></div>
+          </div>
 
-              <!-- Product Description -->
-              <p id="product-description" class="mt-4 text-gray-600"></p>
+          <!-- Product Details -->
+          <div
+            class="sticky top-8 col-span-6 flex h-fit flex-col gap-8 md:col-span-3 lg:col-span-2"
+          >
+            <div>
+              <h6
+                id="product-category"
+                class="mb-3 font-medium text-zinc-700"
+              ></h6>
+              <h1
+                id="product-name"
+                class="text-4xl font-medium text-zinc-900"
+              ></h1>
             </div>
 
-            <!-- Product Details -->
-            <div class="flex flex-col gap-8 rounded-lg bg-white p-6 shadow">
-              <div>
-                <h6
-                  id="product-category"
-                  class="mb-3 font-medium text-zinc-700"
-                ></h6>
-                <h1
-                  id="product-name"
-                  class="text-4xl font-medium text-zinc-900"
-                ></h1>
-              </div>
+            <div id="price-container">
+              <span
+                id="product-sale-price"
+                class="text-xl font-bold text-red-500"
+              ></span>
+              <span
+                id="product-original-price"
+                class="text-xl text-zinc-500 line-through"
+              ></span>
+            </div>
+            <div>
+              <span
+                id="product-price"
+                class="text-xl font-medium text-zinc-700"
+              ></span>
+            </div>
 
-              <div id="price-container">
-                <span
-                  id="product-sale-price"
-                  class="text-xl font-bold text-red-500"
-                ></span>
-                <span
-                  id="product-original-price"
-                  class="text-xl text-zinc-500 line-through"
-                ></span>
-              </div>
-              <div>
-                <span
-                  id="product-price"
-                  class="text-xl font-medium text-zinc-700"
-                ></span>
-              </div>
-
-              <!-- Size Selection -->
-              <div>
-                <div class="mb-4 flex items-baseline justify-between">
-                  <h3 class="text-xl font-medium text-zinc-900">Select Size</h3>
-                  <a
-                    href="../assets/size_chart.png"
-                    class="inline-block border-b-2 border-transparent text-zinc-700 hover:border-black hover:text-black"
-                    >Size Chart</a
-                  >
-                </div>
-                <div id="size-buttons" class="grid grid-cols-4 gap-2"></div>
-              </div>
-
-              <!-- Add to Bag Button -->
-              <div class="flex flex-1 items-end">
-                <button
-                  class="w-full rounded-full bg-zinc-900 px-12 py-4 text-xl font-medium text-white hover:bg-zinc-900/90"
+            <!-- Size Selection -->
+            <div>
+              <div class="mb-4 flex items-baseline justify-between">
+                <h3 class="text-xl font-medium text-zinc-900">Select Size</h3>
+                <a
+                  href="../assets/size_chart.png"
+                  class="inline-block border-b-2 border-transparent text-zinc-700 hover:border-black hover:text-black"
+                  >Size Chart</a
                 >
-                  Add to Bag
-                </button>
               </div>
+              <div id="size-buttons" class="group grid grid-cols-4 gap-2"></div>
+            </div>
+
+            <!-- Add to Bag Button -->
+            <div>
+              <button
+                class="w-full rounded-full bg-zinc-900 px-12 py-4 text-xl font-medium text-white transition-colors hover:bg-zinc-900/90 disabled:cursor-not-allowed disabled:bg-zinc-200 disabled:text-zinc-400"
+                id="add-to-bag"
+                disabled
+                autocomplete="off"
+                onclick="addSizeToBag()"
+              >
+                Add to Bag
+              </button>
+              <p
+                id="alert-success"
+                class="mt-2 hidden text-center text-emerald-600"
+              >
+                Added to Bag.
+              </p>
+              <p
+                id="alert-error"
+                class="mt-2 hidden text-center text-red-700"
+              ></p>
             </div>
           </div>
         </div>
 
+        <div class="col-span-3 lg:col-span-2">
+          <p id="product-description" class="mt-4 text-zinc-700"></p>
+        </div>
+
         <!-- Product Details Section -->
-        <div class="mt-12">
-          <div class="rounded-lg bg-white p-6 shadow">
-            <h3 class="text-xl font-bold text-gray-900">Details</h3>
-            <p id="product-details-text" class="mt-4 text-gray-700"></p>
+        <div class="col-span-3 lg:col-span-2">
+          <!-- Product Description -->
+
+          <div>
+            <h3 class="mb-4 text-xl font-medium text-zinc-900">Details</h3>
+            <p id="product-details-text" class="mt-4 text-zinc-700"></p>
           </div>
         </div>
 
         <!-- Shipping and Returns -->
-        <div class="mt-6">
-          <div class="rounded-lg bg-white p-6 shadow">
-            <h3 class="text-xl font-bold text-gray-900">
-              Shipping and Returns
-            </h3>
-            Your order of S$75 or more gets free standard delivery.
-            <ul class="ml-6 mt-4 list-disc text-gray-700">
-              <li>Standard delivered 1-3 Business Days</li>
-              <li>
-                Orders are processed and delivered Monday-Friday (excluding
-                public holidays).
-              </li>
-            </ul>
-            <br />
-            SoleGood members enjoy free returns. Exclusions apply.
-          </div>
+        <div class="col-span-3 text-zinc-700 lg:col-span-2">
+          <h3 class="mb-4 text-xl font-medium text-zinc-900">
+            Shipping and Returns
+          </h3>
+          Your order of S$75 or more gets free standard delivery.
+          <ul class="my-4 ml-6 list-disc">
+            <li>Standard delivered 1-3 Business Days</li>
+            <li>
+              Orders are processed and delivered Monday-Friday (excluding public
+              holidays).
+            </li>
+          </ul>
+          SoleGood members enjoy free returns. Exclusions apply.
         </div>
       </section>
-    </div>
+    </main>
 
     <!-- Footer Include -->
     <div id="footer"></div>

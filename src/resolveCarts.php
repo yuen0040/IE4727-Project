@@ -5,8 +5,8 @@ require 'db.php';
 function resolveCarts(mysqli $conn, int|string $user_id)
 {
   $session_id = session_id();
-  $stmt = $conn->prepare("SELECT size_id, quantity FROM cart_items LEFT JOIN cart ON cart.cart_id = cart_items.cart_id WHERE session_id = ?");
-  $stmt->bind_param("i", $session_id);
+  $stmt = $conn->prepare("SELECT size_id, quantity FROM cart_items RIGHT JOIN cart ON cart.cart_id = cart_items.cart_id WHERE session_id = ?");
+  $stmt->bind_param("s", $session_id);
   $stmt->execute();
   $result = $stmt->get_result();
 
@@ -28,7 +28,7 @@ function resolveCarts(mysqli $conn, int|string $user_id)
   // user cart does not exist
   if ($result->num_rows == 0) {
     $stmt = $conn->prepare("UPDATE cart SET user_id = ? WHERE session_id = ?");
-    $stmt->bind_param("ii", $user_id, $session_id);
+    $stmt->bind_param("is", $user_id, $session_id);
     $stmt->execute();
 
     // user cart exists
@@ -49,7 +49,7 @@ function resolveCarts(mysqli $conn, int|string $user_id)
       $stmt->execute();
 
       $stmt = $conn->prepare("UPDATE cart SET user_id = ? WHERE session_id = ?");
-      $stmt->bind_param("ii", $user_id, $session_id);
+      $stmt->bind_param("is", $user_id, $session_id);
       $stmt->execute();
     }
 
@@ -60,18 +60,19 @@ function resolveCarts(mysqli $conn, int|string $user_id)
 
     // Delete session cart and update user cart
     $stmt = $conn->prepare("DELETE from cart WHERE session_id = ?");
-    $stmt->bind_param("i", $session_id);
+    $stmt->bind_param("s", $session_id);
     $stmt->execute();
 
     $stmt = $conn->prepare("UPDATE cart SET session_id = ? WHERE user_id = ?");
-    $stmt->bind_param("ii", $session_id, $user_id);
+    $stmt->bind_param("si", $session_id, $user_id);
     $stmt->execute();
 
     foreach ($session_cart_data as $size_id => $qty) {
       // items already exists in user cart
       if (isset($user_cart_data[$size_id])) {
+        $new_quantity = (int)$user_cart_data[$size_id] + (int)$qty;
         $stmt = $conn->prepare("UPDATE cart_items SET quantity = ? WHERE user_id = ?");
-        $stmt->bind_param("ii", (int)$user_cart_data[$size_id] + (int)$qty, $user_id);
+        $stmt->bind_param("ii", $new_quantity, $user_id);
         $stmt->execute();
       } else {
         // insert item into user cart

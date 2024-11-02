@@ -2,6 +2,7 @@
 // error_reporting(E_ALL);
 // ini_set('display_errors', 1);
 require 'db.php';
+session_start();
 
 // Check if the product name is passed as a query parameter
 $productName = isset($_GET['name']) ? $_GET['name'] : '';
