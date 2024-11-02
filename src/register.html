@@ -191,12 +191,12 @@
         <div class="mb-4 grid grid-cols-2 gap-4">
           <div>
             <label
-              class="block text-sm font-medium text-zinc-700"
+              class="mb-2 block text-sm font-medium text-zinc-700"
               for="first-name"
               >First Name</label
             >
             <input
-              class="w-full rounded-md border border-zinc-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+              class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
               type="text"
               id="first-name"
               name="first-name"
@@ -211,12 +211,12 @@
           </div>
           <div>
             <label
-              class="block text-sm font-medium text-zinc-700"
+              class="mb-2 block text-sm font-medium text-zinc-700"
               for="last-name"
               >Last Name</label
             >
             <input
-              class="w-full rounded-md border border-zinc-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+              class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
               type="text"
               id="last-name"
               name="last-name"
@@ -232,11 +232,13 @@
         </div>
         <!-- General Email Regex (RFC 5322 Official Standard) -->
         <div class="mb-4">
-          <label class="block text-sm font-medium text-zinc-700" for="email"
+          <label
+            class="mb-2 block text-sm font-medium text-zinc-700"
+            for="email"
             >Email</label
           >
           <input
-            class="w-full rounded-md border border-zinc-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+            class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
             type="email"
             id="email"
             name="email"
@@ -249,11 +251,13 @@
           </p>
         </div>
         <div class="mb-4">
-          <label class="block text-sm font-medium text-zinc-700" for="password"
+          <label
+            class="mb-2 block text-sm font-medium text-zinc-700"
+            for="password"
             >Password</label
           >
           <input
-            class="w-full rounded-md border border-zinc-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+            class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
             type="password"
             id="password"
             name="password"
@@ -270,12 +274,12 @@
         </div>
         <div class="mb-4">
           <label
-            class="block text-sm font-medium text-zinc-700"
+            class="mb-2 block text-sm font-medium text-zinc-700"
             for="confirm-password"
             >Confirm Password</label
           >
           <input
-            class="w-full rounded-md border border-zinc-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+            class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
             type="password"
             id="confirm-password"
             name="confirm-password"
@@ -292,11 +296,13 @@
           </p>
         </div>
         <div class="mb-4">
-          <label class="block text-sm font-medium text-zinc-700" for="phone"
+          <label
+            class="mb-2 block text-sm font-medium text-zinc-700"
+            for="phone"
             >Phone Number (Optional)</label
           >
           <input
-            class="w-full rounded-md border border-zinc-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+            class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
             type="tel"
             id="phone"
             name="phone"
@@ -307,7 +313,7 @@
         </div>
         <button
           type="submit"
-          class="w-full rounded-md bg-black py-2 font-semibold text-white hover:bg-zinc-800"
+          class="w-full rounded-full bg-zinc-900 py-2 font-semibold text-white hover:bg-zinc-900/90"
         >
           Sign Up
         </button>

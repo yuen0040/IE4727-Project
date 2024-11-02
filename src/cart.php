@@ -5,6 +5,8 @@ session_start();
 require 'db.php';
 $session_id = session_id();
 
+unset($_SESSION['checkout']);
+
 if (isset($_SESSION['user_id'])) {
   $user_id = $_SESSION['user_id'];
   $sql = "
@@ -21,6 +23,7 @@ if (isset($_SESSION['user_id'])) {
   $stmt->execute();
   $result = $stmt->get_result();
   $total = 0.00;
+  $items = array();
 }
 ?>
 
@@ -63,7 +66,6 @@ if (isset($_SESSION['user_id'])) {
     });
 
     const handleQuantityChange = async (quantity, size_id, cart_id) => {
-
       let formData = new FormData();
       formData.append("size_id", size_id);
       formData.append("quantity", quantity);
@@ -79,6 +81,13 @@ if (isset($_SESSION['user_id'])) {
           };
         })
     }
+
+    const handleCheckout = () => {
+      <?php
+      if (isset($_SESSION['user_id'])) echo "window.location.href = 'checkout.php'";
+      else echo "window.location.href = 'login.html'";
+      ?>
+    }
   </script>
 </head>
 
@@ -91,12 +100,19 @@ if (isset($_SESSION['user_id'])) {
         <?php
         if ($result->num_rows > 0) {
           while ($row = $result->fetch_assoc()) {
-            $total += (float)$row['price'] * min($row['quantity'], $row['stock']);
+            if (isset($row['sale_price'])) {
+              $price = $row['sale_price'];
+            } else {
+              $price = $row['price'];
+            }
+            $total += (float)$price * min($row['quantity'], $row['stock']);
             if (!isset($cart_id)) {
               $cart_id = $row['cart_id'];
             }
             if ($row['stock'] > 0) {
               $link = "product.html?name=" . urlencode($row['name']);
+              $final_qty = min($row['quantity'], $row['stock']);
+              $items[$row['size_id']] = $final_qty;
 
               echo "<div class='flex w-full gap-8'>
                       <a href='$link' class='aspect-square size-32 bg-neutral-200 md:size-64'>
@@ -109,9 +125,13 @@ if (isset($_SESSION['user_id'])) {
                             <button class='flex size-8 items-center justify-center' onclick='handleQuantityChange(0, {$row['size_id']}, $cart_id)'>
                               <span class='material-symbols-outlined'> close </span>
                             </button>
-                          </div>
-                          <p class='text-lg font-medium'>$" . number_format($row['price'], 2, '.', ',') . "</p>
-                        </div>
+                          </div>";
+              if (isset($row['sale_price'])) {
+                echo "<p><span class='font-bold text-red-500'>$" . number_format($row['sale_price'], 2) . "</span> <span class='text-zinc-400 line-through'>$" . number_format($row['price'], 2) . "</span></p>";
+              } else {
+                echo "<p class='text-lg font-medium'>$" . number_format($price, 2) . "</p>";
+              }
+              echo     "</div>
                         <div class='text-zinc-700'>
                           <p>Size: US{$row['size']}</p>
                           <p>Colour: {$row['colour']}</p>
@@ -125,7 +145,7 @@ if (isset($_SESSION['user_id'])) {
                             class='ml-3 rounded-lg border border-zinc-200 bg-white p-3 pl-4 text-base text-zinc-900 after:block'>
                             ";
               for ($i = 1; $i <= min((int)$row['stock'], 5); $i++) {
-                if ($i == (int)$row['quantity'] || ($row['quantity'] > $row['stock'] && $i == min((int)$row['stock'], 5))) {
+                if ($i == (int)$row['quantity'] || $i == $final_qty) {
                   echo "<option value='$i' selected>$i</option>";
                 } else {
                   echo "<option value='$i'>$i</option>";
@@ -148,9 +168,13 @@ if (isset($_SESSION['user_id'])) {
                     <button class='flex size-8 items-center justify-center text-zinc-900' onclick='handleQuantityChange(0, {$row['size_id']}, $cart_id)'>
                       <span class='material-symbols-outlined'> close </span>
                     </button>
-                  </div>
-                  <p class='text-lg font-medium'>$" . number_format($row['price'], 2, '.', ',') . "</p>
-                </div>
+                  </div>";
+              if (isset($row['sale_price'])) {
+                echo "<p><span class='font-bold text-red-500'>$" . number_format($row['sale_price'], 2) . "</span> <span class='text-zinc-400 line-through'>$" . number_format($row['price'], 2) . "</span></p>";
+              } else {
+                echo "<p class='text-lg font-medium'>$" . number_format($price, 2) . "</p>";
+              }
+              echo "</div>
                 <div class='text-zinc-400'>
                   <p>Size: US{$row['size']}</p>
                   <p>Colour: {$row['colour']}</p>
@@ -162,6 +186,8 @@ if (isset($_SESSION['user_id'])) {
             </div>";
             }
           }
+          // Set the session var to keep track of what's being checked out so cart merging doesn't affect things
+          $_SESSION['checkout'] = $items;
         }
         ?>
 
@@ -172,21 +198,22 @@ if (isset($_SESSION['user_id'])) {
           <div class="flex flex-col gap-1 text-zinc-700">
             <div class="flex justify-between">
               <p>Subtotal</p>
-              <p id="subtotal">$<?php echo number_format($total, 2, ".", ",") ?></p>
+              <p id="subtotal">$<?php echo number_format($total, 2) ?></p>
             </div>
             <div class="flex justify-between">
               <p>Delivery</p>
-              <p>$10.00</p>
+              <p><?php if ($total > 75) echo "Free";
+                  else echo "$10.00"; ?></p>
             </div>
           </div>
           <div class="flex justify-between font-medium">
             <p>Total</p>
-            <p id="total">$<?php $total = $total + 10;
-                            echo number_format($total, 2, ".", ",") ?></p>
+            <p id="total">$<?php if ($total <= 75) $total = $total + 10;
+                            echo number_format($total, 2); ?></p>
           </div>
         </div>
         <button
-          class="flex w-full items-center justify-center rounded-full bg-zinc-900 px-12 py-4 font-medium text-white transition-colors hover:bg-zinc-900/90">
+          class="flex w-full items-center justify-center rounded-full bg-zinc-900 px-12 py-4 font-medium text-white transition-colors hover:bg-zinc-900/90" onclick="handleCheckout()">
           <?php
           if (isset($_SESSION['user_id'])) {
             echo "Checkout";

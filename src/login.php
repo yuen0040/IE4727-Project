@@ -6,12 +6,6 @@ require 'resolveCarts.php';
 session_start();
 $session_id = session_id();
 
-// If user is already logged in, redirect to home page
-if (isset($_SESSION['user_id'])) {
-    header("Location: home.html");
-    exit();
-}
-
 // Capture form input
 $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
