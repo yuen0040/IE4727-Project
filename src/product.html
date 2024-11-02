@@ -88,19 +88,19 @@
           data.images.forEach((url, index) => {
             const imgDiv = document.createElement("div");
             imgDiv.classList.add(
-              "h-32",
-              "w-32",
+              "size-32",
               "rounded-lg",
-              "bg-zinc-300",
+              "bg-zinc-200",
               "bg-cover",
               "bg-center",
               "cursor-pointer",
+              "transition-all",
+              "aspect-square",
             );
             imgDiv.style.backgroundImage = `url('${url}')`;
 
             // Set the first thumbnail as selected by default
-            if (index === 0)
-              imgDiv.classList.add("ring-1", "ring-zinc-500", "brightness-90");
+            if (index === 0) imgDiv.classList.add("brightness-90");
 
             // Add click event to set as main image and highlight selected thumbnail
             imgDiv.addEventListener("click", () => {
@@ -112,15 +112,11 @@
               document
                 .querySelectorAll("#product-images div")
                 .forEach((div) => {
-                  div.classList.remove(
-                    "ring-1",
-                    "ring-zinc-500",
-                    "brightness-90",
-                  );
+                  div.classList.remove("brightness-90");
                 });
 
               // Add selection styles to the clicked thumbnail
-              imgDiv.classList.add("ring-1", "ring-zinc-500", "brightness-90");
+              imgDiv.classList.add("brightness-90");
             });
 
             imageGallery.appendChild(imgDiv);
@@ -133,18 +129,13 @@
           data.sizes.forEach((size, index) => {
             const button = document.createElement("button");
             button.className =
-              "size-button rounded-md border border-zinc-200 py-2 transition-all hover:bg-zinc-100/90";
+              "size-button rounded-md border border-zinc-200 py-2 transition-all hover:bg-zinc-100/90 disabled:cursor-not-allowed disabled:bg-zinc-200 disabled:text-zinc-400";
             button.textContent = size.size;
             button.dataset.size_id = size.size_id;
             button.onclick = () => selectSize(button);
-            if (size.stock > 0) {
-              sizeButtons.appendChild(button);
-            } else {
-              const noSizesMessage = document.createElement("p");
-              noSizesMessage.classList.add("text-red-500");
-              noSizesMessage.textContent = "No sizes available"; // Set the message text
-              sizeButtons.appendChild(noSizesMessage); // Append the message to the sizeButtons
-            }
+            if (size.stock == 0) button.disabled = true;
+            sizeButtons.appendChild(button);
+
             console.log(`Size button added: ${size.size}`);
           });
           console.log("All sizes populated.");
@@ -230,7 +221,10 @@
             ></div>
 
             <!-- Thumbnail Images -->
-            <div id="product-images" class="mt-4 flex gap-4"></div>
+            <div
+              id="product-images"
+              class="mt-4 flex w-full gap-4 overflow-x-scroll"
+            ></div>
           </div>
 
           <!-- Product Details -->

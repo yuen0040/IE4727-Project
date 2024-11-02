@@ -782,6 +782,11 @@ video {
   height: 2rem;
 }
 
+.size-full {
+  width: 100%;
+  height: 100%;
+}
+
 .h-32 {
   height: 8rem;
 }
@@ -1144,6 +1149,10 @@ video {
 
 .p-6 {
   padding: 1.5rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
 }
 
 .px-12 {
