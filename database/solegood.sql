@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2024 at 09:20 AM
+-- Generation Time: Nov 02, 2024 at 05:01 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,6 +33,13 @@ CREATE TABLE `cart` (
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `session_id`, `user_id`) VALUES
+(6, 'tqba38bcpmdtok1514mdacks9r', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -45,6 +52,15 @@ CREATE TABLE `cart_items` (
   `size_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cart_items`
+--
+
+INSERT INTO `cart_items` (`cart_item_id`, `cart_id`, `size_id`, `quantity`) VALUES
+(23, 6, 124, 1),
+(24, 6, 126, 1),
+(27, 6, 22, 1);
 
 -- --------------------------------------------------------
 
@@ -204,7 +220,7 @@ INSERT INTO `products` (`product_id`, `name`, `description`, `details`, `price`,
 (13, 'Nike Pegasus 41 Premium', 'Responsive cushioning in the Pegasus provides an energised ride for everyday road running. Experience lighter-weight energy return with dual Air Zoom units and a ReactX foam midsole. Plus, improved engineered mesh on the upper decreases weight and increases breathability.', 'Weight: approx. 251g (Women\'s size 5.5)|Heel-to-toe drop: 10mm|MR-10 last—our best, most consistent fit (same as Pegasus 40)|Reflective design details|Not intended for use as personal protective equipment (PPE)|Country/Region of Origin: China', 229.00, NULL, 'Running', 'Women', 'Ivory', '2024-11-02 07:01:59'),
 (14, 'Nike Interact Run', 'Can you see the future? Fast-forward your footsteps in the cutting-edge Nike Interact Run. It\'s set up with all the running goodness you need: a lightweight Flyknit upper, soft foam midsole and comfort where it counts. Scan the QR code on the tongue with your phone, and check out our online introduction to the Nike Interact Run\'s ins and outs.', 'Country/Region of Origin: Indonesia', 135.00, NULL, 'Running', 'Women', 'Pale Blue', '2024-11-02 07:01:59'),
 (15, 'Nike Calm', 'Enjoy a calm, comfortable experience—wherever your day off takes you. Made from soft yet responsive foam, these lightweight slides are easy to style and easy to pack. While the water-friendly design makes them ideal for the beach or pool, the minimalist look is elevated enough to wear around the city. Time to slide in and check out.', 'Country/Region of Origin: Indonesia', 75.00, NULL, 'Slides', 'Women', 'Lime', '2024-11-02 07:01:59'),
-(16, 'Jordan Sophia', 'What does stepping into luxury feel like? Well, a little like slipping on the Jordan Sophia. Premium leather, embroidered accents, plush foam and comfortable Air cushioning elevate these slides to a whole new level.', 'Country/Region of Origin: China', 139.00, NULL, 'Slides', 'Women', 'Pale Brown', '2024-11-02 07:01:59'),
+(16, 'Jordan Sophia', 'What does stepping into luxury feel like? Well, a little like slipping on the Jordan Sophia. Premium leather, embroidered accents, plush foam and comfortable Air cushioning elevate these slides to a whole new level.', 'Country/Region of Origin: China', 139.00, 79.00, 'Slides', 'Women', 'Pale Brown', '2024-11-02 13:14:55'),
 (17, 'Nike TC 7900 Premium', 'We\'ve taken the look of early 2000s running and made it durable for everyday wear. Webbing details and rubber accents on the heel add to a rugged look, while an exaggerated midsole and soft foam cushioning help keep you comfortable. By pairing durable materials with soft cushioning, the TC 7900 is ready for your journey.', 'Country/Region of Origin: Vietnam', 219.00, NULL, 'Sneakers', 'Women', 'Ivory', '2024-11-02 07:01:59'),
 (18, 'Nike Gamma Force', 'Layers upon layers of dimensional style—that\'s a force to be reckoned with. Offering both comfort and versatility, these kicks are rooted in heritage basketball culture. Collar materials pay homage to vintage sport while the subtle platform elevates your look, literally. The Gamma Force is forging its own legacy: court style that can be worn all day, wherever you go.', 'Rubber midsole|Rubber outsole|Country/Region of Origin: India', 145.00, NULL, 'Sneakers', 'Women', 'Off-White', '2024-11-02 07:01:59');
 
@@ -349,8 +365,8 @@ INSERT INTO `sizes` (`size_id`, `product_id`, `stock`, `size`) VALUES
 (121, 16, 10, 4),
 (122, 16, 10, 5),
 (123, 16, 10, 6),
-(124, 16, 10, 7),
-(125, 16, 10, 8),
+(124, 16, 3, 7),
+(125, 16, 0, 8),
 (126, 16, 10, 9),
 (127, 16, 10, 10),
 (128, 16, 10, 11),
@@ -390,6 +406,13 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password_hash`, `phone_number`, `address`, `postal_code`, `gender`) VALUES
+(2, 'Test', 'One', 'test@test1.com', '$2y$10$mfrhaFOPkv2WoN5tRIVDYORTHscKYhe3Ck.Hgkpw2XbHXJGIeugXe', '', NULL, NULL, NULL);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -398,6 +421,8 @@ CREATE TABLE `users` (
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`cart_id`),
+  ADD UNIQUE KEY `session_id_2` (`session_id`),
+  ADD UNIQUE KEY `user_id` (`user_id`),
   ADD KEY `session_id` (`session_id`),
   ADD KEY `user_id_cart` (`user_id`);
 
@@ -448,7 +473,8 @@ ALTER TABLE `sizes`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -458,13 +484,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `images`
@@ -500,7 +526,7 @@ ALTER TABLE `sizes`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
