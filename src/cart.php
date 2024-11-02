@@ -122,7 +122,7 @@ if (isset($_SESSION['user_id'])) {
                         <div>
                           <div class='flex items-center justify-between gap-6'>
                             <a href='$link' class='text-2xl font-medium'>{$row['name']}</a>
-                            <button class='flex size-8 items-center justify-center' onclick='handleQuantityChange(0, {$row['size_id']}, $cart_id)'>
+                            <button class='flex size-8 items-center justify-center rounded-full hover:bg-zinc-100 transition-colors' onclick='handleQuantityChange(0, {$row['size_id']}, $cart_id)'>
                               <span class='material-symbols-outlined'> close </span>
                             </button>
                           </div>";
@@ -165,7 +165,7 @@ if (isset($_SESSION['user_id'])) {
                 <div>
                   <div class='flex items-center justify-between gap-6'>
                     <a href='$link' class='text-2xl font-medium'>{$row['name']}</a>
-                    <button class='flex size-8 items-center justify-center text-zinc-900' onclick='handleQuantityChange(0, {$row['size_id']}, $cart_id)'>
+                    <button class='flex size-8 items-center justify-center text-zinc-900 rounded-full hover:bg-zinc-100 transition-colors' onclick='handleQuantityChange(0, {$row['size_id']}, $cart_id)'>
                       <span class='material-symbols-outlined'> close </span>
                     </button>
                   </div>";
