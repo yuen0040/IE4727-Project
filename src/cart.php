@@ -205,18 +205,32 @@ if (isset($_SESSION['user_id'])) {
             </div>
             <div class="flex justify-between">
               <p>Delivery</p>
-              <p><?php if ($total > 75) echo "Free";
-                  else echo "$10.00"; ?></p>
+              <p>
+                <?php
+                if (count($items) > 0) {
+                  if ($total > 75) echo "Free";
+                  else echo "$10.00";
+                } else echo "—";
+                ?></p>
             </div>
           </div>
           <div class="flex justify-between font-medium">
             <p>Total</p>
-            <p id="total">$<?php if ($total <= 75) $total = $total + 10;
-                            echo number_format($total, 2); ?></p>
+            <p id="total">
+              <?php
+              if (count($items) > 0) {
+                if ($total <= 75) $total = $total + 10;
+                echo "$" . number_format($total, 2);
+              } else {
+                echo "—";
+              } ?>
+            </p>
           </div>
         </div>
         <button
-          class="flex w-full items-center justify-center rounded-full bg-zinc-900 px-12 py-4 font-medium text-white transition-colors hover:bg-zinc-900/90" onclick="handleCheckout()">
+          class="flex w-full items-center justify-center rounded-full bg-zinc-900 px-12 py-4 font-medium text-white transition-colors hover:bg-zinc-900/90 disabled:bg-zinc-200 disabled:text-zinc-400 disabled:cursor-not-allowed"
+          onclick="handleCheckout()"
+          <?php if (count($items) == 0) echo "disabled"; ?>>
           <?php
           if (isset($_SESSION['user_id'])) {
             echo "Checkout";
