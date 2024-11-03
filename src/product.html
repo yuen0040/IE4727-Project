@@ -70,8 +70,15 @@
           }
           document.getElementById("product-description").textContent =
             data.description;
-          document.getElementById("product-details-text").innerHTML =
-            data.details;
+
+          const detailsParent = document.getElementById("product-details-text");
+          const details = data.details.split("|");
+          details.forEach((detail, index) => {
+            const li = document.createElement("li");
+            li.className = "ml-6 text-zinc-700 list-disc";
+            li.textContent = detail;
+            detailsParent.appendChild(li);
+          });
 
           console.log("Product main details populated.");
 
@@ -307,7 +314,7 @@
 
           <div>
             <h3 class="mb-4 text-xl font-medium text-zinc-900">Details</h3>
-            <p id="product-details-text" class="mt-4 text-zinc-700"></p>
+            <ul id="product-details-text" class="mt-4 text-zinc-700"></ul>
           </div>
         </div>
 

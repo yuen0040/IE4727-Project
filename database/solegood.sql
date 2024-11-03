@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2024 at 05:01 PM
+-- Generation Time: Nov 03, 2024 at 12:12 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -52,15 +52,6 @@ CREATE TABLE `cart_items` (
   `size_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `cart_items`
---
-
-INSERT INTO `cart_items` (`cart_item_id`, `cart_id`, `size_id`, `quantity`) VALUES
-(23, 6, 124, 1),
-(24, 6, 126, 1),
-(27, 6, 22, 1);
 
 -- --------------------------------------------------------
 
@@ -167,6 +158,13 @@ CREATE TABLE `orders` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `user_id`, `order_total`, `shipping_address`, `order_status`, `created_at`) VALUES
+(1, 2, 1216.00, 'Blk 221 Hougang Ave 4', 'preparing', '2024-11-03 07:16:35');
+
 -- --------------------------------------------------------
 
 --
@@ -180,6 +178,15 @@ CREATE TABLE `order_items` (
   `quantity` int(11) NOT NULL,
   `unit_price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`order_item_id`, `order_id`, `size_id`, `quantity`, `unit_price`) VALUES
+(1, 1, 104, 4, 229.00),
+(2, 1, 118, 3, 75.00),
+(3, 1, 119, 1, 75.00);
 
 -- --------------------------------------------------------
 
@@ -207,10 +214,10 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`product_id`, `name`, `description`, `details`, `price`, `sale_price`, `category`, `segment`, `colour`, `created_at`) VALUES
 (1, 'Nike Legend Essential 2', 'The Nike Legend Essential 2 comes equipped with a flat, stable heel, flexibility under the toes and side-to-side support. With tons of grip, you are ready to lift, HIIT, conquer a class or get stronger on the machines.', 'Country/Region of Origin: Indonesia', 99.00, NULL, 'Sneakers', 'Men', 'Pure Platinum', '2024-11-02 07:01:43'),
 (2, 'Nike Air Force 1 07 LV8', 'Comfortable, durable and timeless—it is number 1 for a reason. The classic 80s construction pairs with bold details for style that tracks whether you are on court or on the go.', 'Country/Region of Origin: Indonesia', 205.00, NULL, 'Sneakers', 'Men', 'Pure Platinum', '2024-11-02 07:01:43'),
-(3, 'Nike Pegasus 41 GORE-TEX', 'Responsive cushioning in the winterized Pegasus provides an energised ride for wet-weather road running. Experience lighter-weight energy return with dual Air Zoom units and a ReactX foam midsole. Plus, a waterproof GORE-TEX upper and reflective design details throughout help you comfortably take on the elements.', '<li>Waterproof GORE-TEX upper and technical mesh help keep water out so your feet dry.<br>\r\n<li>ReactX foam midsole surrounds forefoot and heel Air Zoom units for an energised ride.<br>\r\n<li>Storm Tread outsole provides traction in wet weather.<br>\r\n<li>Heathered material around the collar helps keep your ankle warm.<br>\r\n<li>All-new ReactX foam midsole is 13% more responsive than previous React technology.<br>\r\n<li>Crafted for performance and planet, ReactX foam is engineered to reduce its carbon footprint by at least 43% in a pair of midsoles due to reduced manufacturing process energy compared with prior React foam. The carbon footprint of ReactX is based on cradle-to-gate assessment reviewed by PRé Sustainability B.V. and Intertek China. Other midsole components such as airbags, plates or other foam formulations were not considered.<br>\r\n<li>Reflective design GORE-TEX logo and Swoosh logo<br>\r\n<li>Reflective design graphics and overlays<br>\r\n<li>Not intended for use as personal protective equipment (PPE)<br>\r\n<li>Weight: approx. 297g (mens size 9)<br>\r\n<li>Heel-to-toe drop: 10mm<br>\r\n<li>MR-10 last—our best, most consistent fit (same as Pegasus 40)<br>\r\n<li>Plush collar, tongue and sockliner<br>\r\n<li>Country/Region of Origin: Vietnam', 249.00, NULL, 'Running', 'Men', 'Summit White', '2024-11-02 07:01:43'),
-(4, 'Nike Run Swift 3', 'Whatever the run, the Swift 3 will be there with undying support and devotion. It can help you get out the door for an easy 3 at the end of the day or an intense 2-mile there-and-back with a modified design that iss supportive, durable and all-round comfortable. They will help you conquer short distances, sure, but also get you from point A to point B as you navigate the ever-changing rhythms of everyday life.', '<li>Foam cushioning delivers a soft underfoot feel. A higher foam height gives you a plush sensation with every step.<br>\r\n<li>Flywire cables help secure your feet and provide support when you tighten the laces, so you can stay stable.<br>\r\n<li>Heel overlay for added security<br>\r\n<li>Mesh by the toe for breathability<br>\r\n<li>Flex grooves on rugged rubber outsole for flexibility<br>\r\n<li>Country/Region of Origin: Vietnam', 119.00, NULL, 'Running', 'Men', 'Black', '2024-11-02 07:01:43'),
-(5, 'Jordan Post', 'Quick, comfy, cool. These slides are made from robust, flexible foam that will stay secure as you rack up those steps. Wide foot coverage holds your feet in place while the asymmetrical design gives you a distinct look.', '<li>Foam platform provides lightweight, durable cushioning.<br>\r\n<li>Flexible, textured outsole gives you ample everyday traction.<br>\r\n<li>Country/Region of Origin: Vietnam', 49.00, NULL, 'Slides', 'Men', 'Football Grey', '2024-11-02 07:01:43'),
-(6, 'Nike Air More Uptempo', 'Keeping the graffiti-styled graphics from the original, your favourite hoops look gets transformed into slides. The Air More Uptempo combines Nike Air cushioning and a plush strap with airy perforations, providing breathable comfort you can slip on and go.', '<li>A padded strap with perforations feels plush and airy.<br>\r\n<li>Visible Nike Air technology provides cushioning with every step.<br>\r\n<li>The foam footbed is contoured to help keep your foot in place.<br>\r\n<li>Durable rubber outsole features the grip pattern from the original Uptempo.<br>\r\n<li>Foam midsole<br>\r\n<li>Rubber outsole<br>\r\n<li>Country/Region of Origin: Vietnam', 145.00, NULL, 'Slides', 'Men', 'Flax', '2024-11-02 07:01:43'),
+(3, 'Nike Pegasus 41 GORE-TEX', 'Responsive cushioning in the winterized Pegasus provides an energised ride for wet-weather road running. Experience lighter-weight energy return with dual Air Zoom units and a ReactX foam midsole. Plus, a waterproof GORE-TEX upper and reflective design details throughout help you comfortably take on the elements.', 'Waterproof GORE-TEX upper and technical mesh help keep water out so your feet dry.|ReactX foam midsole surrounds forefoot and heel Air Zoom units for an energised ride.|Storm Tread outsole provides traction in wet weather.|Heathered material around the collar helps keep your ankle warm.|All-new ReactX foam midsole is 13% more responsive than previous React technology.|Crafted for performance and planet, ReactX foam is engineered to reduce its carbon footprint by at least 43% in a pair of midsoles due to reduced manufacturing process energy compared with prior React foam. The carbon footprint of ReactX is based on cradle-to-gate assessment reviewed by PRé Sustainability B.V. and Intertek China. Other midsole components such as airbags, plates or other foam formulations were not considered.|Reflective design GORE-TEX logo and Swoosh logo|Reflective design graphics and overlays|Not intended for use as personal protective equipment (PPE)|Weight: approx. 297g (mens size 9)|Heel-to-toe drop: 10mm|MR-10 last—our best, most consistent fit (same as Pegasus 40)|Plush collar, tongue and sockliner|Country/Region of Origin: Vietnam', 249.00, NULL, 'Running', 'Men', 'Summit White', '2024-11-03 11:11:13'),
+(4, 'Nike Run Swift 3', 'Whatever the run, the Swift 3 will be there with undying support and devotion. It can help you get out the door for an easy 3 at the end of the day or an intense 2-mile there-and-back with a modified design that iss supportive, durable and all-round comfortable. They will help you conquer short distances, sure, but also get you from point A to point B as you navigate the ever-changing rhythms of everyday life.', 'Foam cushioning delivers a soft underfoot feel. A higher foam height gives you a plush sensation with every step.|Flywire cables help secure your feet and provide support when you tighten the laces, so you can stay stable.|Heel overlay for added security|Mesh by the toe for breathability|Flex grooves on rugged rubber outsole for flexibility|Country/Region of Origin: Vietnam', 119.00, NULL, 'Running', 'Men', 'Black', '2024-11-03 11:10:14'),
+(5, 'Jordan Post', 'Quick, comfy, cool. These slides are made from robust, flexible foam that will stay secure as you rack up those steps. Wide foot coverage holds your feet in place while the asymmetrical design gives you a distinct look.', 'Foam platform provides lightweight, durable cushioning.|Flexible, textured outsole gives you ample everyday traction.|Country/Region of Origin: Vietnam', 49.00, NULL, 'Slides', 'Men', 'Football Grey', '2024-11-03 11:11:24'),
+(6, 'Nike Air More Uptempo', 'Keeping the graffiti-styled graphics from the original, your favourite hoops look gets transformed into slides. The Air More Uptempo combines Nike Air cushioning and a plush strap with airy perforations, providing breathable comfort you can slip on and go.', 'A padded strap with perforations feels plush and airy.|Visible Nike Air technology provides cushioning with every step.|The foam footbed is contoured to help keep your foot in place.|Durable rubber outsole features the grip pattern from the original Uptempo.|Foam midsole|Rubber outsole|Country/Region of Origin: Vietnam', 145.00, NULL, 'Slides', 'Men', 'Flax', '2024-11-03 11:11:58'),
 (7, 'Nike Flex Plus 2', 'The Nike Flex Plus 2 wastes no time so you can get out the door to run and play. We\'re talking break time, PE class and all of your favourite activities. The innovative elastic band system makes getting these shoes on a breeze. They\'re breathable and durable in all the right places. Best of all: Our designers made these super flexible so every move feels like your best and most natural.', 'Heel and tongue pull tabs|Reinforced rubber toe tip|Country/Region of Origin: Indonesia', 99.00, NULL, 'Running', 'Kids', 'Black', '2024-11-02 07:01:53'),
 (8, 'Nike Star Runner 4', 'Because ice-cream vans, games of tig and races to the end of the street and back can only wait for so long, we made it easy for you to slip the Star Runner on and get going. Soft cushioning in the midsole provides a comfortable, springy feel so every skip, hop and stride you take is one closer to the finishing line. The tread grabs at pavement, grass and gravel to give you extra grip while a rubber-wrapped toe toughens up the construction so you can go further in the same pair of Star Runners.', 'Classic laces|Country/Region of Origin: Vietnam', 85.00, NULL, 'Running', 'Kids', 'Blue', '2024-11-02 07:01:53'),
 (9, 'Jordan Post Kids', 'Cool comfort, packaged in an asymmetrical design. These secure-fitting slides are made from one piece of foam, bringing sleek versatility to your everyday activities.', 'Country/Region of Origin: Vietnam', 35.00, NULL, 'Slides', 'Kids', 'Industrial Blue', '2024-11-02 07:01:53'),
@@ -410,7 +417,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password_hash`, `phone_number`, `address`, `postal_code`, `gender`) VALUES
-(2, 'Test', 'One', 'test@test1.com', '$2y$10$mfrhaFOPkv2WoN5tRIVDYORTHscKYhe3Ck.Hgkpw2XbHXJGIeugXe', '', NULL, NULL, NULL);
+(2, 'Test', 'One', 'test@test1.com', '$2y$10$mfrhaFOPkv2WoN5tRIVDYORTHscKYhe3Ck.Hgkpw2XbHXJGIeugXe', '+6599999999', 'Blk 221 Hougang Ave 4', 123456, NULL);
 
 --
 -- Indexes for dumped tables
@@ -490,7 +497,7 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `images`
@@ -502,13 +509,13 @@ ALTER TABLE `images`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `products`

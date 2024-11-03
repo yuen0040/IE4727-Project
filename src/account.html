@@ -15,13 +15,36 @@
     />
     <link href="./output.css" rel="stylesheet" />
     <title>Manage Order</title>
+    <script>
+      async function loadContent() {
+        // Load header
+        const headerResponse = await fetch("header.html");
+        const headerData = await headerResponse.text();
+        document.getElementById("header").outerHTML = headerData;
+
+        // Load footer
+        const footerResponse = await fetch("footer.html");
+        const footerData = await footerResponse.text();
+        document.getElementById("footer").outerHTML = footerData;
+
+        // Show the main content after loading header and footer
+        document.getElementById("main-content").style.display = "block";
+      }
+
+      // Load content when the DOM is fully loaded
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("main-content").style.display = "none"; // Hide main content initially
+        loadContent();
+      });
+    </script>
   </head>
   <body>
-    <main class="mx-auto w-full max-w-[1400px] p-4 md:p-12">
+    <div id="header"></div>
+    <main class="mx-auto w-full max-w-[1400px] p-4 md:p-12" id="main-content">
       <div class="mb-8 flex flex-wrap items-center justify-between gap-8">
         <h1 class="text-4xl font-medium">My Account</h1>
         <button
-          class="flex items-center justify-center rounded-full border border-red-300 py-2 pl-5 pr-3 font-medium text-red-700 transition-colors hover:bg-red-50"
+          class="flex items-center justify-center gap-2 rounded-full border border-red-300 py-2 pl-5 pr-3 font-medium text-red-700 transition-colors hover:bg-red-50"
         >
           Logout
           <span class="material-symbols-outlined"> logout </span>
@@ -41,7 +64,7 @@
           >Order History</a
         >
       </div>
-      <div class="flex flex-col gap-12">
+      <section id="details" class="flex flex-col gap-12">
         <div class="flex flex-col gap-4 md:flex-row">
           <h6 class="w-60 text-2xl font-medium text-zinc-900">
             Personal Details
@@ -104,7 +127,31 @@
             <a class="font-medium underline" href="#">Edit</a>
           </div>
         </div>
-      </div>
+      </section>
+      <section id="history" class="flex flex-col gap-8">
+        <div class="flex flex-wrap items-start gap-8">
+          <div class="flex-grow">
+            <div class="mb-6">
+              <h6 class="mb-1 text-2xl font-medium text-zinc-900">
+                Sep 24 2024 | $154.30
+              </h6>
+              <p class="text-zinc-700">Order number: ASG07292703</p>
+            </div>
+            <div class="flex flex-wrap gap-3">
+              <div class="size-24 bg-zinc-200"></div>
+              <div class="size-24 bg-zinc-200"></div>
+              <div class="size-24 bg-zinc-200"></div>
+            </div>
+          </div>
+          <button
+            class="flex min-w-fit items-center justify-center rounded-full border border-zinc-200 px-5 py-2 font-medium transition-colors hover:bg-zinc-100"
+          >
+            View or Edit
+          </button>
+        </div>
+        <div class="h-px bg-zinc-200"></div>
+      </section>
     </main>
+    <div id="footer"></div>
   </body>
 </html>

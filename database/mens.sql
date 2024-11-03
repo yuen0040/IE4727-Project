@@ -15,51 +15,50 @@ VALUES (NULL, 'Nike Air Force 1 07 LV8',
 INSERT INTO products (product_id, name, description, details, price, sale_price, category, segment, colour, created_at)
 VALUES (NULL, 'Nike Pegasus 41 GORE-TEX',
 'Responsive cushioning in the winterized Pegasus provides an energised ride for wet-weather road running. Experience lighter-weight energy return with dual Air Zoom units and a ReactX foam midsole. Plus, a waterproof GORE-TEX upper and reflective design details throughout help you comfortably take on the elements.',
-'<li>Waterproof GORE-TEX upper and technical mesh help keep water out so your feet dry.<br>
-<li>ReactX foam midsole surrounds forefoot and heel Air Zoom units for an energised ride.<br>
-<li>Storm Tread outsole provides traction in wet weather.<br>
-<li>Heathered material around the collar helps keep your ankle warm.<br>
-<li>All-new ReactX foam midsole is 13% more responsive than previous React technology.<br>
-<li>Crafted for performance and planet, ReactX foam is engineered to reduce its carbon footprint by at least 43% in a pair of midsoles due to reduced manufacturing process energy compared with prior React foam. The carbon footprint of ReactX is based on cradle-to-gate assessment reviewed by PRé Sustainability B.V. and Intertek China. Other midsole components such as airbags, plates or other foam formulations were not considered.<br>
-<li>Reflective design GORE-TEX logo and Swoosh logo<br>
-<li>Reflective design graphics and overlays<br>
-<li>Not intended for use as personal protective equipment (PPE)<br>
-<li>Weight: approx. 297g (mens size 9)<br>
-<li>Heel-to-toe drop: 10mm<br>
-<li>MR-10 last—our best, most consistent fit (same as Pegasus 40)<br>
-<li>Plush collar, tongue and sockliner<br>
-<li>Country/Region of Origin: Vietnam',
+'Waterproof GORE-TEX upper and technical mesh help keep water out so your feet dry.|ReactX foam midsole surrounds forefoot and heel Air Zoom units for an energised ride.
+|Storm Tread outsole provides traction in wet weather.
+|Heathered material around the collar helps keep your ankle warm.
+|All-new ReactX foam midsole is 13% more responsive than previous React technology.
+|Crafted for performance and planet, ReactX foam is engineered to reduce its carbon footprint by at least 43% in a pair of midsoles due to reduced manufacturing process energy compared with prior React foam. The carbon footprint of ReactX is based on cradle-to-gate assessment reviewed by PRé Sustainability B.V. and Intertek China. Other midsole components such as airbags, plates or other foam formulations were not considered.
+|Reflective design GORE-TEX logo and Swoosh logo
+|Reflective design graphics and overlays
+|Not intended for use as personal protective equipment (PPE)
+|Weight: approx. 297g (mens size 9)
+|Heel-to-toe drop: 10mm
+|MR-10 last—our best, most consistent fit (same as Pegasus 40)
+|Plush collar, tongue and sockliner
+|Country/Region of Origin: Vietnam',
 '249.00', NULL, 'Running', 'Men', 'Summit White', CURRENT_TIMESTAMP);
 
 INSERT INTO products (product_id, name, description, details, price, sale_price, category, segment, colour, created_at)
 VALUES (NULL, 'Nike Run Swift 3',
 'Whatever the run, the Swift 3 will be there with undying support and devotion. It can help you get out the door for an easy 3 at the end of the day or an intense 2-mile there-and-back with a modified design that iss supportive, durable and all-round comfortable. They will help you conquer short distances, sure, but also get you from point A to point B as you navigate the ever-changing rhythms of everyday life.',
-'<li>Foam cushioning delivers a soft underfoot feel. A higher foam height gives you a plush sensation with every step.<br>
-<li>Flywire cables help secure your feet and provide support when you tighten the laces, so you can stay stable.<br>
-<li>Heel overlay for added security<br>
-<li>Mesh by the toe for breathability<br>
-<li>Flex grooves on rugged rubber outsole for flexibility<br>
-<li>Country/Region of Origin: Vietnam', '119.00', NULL, 'Running', 'Men', 'Black', CURRENT_TIMESTAMP);
+'Foam cushioning delivers a soft underfoot feel. A higher foam height gives you a plush sensation with every step.
+|Flywire cables help secure your feet and provide support when you tighten the laces, so you can stay stable.
+|Heel overlay for added security
+|Mesh by the toe for breathability
+|Flex grooves on rugged rubber outsole for flexibility
+|Country/Region of Origin: Vietnam', '119.00', NULL, 'Running', 'Men', 'Black', CURRENT_TIMESTAMP);
 
 -- Slides
 INSERT INTO products (product_id, name, description, details, price, sale_price, category, segment, colour, created_at)
 VALUES (NULL, 'Jordan Post',
 'Quick, comfy, cool. These slides are made from robust, flexible foam that will stay secure as you rack up those steps. Wide foot coverage holds your feet in place while the asymmetrical design gives you a distinct look.',
-'<li>Foam platform provides lightweight, durable cushioning.<br>
-<li>Flexible, textured outsole gives you ample everyday traction.<br>
-<li>Country/Region of Origin: Vietnam',
+'Foam platform provides lightweight, durable cushioning.
+|Flexible, textured outsole gives you ample everyday traction.
+|Country/Region of Origin: Vietnam',
 '49.00', NULL, 'Slides', 'Men', 'Football Grey', CURRENT_TIMESTAMP);
 
 INSERT INTO products (product_id, name, description, details, price, sale_price, category, segment, colour, created_at)
 VALUES (NULL, 'Nike Air More Uptempo',
 'Keeping the graffiti-styled graphics from the original, your favourite hoops look gets transformed into slides. The Air More Uptempo combines Nike Air cushioning and a plush strap with airy perforations, providing breathable comfort you can slip on and go.',
-'<li>A padded strap with perforations feels plush and airy.<br>
-<li>Visible Nike Air technology provides cushioning with every step.<br>
-<li>The foam footbed is contoured to help keep your foot in place.<br>
-<li>Durable rubber outsole features the grip pattern from the original Uptempo.<br>
-<li>Foam midsole<br>
-<li>Rubber outsole<br>
-<li>Country/Region of Origin: Vietnam',
+'|A padded strap with perforations feels plush and airy.
+|Visible Nike Air technology provides cushioning with every step.
+|The foam footbed is contoured to help keep your foot in place.
+|Durable rubber outsole features the grip pattern from the original Uptempo.
+|Foam midsole
+|Rubber outsole
+|Country/Region of Origin: Vietnam',
 '145.00', NULL, 'Slides', 'Men', 'Flax', CURRENT_TIMESTAMP);
 
 -- Images
