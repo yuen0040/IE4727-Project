@@ -1,10 +1,83 @@
 <?php
-unset($_SESSION['checkout']);
+
+//Redirect if user comes here through GET
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
   header("Location: home.html");
   exit();
 }
 
+session_start();
+require 'db.php';
+
+$items = $_SESSION['checkout'];
+$total = $_SESSION['checkout_total'];
+$user_id = $_SESSION['user_id'];
+unset($_SESSION['checkout']);
+unset($_SESSION['checkout_total']);
+
+$name = $_POST['first-name'] . " " . $_POST['last-name'];
+$address = $_POST['address'];
+$postal_code = $_POST['postal-code'];
+$phone = $_POST['phone'];
+$save_address = $_POST['save-address'];
+
+//Save address to user
+if (isset($save_address)) {
+  $stmt = $conn->prepare("UPDATE users SET phone_number = ?, address = ?, postal_code = ? WHERE user_id = ?");
+  $stmt->bind_param("ssii", $phone, $address, $postal_code, $user_id);
+  $stmt->execute();
+}
+//Add order
+$order_stmt = $conn->prepare("INSERT INTO orders VALUES (NULL,?,?,?,'preparing',DEFAULT)");
+$order_stmt->bind_param("ids", $user_id, $total, $address);
+$order_stmt->execute();
+$order_id = $order_stmt->insert_id;
+
+//Get current items from cart
+$stmt = $conn->prepare("SELECT cart.cart_id, size_id, quantity FROM cart_items RIGHT JOIN cart ON cart.cart_id = cart_items.cart_id WHERE user_id = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+  $user_cart_data = array();
+  while ($row = $result->fetch_assoc()) {
+    if (!isset($user_cart_id)) {
+      $user_cart_id = $row['cart_id'];
+    }
+    $user_cart_data[$row['size_id']] =  $row['quantity'];
+  }
+}
+
+$values = "";
+$counter = 0;
+foreach ($items as $row) {
+  $counter += 1;
+  if (isset($row['sale_price'])) {
+    $price = $row['sale_price'];
+  } else {
+    $price = $row['price'];
+  }
+  $values = $values . "(NULL,$order_id,{$row['size_id']},{$row['quantity']},$price)";
+  if ($counter < count($items)) {
+    $values = $values . ",";
+  }
+  //Remove checkout items from cart
+  if (isset($user_cart_data[$row['size_id']]) && $user_cart_data[$row['size_id']] > $row['quantity']) {
+    $remaining = $user_cart_data[$row['size_id']] - $row['quantity'];
+    $stmt = $conn->prepare("UPDATE cart_items SET quantity = ? WHERE cart_id = ? AND size_id = ?");
+    $stmt->bind_param("iii", $remaining, $user_cart_id, $row['size_id']);
+    $stmt->execute();
+  } else {
+    $stmt = $conn->prepare("DELETE FROM cart_items WHERE cart_id = ? AND size_id = ?");
+    $stmt->bind_param("ii", $user_cart_id, $row['size_id']);
+    $stmt->execute();
+  }
+}
+
+//Insert items into order_items
+$stmt = $conn->prepare("INSERT INTO order_items VALUES $values");
+$stmt->execute();
 
 ?>
 
@@ -21,10 +94,33 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     rel="stylesheet" />
   <link href="./output.css" rel="stylesheet" />
   <title>Order Success</title>
+  <script>
+    async function loadContent() {
+      // Load header
+      const headerResponse = await fetch("header.html");
+      const headerData = await headerResponse.text();
+      document.getElementById("header").innerHTML = headerData;
+
+      // Load footer
+      const footerResponse = await fetch("footer.html");
+      const footerData = await footerResponse.text();
+      document.getElementById("footer").innerHTML = footerData;
+
+      // Show the main content after loading header and footer
+      document.getElementById("main-content").style.display = "block";
+    }
+
+    // Load content when the DOM is fully loaded
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("main-content").style.display = "none"; // Hide main content initially
+      loadContent();
+    });
+  </script>
 </head>
 
 <body>
-  <main class="mx-auto w-full max-w-[1400px] p-4 md:p-12">
+  <div id="header"></div>
+  <main class="mx-auto w-full max-w-[1400px] p-4 md:p-12" id="main-content">
     <div class="mb-12">
       <h1 class="mb-3 text-4xl font-medium">
         Your Order Was Placed Successfully!
@@ -35,26 +131,37 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     </div>
     <div class="flex flex-col justify-center gap-12 lg:flex-row lg:gap-24">
       <section class="flex flex-1 flex-col gap-8">
-        <div class="flex w-full gap-8">
-          <div class="aspect-square size-32 bg-neutral-200 md:size-64"></div>
-          <div class="flex w-full flex-col gap-6">
-            <div>
-              <a class="text-2xl font-medium">Product Name</a>
-              <p class="text-lg font-medium">$120.00</p>
-            </div>
-            <div class="text-zinc-700">
-              <p>Size: US9</p>
-              <p>Colour: White</p>
-              <p>Quantity: 1</p>
-            </div>
-          </div>
-        </div>
+        <?php
+        foreach ($items as $row) {
+          echo "<div class='flex w-full gap-8'>
+                  <div class='aspect-square size-32 bg-neutral-200 md:size-64'>
+                    <img src='{$row['image_url']}' alt='{$row['name']}' class='size-full object-cover'/>
+                  </div>
+                  <div class='flex w-full flex-col gap-6'>
+                    <div>
+                      <a class='text-2xl font-medium'>{$row['name']}</a>";
+          if (isset($row['sale_price'])) {
+            echo "<p><span class='text-lg text-red-500'>$" . number_format($row['sale_price'], 2) . "</span> <span class='text-lg text-zinc-400 line-through'>$" . number_format($row['price'], 2) . "</span></p>";
+          } else {
+            echo "<p>$" . number_format($row['price'], 2) . "</p>";
+          }
+          echo      "
+                    </div>
+                    <div class='text-zinc-700'>
+                      <p>Size: US9</p>
+                      <p>Colour: White</p>
+                      <p>Quantity: 1</p>
+                    </div>
+                  </div>
+                </div>";
+        }
+        ?>
       </section>
       <section class="flex w-full flex-col gap-8 lg:max-w-80">
         <h6 class="text-2xl font-medium">Order Details</h6>
         <div class="text-zinc-700">
-          <p class="mb-1">Order Date: 24 Sep 2024</p>
-          <p>Order Number: ASG07292703</p>
+          <p class="mb-1">Order Date: <?php echo date("d M Y") ?></p>
+          <p>Order Number: <?php echo $order_id ?></p>
         </div>
 
         <div class="h-px bg-zinc-200"></div>
@@ -62,10 +169,10 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         <div class="text-zinc-700">
           <h6 class="mb-6 text-2xl font-medium text-zinc-900">Delivery</h6>
           <div class="flex flex-col gap-1">
-            <p>Lee Tuck Hua</p>
-            <p>Blk 224 Hougang Ave 1</p>
-            <p>Singapore 540248</p>
-            <p>+6592819188</p>
+            <p><?php echo $name ?></p>
+            <p><?php echo $address ?></p>
+            <p>Singapore <?php echo $postal_code ?></p>
+            <p><?php echo $phone ?></p>
           </div>
         </div>
 
@@ -76,15 +183,21 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
           <div class="flex flex-col gap-1">
             <div class="flex w-full justify-between text-zinc-700">
               <p>Subtotal</p>
-              <p>$130.00</p>
+              <p>$<?php
+                  if ($total <= 85) $total -= 10;
+                  echo number_format($total, 2);
+                  ?></p>
             </div>
             <div class="flex w-full justify-between text-zinc-700">
               <p>Delivery</p>
-              <p>$10.00</p>
+              <p><?php
+                  if ($total > 85) echo "Free";
+                  else echo "$10.00";
+                  ?></p>
             </div>
             <div class="flex w-full justify-between font-medium">
               <p>Total</p>
-              <p>$140.00</p>
+              <p>$<?php echo number_format($total, 2) ?></p>
             </div>
           </div>
         </div>
@@ -96,6 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
       </section>
     </div>
   </main>
+  <div id="footer"></div>
 </body>
 
 </html>

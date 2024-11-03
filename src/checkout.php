@@ -3,58 +3,25 @@ session_start();
 require 'db.php';
 $session_id = session_id();
 
-if (!isset($_SESSION['user_id']) || !isset($_SESSION['checkout'])) {
+if (!isset($_SESSION['user_id'])) {
   header("Location: login.html?redirect=" . urlencode("checkout.php"));
   exit();
 }
+
+//No items to checkout user should not be here
+if (!isset($_SESSION['checkout'])) {
+  header("Location: home.html");
+  exit();
+}
+
 $user_id = $_SESSION['user_id'];
 $items = $_SESSION['checkout'];
+$total = $_SESSION['checkout_total'];
 $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $result = $result->fetch_assoc();
-
-$size_id_array = array();
-foreach ($items as $id => $qty) {
-  $size_id_array[] = $id;
-}
-$sizes = implode(",", $size_id_array);
-$stmt = $conn->prepare("SELECT name, price, sale_price, size, colour, image_url, size_id FROM sizes INNER JOIN products ON sizes.product_id = products.product_id INNER JOIN images ON images.product_id = products.product_id WHERE size_id IN (" . $sizes . ") GROUP BY size_id");
-$stmt->execute();
-$products = $stmt->get_result();
-$total = 0.00;
-$item_html = "";
-
-while ($row = $products->fetch_assoc()) {
-  if (isset($row['sale_price'])) {
-    $price = $row['sale_price'];
-  } else {
-    $price = $row['price'];
-  }
-  $quantity = $items[$row['size_id']];
-  $total += (float)$price * $quantity;
-  $item_html = $item_html . "<div class='flex gap-3'>
-                  <div class='aspect-square size-32 bg-zinc-200'>
-                    <img src='{$row['image_url']}' alt='{$row['name']}' class='object-cover size-full'/>
-                  </div>
-                  <div class='text-sm text-zinc-700'>
-                    <p class='mb-3 text-zinc-900'>{$row['name']}</p>
-                    <div>
-                      <p>Size: US{$row['size']}</p>
-                      <p>Colour: {$row['colour']}</p>
-                      <p>Quantity: {$quantity}</p>
-                      <p class='text-zinc-900'>";
-  if (isset($row['sale_price'])) {
-    $item_html = $item_html . "<p><span class=' text-red-500'>$" . number_format($row['sale_price'], 2, ".", ",") . "</span> <span class='text-zinc-400 line-through'>$" . number_format($row['price'], 2, ".", ",") . "</span></p>";
-  } else {
-    $item_html = $item_html . "<p>$" . number_format($row['price'], 2, '.', ',') . "</p>";
-  }
-  $item_html = $item_html . "</p>
-              </div>
-            </div>
-          </div>";
-}
 ?>
 
 <!doctype html>
@@ -245,7 +212,7 @@ while ($row = $products->fetch_assoc()) {
             <label class="w-full font-medium">Phone Number
 
               <input
-                type="text"
+                type="tel"
                 name="phone"
                 id="phone"
                 placeholder="+65XXXXXXXX"
@@ -327,7 +294,36 @@ while ($row = $products->fetch_assoc()) {
           </div>
         </div>
         <div class="h-px w-full bg-zinc-200"></div>
-        <?php echo $item_html ?>
+        <?php
+        foreach ($items as $row) {
+          if (isset($row['sale_price'])) {
+            $price = $row['sale_price'];
+          } else {
+            $price = $row['price'];
+          }
+          $total += (float)$price * $row['quantity'];
+          echo "<div class='flex gap-3'>
+                  <div class='aspect-square size-32 bg-zinc-200'>
+                    <img src='{$row['image_url']}' alt='{$row['name']}' class='object-cover size-full'/>
+                  </div>
+                  <div class='text-sm text-zinc-700'>
+                    <p class='mb-3 text-zinc-900'>{$row['name']}</p>
+                    <div>
+                      <p>Size: US{$row['size']}</p>
+                      <p>Colour: {$row['colour']}</p>
+                      <p>Quantity: {$row['quantity']}</p>
+                      <p class='text-zinc-900'>";
+          if (isset($row['sale_price'])) {
+            echo "<p><span class=' text-red-500'>$" . number_format($row['sale_price'], 2) . "</span> <span class='text-zinc-400 line-through'>$" . number_format($row['price'], 2) . "</span></p>";
+          } else {
+            echo "<p>$" . number_format($row['price'], 2) . "</p>";
+          }
+          echo        "</p>
+                      </div>
+                    </div>
+                  </div>";
+        }
+        ?>
       </section>
     </div>
   </main>

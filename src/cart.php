@@ -109,8 +109,9 @@ if (isset($_SESSION['user_id'])) {
             }
             if ($row['stock'] > 0) {
               $link = "product.html?name=" . urlencode($row['name']);
-              $final_qty = min($row['quantity'], $row['stock']);
-              $items[$row['size_id']] = $final_qty;
+              //Set quantity to the amount of stock left if it exceeds
+              $row['quantity'] = min($row['quantity'], $row['stock']);
+              $items[] = $row;
 
               echo "<div class='flex w-full gap-8'>
                       <a href='$link' class='aspect-square size-32 bg-neutral-200 md:size-64'>
@@ -143,7 +144,7 @@ if (isset($_SESSION['user_id'])) {
                             class='ml-3 rounded-lg border border-zinc-200 bg-white p-3 pl-4 text-base text-zinc-900 after:block'>
                             ";
               for ($i = 1; $i <= min((int)$row['stock'], 5); $i++) {
-                if ($i == (int)$row['quantity'] || $i == $final_qty) {
+                if ($i == (int)$row['quantity']) {
                   echo "<option value='$i' selected>$i</option>";
                 } else {
                   echo "<option value='$i'>$i</option>";
@@ -155,6 +156,7 @@ if (isset($_SESSION['user_id'])) {
                       </div>
                     </div>";
             } else {
+              // No stock
               echo "<div class='flex w-full gap-8'>
               <a href='$link' class='aspect-square size-32 bg-neutral-200 md:size-64'>
                 <img src='{$row['image_url']}' alt='{$row['name']}' class='object-cover size-full'/>
@@ -186,6 +188,9 @@ if (isset($_SESSION['user_id'])) {
           }
           // Set the session var to keep track of what's being checked out so cart merging doesn't affect things
           $_SESSION['checkout'] = $items;
+          $_SESSION['checkout_total'] = $total;
+        } else {
+          echo "<p?>Your bag is empty.</p>";
         }
         ?>
 
