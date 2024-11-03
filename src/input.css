@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    @apply h-full;
+  }
+  body {
+    @apply flex;
+    @apply flex-col;
+  }
+  #main-content {
+    @apply flex-grow;
+  }
+}
