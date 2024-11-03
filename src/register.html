@@ -13,8 +13,11 @@
     <link href="./output.css" rel="stylesheet" />
     <!-- Add JavaScript for password validation -->
     <script>
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const redirect = urlParams.get("redirect");
       // Function to handle AJAX form submission for registration
-      function submitRegistration(event) {
+      function submitRegistration(event, redirect) {
         event.preventDefault();
         const form = document.getElementById("registration-form");
         const formData = new FormData(form);
@@ -185,7 +188,7 @@
 
       <form
         id="registration-form"
-        onsubmit="if (validateForm()) submitRegistration(event)"
+        onsubmit="if (validateForm()) submitRegistration(event, redirect)"
         novalidate
       >
         <div class="mb-4 grid grid-cols-2 gap-4">

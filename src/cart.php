@@ -83,10 +83,8 @@ if (isset($_SESSION['user_id'])) {
     }
 
     const handleCheckout = () => {
-      <?php
-      if (isset($_SESSION['user_id'])) echo "window.location.href = 'checkout.php'";
-      else echo "window.location.href = 'login.html'";
-      ?>
+      window.location.href = "checkout.php";
+
     }
   </script>
 </head>

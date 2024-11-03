@@ -6,8 +6,11 @@
     <title>Login</title>
     <link href="./output.css" rel="stylesheet" />
     <script>
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const redirect = urlParams.get("redirect");
       // Function to handle form submission with AJAX
-      function submitLogin(event) {
+      function submitLogin(event, redirect) {
         event.preventDefault();
         const form = document.getElementById("login-form");
         const formData = new FormData(form);
@@ -21,7 +24,9 @@
             const errorContainer = document.getElementById("error-message");
             if (data.success) {
               showAlert();
-              window.location.href = "index.php"; // Redirect on successful login
+              // Redirect on successful login
+              if (redirect) window.location.href = redirect;
+              else window.location.href = "home.html";
             } else {
               errorContainer.textContent = data.error;
               errorContainer.classList.remove("hidden");
@@ -135,7 +140,7 @@
       <!-- Login Form -->
       <form
         id="login-form"
-        onsubmit="if (validateForm()) submitLogin(event)"
+        onsubmit="if (validateForm()) submitLogin(event, redirect)"
         novalidate
       >
         <div class="mb-4">
@@ -185,7 +190,11 @@
       <p class="mt-4 text-center text-sm">
         Don't have an account?
         <!-- Redirection to Sign Up -->
-        <a href="register.html" class="text-black hover:underline">Sign Up</a>
+        <a
+          onclick="window.location.href = 'register.html' + queryString"
+          class="text-black hover:underline"
+          >Sign Up</a
+        >
       </p>
     </div>
   </body>
