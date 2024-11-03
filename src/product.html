@@ -16,12 +16,12 @@
         // Load header
         const headerResponse = await fetch("header.html");
         const headerData = await headerResponse.text();
-        document.getElementById("header").innerHTML = headerData;
+        document.getElementById("header").outerHTML = headerData;
 
         // Load footer
         const footerResponse = await fetch("footer.html");
         const footerData = await footerResponse.text();
-        document.getElementById("footer").innerHTML = footerData;
+        document.getElementById("footer").outerHTML = footerData;
 
         // Show the main content after loading header and footer
         document.getElementById("main-content").style.display = "block";
@@ -209,7 +209,7 @@
 
     <main id="main-content" style="display: none">
       <section
-        class="mx-auto grid max-w-[1400px] grid-cols-3 gap-8 p-6 md:p-12"
+        class="mx-auto grid max-w-[1400px] grid-cols-3 gap-8 p-4 md:p-12"
       >
         <div class="col-span-3 grid grid-cols-6 gap-8">
           <!-- Image Gallery -->
@@ -229,7 +229,7 @@
 
           <!-- Product Details -->
           <div
-            class="sticky top-8 col-span-6 flex h-fit flex-col gap-8 md:col-span-3 lg:col-span-2"
+            class="sticky top-24 col-span-6 flex h-fit flex-col gap-8 md:col-span-3 lg:col-span-2"
           >
             <div>
               <h6

@@ -45,12 +45,12 @@ $result = $result->fetch_assoc();
       // Load header
       const headerResponse = await fetch("header.html");
       const headerData = await headerResponse.text();
-      document.getElementById("header").innerHTML = headerData;
+      document.getElementById("header").outerHTML = headerData;
 
       // Load footer
       const footerResponse = await fetch("footer.html");
       const footerData = await footerResponse.text();
-      document.getElementById("footer").innerHTML = footerData;
+      document.getElementById("footer").outerHTML = footerData;
 
       // Show the main content after loading header and footer
       document.getElementById("main-content").style.display = "block";
