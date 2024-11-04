@@ -1,3 +1,5 @@
+<!-- TODO redirect if not logged in -->
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -115,6 +117,10 @@
               <p class="text-sm font-medium text-zinc-700">Postal Code</p>
               <p id="user-postal">Loading...</p>
             </div>
+            <div>
+              <p class="text-sm font-medium text-zinc-700">Phone Number</p>
+              <p id="user-phone">Loading...</p>
+            </div>
             <button class="font-medium underline">Edit</button>
           </div>
         </div>
@@ -149,6 +155,27 @@
     </main>
     <div id="footer"></div>
     <script>
+      const fetchDetails = () => {
+        fetch("getAccountDetails.php?details=true")
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("user-name").innerText =
+              data.first_name + " " + data.last_name;
+            if (data.gender) {
+              document.getElementById("user-gender").innerText = data.gender;
+            }
+            document.getElementById("user-email").innerText = data.email;
+            document.getElementById("user-address").innerText = data.address
+              ? data.address
+              : "None";
+            document.getElementById("user-phone").innerText = data.phone_number
+              ? data.phone_number
+              : "None";
+            document.getElementById("user-postal").innerText = data.postal_code
+              ? data.postal_code
+              : "None";
+          });
+      };
       const showDetails = (show) => {
         const details = document.getElementById("details");
         const historyView = document.getElementById("history");
@@ -166,6 +193,8 @@
           detailsTab.classList.replace("text-zinc-500", "text-zinc-900");
           historyTab.classList.replace("border-zinc-900", "border-transparent");
           historyTab.classList.replace("text-zinc-900", "text-zinc-500");
+
+          fetchDetails();
         } else {
           details.classList.replace("opacity-1", "opacity-0");
           setTimeout(() => {
