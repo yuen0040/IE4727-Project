@@ -22,9 +22,23 @@ if (isset($_SESSION['user_id'])) {
   $stmt->bind_param('i', $user_id);
   $stmt->execute();
   $result = $stmt->get_result();
-  $total = 0.00;
-  $items = array();
+} else {
+  $sql = "
+        SELECT cart_items.cart_id, cart_items.size_id, quantity, stock, name, price, sale_price, size, colour, image_url from cart_items 
+        INNER JOIN cart ON cart.cart_id = cart_items.cart_id 
+        INNER JOIN sizes ON sizes.size_id = cart_items.size_id 
+        INNER JOIN products ON products.product_id = sizes.product_id 
+        INNER JOIN images ON images.product_id = products.product_id 
+        WHERE cart.session_id = ?
+        GROUP BY sizes.size_id; 
+    ";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param('s', $session_id);
+  $stmt->execute();
+  $result = $stmt->get_result();
 }
+$total = 0.00;
+$items = array();
 ?>
 
 <!doctype html>
@@ -235,7 +249,7 @@ if (isset($_SESSION['user_id'])) {
           if (isset($_SESSION['user_id'])) {
             echo "Checkout";
           } else {
-            echo "Please Sign In";
+            echo "Login to Checkout";
           }
           ?>
         </button>
