@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 @layer base {
-  html,
-  body {
+  html {
     @apply h-full;
   }
   body {
     @apply flex;
     @apply flex-col;
+    @apply min-h-full;
   }
   #main-content {
     @apply flex-grow;
