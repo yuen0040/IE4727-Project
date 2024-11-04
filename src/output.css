@@ -980,16 +980,18 @@ body {
   gap: 2rem;
 }
 
+.gap-24 {
+  gap: 6rem;
+}
+
+.gap-16 {
+  gap: 4rem;
+}
+
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-.space-x-32 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(8rem * var(--tw-space-x-reverse));
-  margin-left: calc(8rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .space-x-6 > :not([hidden]) ~ :not([hidden]) {
@@ -1048,6 +1050,10 @@ body {
 
 .border-b-2 {
   border-bottom-width: 2px;
+}
+
+.border-t {
+  border-top-width: 1px;
 }
 
 .border-black {
@@ -1677,10 +1683,6 @@ body {
     grid-column: span 3 / span 3;
   }
 
-  .md\:mr-8 {
-    margin-right: 2rem;
-  }
-
   .md\:size-64 {
     width: 16rem;
     height: 16rem;
@@ -1692,6 +1694,10 @@ body {
 
   .md\:items-start {
     align-items: flex-start;
+  }
+
+  .md\:gap-24 {
+    gap: 6rem;
   }
 
   .md\:p-12 {
