@@ -51,84 +51,79 @@
         </button>
       </div>
       <div class="mb-12 flex border-b border-zinc-200 text-lg" role="tablist">
-        <a
-          class="border-b-2 border-zinc-900 px-3 py-2 text-zinc-900 hover:bg-zinc-50 focus-visible:outline"
+        <button
+          class="cursor-pointer border-b-2 border-zinc-900 px-3 py-2 text-zinc-900 transition-colors hover:bg-zinc-50 focus-visible:outline"
           role="tab"
-          href="#"
-          >Account Details</a
+          id="details-tab"
+          onclick="onTabClick(false)"
         >
-        <a
-          class="border-b-0 border-zinc-900 px-3 py-2 text-zinc-500 hover:bg-zinc-50"
+          Account Details
+        </button>
+        <button
+          class="cursor-pointer border-b-2 border-transparent px-3 py-2 text-zinc-500 transition-colors hover:bg-zinc-50"
           role="tab"
-          href="#"
-          >Order History</a
+          id="history-tab"
+          onclick="onTabClick(true)"
         >
+          Order History
+        </button>
       </div>
-      <section id="details" class="flex flex-col gap-12">
+      <section
+        id="details"
+        class="hidden flex-col gap-12 opacity-0 transition-opacity duration-300"
+      >
         <div class="flex flex-col gap-4 md:flex-row">
           <h6 class="w-60 text-2xl font-medium text-zinc-900">
             Personal Details
           </h6>
-          <div class="flex flex-col gap-4 text-zinc-900">
+          <div class="flex flex-col items-start gap-4 text-zinc-900">
             <div>
               <p class="text-sm font-medium text-zinc-700">Name</p>
-              <p>Lee Tuck Hua</p>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-zinc-700">Date of Birth</p>
-              <p>18 June 2001</p>
+              <p id="user-name">Loading...</p>
             </div>
             <div>
               <p class="text-sm font-medium text-zinc-700">Gender</p>
-              <p>Male</p>
+              <p id="user-gender">Unspecified</p>
             </div>
-            <a class="font-medium underline" href="#">Edit</a>
+            <button class="font-medium underline">Edit</button>
           </div>
         </div>
         <div class="flex flex-col gap-4 md:flex-row">
           <h6 class="w-60 text-2xl font-medium text-zinc-900">Login Details</h6>
-          <div class="flex flex-col gap-4 text-zinc-900">
+          <div class="flex flex-col items-start gap-4 text-zinc-900">
             <div>
               <p class="text-sm font-medium text-zinc-700">Email</p>
-              <p>tuck.hua88@gmail.com</p>
+              <p id="user-email">Loading...</p>
             </div>
             <div>
               <p class="text-sm font-medium text-zinc-700">Password</p>
               <p>*********</p>
             </div>
-            <a class="font-medium underline" href="#">Edit</a>
+            <button class="font-medium underline">Edit</button>
           </div>
         </div>
         <div class="flex flex-col gap-4 md:flex-row">
           <h6 class="w-60 text-2xl font-medium text-zinc-900">
             Address Details
           </h6>
-          <div class="flex flex-col gap-4 text-zinc-900">
+          <div class="flex flex-col items-start gap-4 text-zinc-900">
             <div>
-              <p class="text-sm font-medium text-zinc-700">First Name</p>
-              <p>Tuck Hua</p>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-zinc-700">Last Name</p>
-              <p>Lee</p>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-zinc-700">Address Line 1</p>
-              <p>Hougang Street 1</p>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-zinc-700">Address Line 2</p>
-              <p>Blk 221</p>
+              <p class="text-sm font-medium text-zinc-700">Address</p>
+              <p id="user-address">Loading...</p>
             </div>
             <div>
               <p class="text-sm font-medium text-zinc-700">Postal Code</p>
-              <p>663612</p>
+              <p id="user-postal">Loading...</p>
             </div>
-            <a class="font-medium underline" href="#">Edit</a>
+            <button class="font-medium underline">Edit</button>
           </div>
         </div>
       </section>
-      <section id="history" class="flex flex-col gap-8">
+      <!-- Order history tab -->
+      <section
+        id="history"
+        class="hidden flex-col gap-8 opacity-0 transition-opacity duration-300"
+      >
         <div class="flex flex-wrap items-start gap-8">
           <div class="flex-grow">
             <div class="mb-6">
@@ -153,5 +148,60 @@
       </section>
     </main>
     <div id="footer"></div>
+    <script>
+      const showDetails = (show) => {
+        const details = document.getElementById("details");
+        const historyView = document.getElementById("history");
+        const detailsTab = document.getElementById("details-tab");
+        const historyTab = document.getElementById("history-tab");
+        if (show) {
+          historyView.classList.replace("opacity-1", "opacity-0");
+          setTimeout(() => {
+            details.classList.replace("hidden", "flex");
+            details.classList.replace("opacity-0", "opacity-1");
+            historyView.classList.replace("flex", "hidden");
+          }, 300);
+
+          detailsTab.classList.replace("border-transparent", "border-zinc-900");
+          detailsTab.classList.replace("text-zinc-500", "text-zinc-900");
+          historyTab.classList.replace("border-zinc-900", "border-transparent");
+          historyTab.classList.replace("text-zinc-900", "text-zinc-500");
+        } else {
+          details.classList.replace("opacity-1", "opacity-0");
+          setTimeout(() => {
+            historyView.classList.replace("hidden", "flex");
+            historyView.classList.replace("opacity-0", "opacity-1");
+            details.classList.replace("flex", "hidden");
+          }, 300);
+
+          historyTab.classList.replace("border-transparent", "border-zinc-900");
+          historyTab.classList.replace("text-zinc-500", "text-zinc-900");
+          detailsTab.classList.replace("border-zinc-900", "border-transparent");
+          detailsTab.classList.replace("text-zinc-900", "text-zinc-500");
+        }
+      };
+
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const history = urlParams.get("history");
+      if (history) {
+        showDetails(false);
+      } else {
+        showDetails(true);
+      }
+
+      const onTabClick = (orderHistoryTab) => {
+        let url = new URL(window.location.href);
+        if (orderHistoryTab) {
+          url.searchParams.set("history", "true");
+          window.history.pushState(window.history.state, "", url.href);
+          showDetails(false);
+        } else {
+          url.searchParams.delete("history");
+          window.history.pushState(window.history.state, "", url.href);
+          showDetails(true);
+        }
+      };
+    </script>
   </body>
 </html>
