@@ -112,7 +112,7 @@ $result = $result->fetch_assoc();
       }
 
       // Postal code validation
-      if (!/[0-9]{6}/.test(postalCodeInput.value)) {
+      if (!/^[0-9]{6}$/.test(postalCodeInput.value)) {
         postalError.textContent = postalCodeInput.validity.valueMissing ?
           "Postal Code is required" :
           "Invalid postal code";
@@ -201,7 +201,7 @@ $result = $result->fetch_assoc();
                 type="number"
                 name="postal-code"
                 id="postal-code"
-                pattern="[0-9]{6}"
+                pattern="^[0-9]{6}$"
                 required
                 <?php if (isset($result['postal_code'])) echo "value='{$result['postal_code']}'" ?>
                 class="mt-2 w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" />
