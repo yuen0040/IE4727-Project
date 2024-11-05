@@ -129,29 +129,7 @@
       <section
         id="history"
         class="hidden flex-col gap-8 opacity-0 transition-opacity duration-300"
-      >
-        <div class="flex flex-wrap items-start gap-8">
-          <div class="flex-grow">
-            <div class="mb-6">
-              <h6 class="mb-1 text-2xl font-medium text-zinc-900">
-                Sep 24 2024 | $154.30
-              </h6>
-              <p class="text-zinc-700">Order number: ASG07292703</p>
-            </div>
-            <div class="flex flex-wrap gap-3">
-              <div class="size-24 bg-zinc-200"></div>
-              <div class="size-24 bg-zinc-200"></div>
-              <div class="size-24 bg-zinc-200"></div>
-            </div>
-          </div>
-          <button
-            class="flex min-w-fit items-center justify-center rounded-full border border-zinc-200 px-5 py-2 font-medium transition-colors hover:bg-zinc-100"
-          >
-            View or Edit
-          </button>
-        </div>
-        <div class="h-px bg-zinc-200"></div>
-      </section>
+      ></section>
     </main>
     <div id="footer"></div>
     <script>
@@ -176,12 +154,54 @@
               : "None";
           });
       };
+
+      const fetchOrders = () => {
+        let ordersHtml = "";
+        fetch("getAccountDetails.php")
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            data.forEach((order, index) => {
+              let images = "";
+              const urls = order.image_urls.split("|");
+              urls.forEach((url) => {
+                images += `<div class="size-24 bg-zinc-200">
+                          <img src="${url}" alt="order item" class="size-full object-cover" />
+                        </div>`;
+              });
+              ordersHtml += `<div class="flex flex-wrap items-start gap-8">
+                            <div class="flex-grow">
+                              <div class="mb-6">
+                                <h6 class="mb-1 text-2xl font-medium text-zinc-900">
+                                  ${new Date(order.date).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })} | $${order.total}
+                                </h6>
+                                <p class="text-zinc-700">Order number: ${order.id}</p>
+                              </div>
+                              <div class="flex flex-wrap gap-3">
+                                ${images}
+                              </div>
+                            </div>
+                            <a
+                              class="flex min-w-fit items-center justify-center rounded-full border border-zinc-200 px-5 py-2 font-medium transition-colors hover:bg-zinc-100"
+                              href="manageOrder?id=${order.id}"
+                            >
+                              View or Edit
+                            </a>
+                          </div>`;
+              if (index !== data.length - 1)
+                ordersHtml += `<div class="h-px bg-zinc-200"></div>`;
+            });
+            document.getElementById("history").innerHTML = ordersHtml;
+          });
+      };
+
       const showDetails = (show) => {
         const details = document.getElementById("details");
         const historyView = document.getElementById("history");
         const detailsTab = document.getElementById("details-tab");
         const historyTab = document.getElementById("history-tab");
         if (show) {
+          fetchDetails();
           historyView.classList.replace("opacity-1", "opacity-0");
           setTimeout(() => {
             details.classList.replace("hidden", "flex");
@@ -193,9 +213,8 @@
           detailsTab.classList.replace("text-zinc-500", "text-zinc-900");
           historyTab.classList.replace("border-zinc-900", "border-transparent");
           historyTab.classList.replace("text-zinc-900", "text-zinc-500");
-
-          fetchDetails();
         } else {
+          fetchOrders();
           details.classList.replace("opacity-1", "opacity-0");
           setTimeout(() => {
             historyView.classList.replace("hidden", "flex");
