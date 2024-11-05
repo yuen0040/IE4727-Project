@@ -4,20 +4,23 @@
 session_start();
 require 'db.php';
 
-// Check if session ID is in cookies
-if (isset($_COOKIE['session_id'])) {
-    $session_id = $_COOKIE['session_id'];
-    // Mark session as expired
-    $stmt = $conn->prepare("UPDATE sessions SET status = 'Expired' WHERE session_id = ?");
-    $stmt->bind_param("s", $session_id);
-    $stmt->execute();
-
-    // Delete the session cookie
-    setcookie('session_id', '', time() - 3600, "/");
-}
-
 // Destroy PHP session
+session_unset();
 session_destroy();
+
+// Note: This will destroy the session, and not just the session data!
+if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(
+        session_name(),
+        '',
+        time() - 42000,
+        $params["path"],
+        $params["domain"],
+        $params["secure"],
+        $params["httponly"]
+    );
+}
 
 // Redirect to login page
 header("Location: login.html");
