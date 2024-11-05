@@ -46,6 +46,7 @@
       <div class="mb-8 flex flex-wrap items-center justify-between gap-8">
         <h1 class="text-4xl font-medium">My Account</h1>
         <button
+          onclick="logout()"
           class="flex items-center justify-center gap-2 rounded-full border border-red-300 py-2 pl-5 pr-3 font-medium text-red-700 transition-colors hover:bg-red-50"
         >
           Logout
@@ -628,6 +629,10 @@
         return false;
       };
 
+      const logout = () => {
+        window.location.href = "logout.php";
+      };
+
       const fetchDetails = () => {
         fetch("getAccountDetails.php?details=true")
           .then((response) => response.json())
@@ -676,28 +681,30 @@
               let images = "";
               const urls = order.image_urls.split("|");
               urls.forEach((url) => {
-                images += `<div class="size-24 bg-zinc-200">
+                images += `<div class="size-24 bg-zinc-200 flex-shrink-0">
                           <img src="${url}" alt="order item" class="size-full object-cover" />
                         </div>`;
               });
-              ordersHtml += `<div class="flex flex-wrap items-start gap-8">
-                            <div class="flex-grow">
-                              <div class="mb-6">
-                                <h6 class="mb-1 text-2xl font-medium text-zinc-900">
-                                  ${new Date(order.date).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })} | $${order.total}
-                                </h6>
-                                <p class="text-zinc-700">Order number: ${order.id}</p>
+              ordersHtml += `<div class="flex flex-wrap gap-8">
+                            <div class="flex-grow w-full">
+                              <div class="flex justify-between flex-wrap gap-6 items-start mb-6">
+                                <div>
+                                  <h6 class="mb-1 text-2xl font-medium text-zinc-900">
+                                    ${new Date(order.date).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })} | $${order.total}
+                                  </h6>
+                                  <p class="text-zinc-700">Order number: ${order.id}</p>
+                                </div>
+                                <a
+                                  class="flex min-w-fit items-center justify-center rounded-full border border-zinc-200 px-5 py-2 font-medium transition-colors hover:bg-zinc-100"
+                                  href="manageOrder?id=${order.id}"
+                                >
+                                  View or Edit
+                                </a>
                               </div>
-                              <div class="flex flex-wrap gap-3">
+                              <div class="flex w-full gap-3 overflow-x-scroll">
                                 ${images}
                               </div>
                             </div>
-                            <a
-                              class="flex min-w-fit items-center justify-center rounded-full border border-zinc-200 px-5 py-2 font-medium transition-colors hover:bg-zinc-100"
-                              href="manageOrder?id=${order.id}"
-                            >
-                              View or Edit
-                            </a>
                           </div>`;
               if (index !== data.length - 1)
                 ordersHtml += `<div class="h-px bg-zinc-200"></div>`;
