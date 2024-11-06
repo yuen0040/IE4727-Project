@@ -209,10 +209,11 @@ $stmt->execute();
           </div>
         </div>
 
-        <button
+        <a
+          href="<?php echo "manageOrder.php?no=" . $order_id ?>"
           class="flex w-full items-center justify-center rounded-full border border-zinc-200 px-5 py-2 font-medium transition-colors hover:bg-zinc-100">
           Manage Order
-        </button>
+        </a>
       </section>
     </div>
   </main>
