@@ -94,13 +94,14 @@ $result = $stmt->get_result();
             $status = $row['order_status'];
             $order_total = $row['order_total'];
           }
+          $link = "product.html?name=" . urlencode($row['name']);
           echo "<div class='flex w-full gap-8'>
-                  <div class='aspect-square size-32 bg-zinc-200 md:size-64 rounded-xl'>
+                  <a href='$link' class='aspect-square size-32 bg-zinc-200 md:size-64 rounded-xl'>
                     <img src='{$row['image_url']}' alt='{$row['name']}' class='size-full object-cover rounded-xl' />
-                  </div>
+                  </a>
                   <div class='flex w-full flex-col gap-6'>
                     <div>
-                      <a class='text-2xl font-medium'>{$row['name']}</a>
+                      <a href='$link' class='text-2xl font-medium'>{$row['name']}</a>
                       <p class='text-lg font-medium'>$" . number_format($row['unit_price'], 2) . "</p>
                     </div>
                     <div class='text-zinc-700'>
