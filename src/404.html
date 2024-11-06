@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Not Found!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link href="./output.css" rel="stylesheet" />
+    <script>
+      async function loadContent() {
+        // Load header
+        const headerResponse = await fetch("header.html");
+        const headerData = await headerResponse.text();
+        document.getElementById("header").outerHTML = headerData;
+
+        // Load footer
+        const footerResponse = await fetch("footer.html");
+        const footerData = await footerResponse.text();
+        document.getElementById("footer").outerHTML = footerData;
+
+        // Show the main content after loading header and footer
+        document.getElementById("main-content").style.display = "flex";
+      }
+
+      // Load content when the DOM is fully loaded
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("main-content").style.display = "none"; // Hide main content initially
+        loadContent();
+      });
+    </script>
+  </head>
+  <body>
+    <!-- Header Include -->
+    <div id="header"></div>
+
+    <main
+      id="main-content"
+      class="flex size-full flex-col items-center justify-center gap-4 p-4 md:p-12"
+    >
+      <h1 class="text-4xl font-medium text-zinc-900">404 Page Not Found!</h1>
+      <a
+        href="home.html"
+        class="text-medium rounded-full bg-zinc-900 px-8 py-3 text-white transition-colors hover:bg-zinc-900/90"
+        >Back to Home</a
+      >
+    </main>
+
+    <!-- Footer Include -->
+    <div id="footer"></div>
+  </body>
+</html>

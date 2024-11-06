@@ -15,7 +15,7 @@ $stmt->bind_param("ssssii", $first_name, $last_name, $address, $phone_number, $p
 if ($stmt->execute()) {
   $response['success'] = true;
 } else {
-  $response['error'] = "Error order details, please try again.";
+  $response['error'] = "Error updating order details, please try again.";
 }
 
 

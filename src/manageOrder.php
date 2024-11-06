@@ -32,6 +32,11 @@ $stmt->bind_param("i",  $order_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
+if ($result->num_rows == 0) {
+  header("Location: 404.html");
+  exit();
+}
+
 ?>
 
 <!doctype html>
@@ -74,6 +79,20 @@ $result = $stmt->get_result();
 <body>
   <div id="header"></div>
   <main id="main-content" class="mx-auto w-full max-w-[1400px] p-4 md:p-12">
+    <dialog class="max-w-lg bg-white rounded-2xl p-8 open:flex flex-col gap-6 backdrop:bg-black/80 backdrop:backdrop-blur-sm">
+      <h3 class="text-2xl font-medium text-zinc-900">Are you sure you want to cancel your order?</h3>
+      <p class="text-zinc-700">You will not be able to undo this action.</p>
+      <p id="alert-error-cancel" class="hidden text-sm text-red-500"></p>
+      <div class="flex justify-end gap-4 mt-6">
+        <form method="dialog">
+          <button type="submit" class="rounded-full text-zinc-700 px-5 py-2 font-medium hover:bg-zinc-100/90 transition-colors">Go Back</button>
+        </form>
+        <form id="cancel" onsubmit="return cancelOrder()">
+          <input name="order-id" type="hidden" value="<?php echo $order_id ?>" />
+          <button type="submit" class="rounded-full bg-red-700 text-white px-5 py-2 font-medium hover:bg-red-700/90 transition-colors">Cancel Order</button>
+        </form>
+      </div>
+    </dialog>
     <h1 class="mb-12 text-4xl font-medium">Manage Order</h1>
     <div class="flex flex-col justify-center gap-12 lg:flex-row lg:gap-24">
       <section class="flex flex-1 flex-col gap-8">
@@ -275,6 +294,7 @@ $result = $stmt->get_result();
         </div>
 
         <button
+          onclick="showConfirmation()"
           class="flex w-full items-center justify-center rounded-full border border-red-300 px-5 py-2 font-medium text-red-700 transition-colors hover:bg-red-50">
           Cancel Order
         </button>
@@ -283,6 +303,9 @@ $result = $stmt->get_result();
   </main>
   <div id="footer"></div>
   <script>
+    const showConfirmation = () => {
+      document.querySelector("dialog").showModal();
+    }
     const showAddressForm = () => {
       document
         .getElementById("address-form")
@@ -301,6 +324,19 @@ $result = $stmt->get_result();
         .classList.replace("flex", "hidden");
       document.getElementById("edit-button").classList.remove("hidden");
     };
+
+    function showAlert(message, category) {
+      let alertBox;
+      if (category === "cancel")
+        alertBox = document.getElementById("alert-error-cancel");
+      else if (category === "address")
+        alertBox = document.getElementById("alert-error-address");
+      alertBox.innerText = message;
+      alertBox.classList.remove("hidden");
+      setTimeout(() => {
+        alertBox.classList.add("hidden");
+      }, 3000); // Automatically hide after 3 seconds
+    }
 
     const validateAddress = () => {
       const firstNameInput = document.getElementById("first-name");
@@ -396,6 +432,19 @@ $result = $stmt->get_result();
 
       return false;
     };
+
+    const cancelOrder = () => {
+      const form = document.getElementById("cancel");
+      const formData = new FormData(form);
+      fetch("cancelOrder.php", {
+        method: "POST",
+        body: formData
+      }).then((response) => response.json()).then((data) => {
+        if (data.success) window.location.href = "account.php?history=true";
+        else if (data.error) showAlert(data.error, "cancel");
+      })
+      return false;
+    }
   </script>
 </body>
 
