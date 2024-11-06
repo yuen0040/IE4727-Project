@@ -202,7 +202,7 @@ $items = array();
           }
           // Set the session var to keep track of what's being checked out so cart merging doesn't affect things
           $_SESSION['checkout'] = $items;
-          $_SESSION['checkout_total'] = $total;
+          $_SESSION['checkout_subtotal'] = $total;
         } else {
           echo "<p?>Your bag is empty.</p>";
         }

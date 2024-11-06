@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 03, 2024 at 12:12 PM
+-- Generation Time: Nov 06, 2024 at 05:08 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,7 +38,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `session_id`, `user_id`) VALUES
-(6, 'tqba38bcpmdtok1514mdacks9r', 2);
+(9, 'u19imuadbfsgas1jq2tvgcv6cg', 3),
+(10, '95uf28bq0gu4gkcs561r7l0k66', 2);
 
 -- --------------------------------------------------------
 
@@ -154,6 +155,10 @@ CREATE TABLE `orders` (
   `user_id` int(11) NOT NULL,
   `order_total` decimal(10,2) NOT NULL,
   `shipping_address` text NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `phone_number` varchar(20) NOT NULL,
+  `postal_code` int(11) NOT NULL,
   `order_status` varchar(50) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -162,8 +167,17 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `user_id`, `order_total`, `shipping_address`, `order_status`, `created_at`) VALUES
-(1, 2, 1216.00, 'Blk 221 Hougang Ave 4', 'preparing', '2024-11-03 07:16:35');
+INSERT INTO `orders` (`order_id`, `user_id`, `order_total`, `shipping_address`, `first_name`, `last_name`, `phone_number`, `postal_code`, `order_status`, `created_at`) VALUES
+(1, 2, 1216.00, 'Blk 221 Hougang Ave 4', 'Hello', 'World', '+6598989', 123456, 'preparing', '2024-11-06 03:44:33'),
+(2, 2, 304.00, 'Blk 221 Hougang Ave 4', 'Name', 'Teo', '999', 123456, 'preparing', '2024-11-06 03:44:33'),
+(3, 3, 1349.00, 'Blk 301 Hougang', 'Jeremy', 'Lee', '+9873839', 345678, 'preparing', '2024-11-06 03:44:33'),
+(4, 2, 75.00, 'Blk 221 Hougang Ave 4', 'Update', 'Update', '+65111111', 347271, 'preparing', '2024-11-06 03:50:18'),
+(5, 2, 85.00, 'Blk 221 Hougang Ave 4', 'Lance', 'Yeo', '+65111111', 347271, 'preparing', '2024-11-06 03:57:02'),
+(6, 2, 85.00, 'Blk 221 Hougang Ave 4', 'Lance', 'Yeo', '+650000', 123343, 'preparing', '2024-11-06 04:01:15'),
+(7, 2, 85.00, 'Blk 221 Hougang Ave 4', 'Lance', 'Yeo', '+60000', 347271, 'preparing', '2024-11-06 04:01:51'),
+(8, 2, 99.00, 'Blk 221 Hougang Ave 4', 'Update', 'Update', '+65111111', 347271, 'preparing', '2024-11-06 04:03:01'),
+(9, 2, 85.00, 'Blk 221 Hougang Ave 4', 'Update', 'Update', '+65111111', 347271, 'preparing', '2024-11-06 04:04:21'),
+(10, 2, 85.00, 'Blk 221 Hougang Ave 4', 'Update', 'Update', '+65111111', 323423, 'preparing', '2024-11-06 04:04:41');
 
 -- --------------------------------------------------------
 
@@ -186,7 +200,24 @@ CREATE TABLE `order_items` (
 INSERT INTO `order_items` (`order_item_id`, `order_id`, `size_id`, `quantity`, `unit_price`) VALUES
 (1, 1, 104, 4, 229.00),
 (2, 1, 118, 3, 75.00),
-(3, 1, 119, 1, 75.00);
+(3, 1, 119, 1, 75.00),
+(4, 2, 22, 1, 249.00),
+(5, 2, 78, 1, 55.00),
+(6, 3, 6, 1, 99.00),
+(7, 3, 42, 1, 145.00),
+(8, 3, 72, 1, 35.00),
+(9, 3, 97, 1, 229.00),
+(10, 3, 101, 1, 229.00),
+(11, 3, 102, 1, 229.00),
+(12, 3, 103, 1, 229.00),
+(13, 3, 119, 1, 75.00),
+(14, 3, 127, 1, 79.00),
+(15, 4, 118, 1, 75.00),
+(16, 5, 118, 1, 75.00),
+(17, 7, 1, 1, 99.00),
+(18, 8, 1, 1, 99.00),
+(19, 9, 113, 1, 75.00),
+(20, 10, 61, 1, 85.00);
 
 -- --------------------------------------------------------
 
@@ -249,7 +280,7 @@ CREATE TABLE `sizes` (
 --
 
 INSERT INTO `sizes` (`size_id`, `product_id`, `stock`, `size`) VALUES
-(1, 1, 10, 4),
+(1, 1, 8, 4),
 (2, 1, 10, 5),
 (3, 1, 10, 6),
 (4, 1, 10, 7),
@@ -309,7 +340,7 @@ INSERT INTO `sizes` (`size_id`, `product_id`, `stock`, `size`) VALUES
 (58, 8, 10, 5),
 (59, 8, 10, 6),
 (60, 8, 10, 7),
-(61, 8, 10, 8),
+(61, 8, 9, 8),
 (62, 8, 10, 9),
 (63, 8, 10, 10),
 (64, 8, 10, 11),
@@ -361,7 +392,7 @@ INSERT INTO `sizes` (`size_id`, `product_id`, `stock`, `size`) VALUES
 (110, 14, 10, 9),
 (111, 14, 10, 10),
 (112, 14, 10, 11),
-(113, 15, 10, 4),
+(113, 15, 9, 4),
 (114, 15, 10, 5),
 (115, 15, 10, 6),
 (116, 15, 10, 7),
@@ -417,7 +448,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password_hash`, `phone_number`, `address`, `postal_code`, `gender`) VALUES
-(2, 'Test', 'One', 'test@test1.com', '$2y$10$mfrhaFOPkv2WoN5tRIVDYORTHscKYhe3Ck.Hgkpw2XbHXJGIeugXe', '+6599999999', 'Blk 221 Hougang Ave 4', 123456, NULL);
+(2, 'Update', 'One', 'test@test1.com', '$2y$10$BLSGcvkKI8tijBYfqnJQV.B7iT6dQhQj9IS0xZ807B8HDeni4/M6C', '+65111111', 'Blk 221 Hougang Ave 4', 347271, NULL),
+(3, 'Test', 'Two', 'test@test2.com', '$2y$10$2LiuM9Rlcihjar5VHl499u6JvoRA/ymwqrwGvynJvVH.v5TDLoEke', '1212212', 'Blk 301 Hougang', 192793, NULL),
+(4, 'test', 'test', 'test@test3.com', '$2y$10$QnaZOtmlRRAI/FWhXeGe5OsGZ73mXY.obiCi8my4bOYxBC.zcGjZO', '', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -491,13 +524,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `images`
@@ -509,13 +542,13 @@ ALTER TABLE `images`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -533,7 +566,7 @@ ALTER TABLE `sizes`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -543,39 +576,39 @@ ALTER TABLE `users`
 -- Constraints for table `cart`
 --
 ALTER TABLE `cart`
-  ADD CONSTRAINT `user_id_cart` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+  ADD CONSTRAINT `user_id_cart` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  ADD CONSTRAINT `cart_id` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`cart_id`),
-  ADD CONSTRAINT `size_id` FOREIGN KEY (`size_id`) REFERENCES `sizes` (`size_id`);
+  ADD CONSTRAINT `cart_id` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`cart_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `size_id` FOREIGN KEY (`size_id`) REFERENCES `sizes` (`size_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `images`
 --
 ALTER TABLE `images`
-  ADD CONSTRAINT `product_id_images` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`);
+  ADD CONSTRAINT `product_id_images` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `user_id_orders` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+  ADD CONSTRAINT `user_id_orders` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `order_items`
 --
 ALTER TABLE `order_items`
-  ADD CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
-  ADD CONSTRAINT `size_id_order_items` FOREIGN KEY (`size_id`) REFERENCES `sizes` (`size_id`);
+  ADD CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `size_id_order_items` FOREIGN KEY (`size_id`) REFERENCES `sizes` (`size_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `sizes`
 --
 ALTER TABLE `sizes`
-  ADD CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`);
+  ADD CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

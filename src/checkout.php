@@ -16,7 +16,7 @@ if (!isset($_SESSION['checkout'])) {
 
 $user_id = $_SESSION['user_id'];
 $items = $_SESSION['checkout'];
-$total = $_SESSION['checkout_total'];
+$total = $_SESSION['checkout_subtotal'];
 $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -63,7 +63,6 @@ $result = $result->fetch_assoc();
     });
 
     const validateForm = () => {
-      console.log("validating");
       const firstNameInput = document.getElementById("first-name");
       const firstNameError = document.getElementById("first-name-error");
       const lastNameInput = document.getElementById("last-name");

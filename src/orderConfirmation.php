@@ -10,26 +10,29 @@ session_start();
 require 'db.php';
 
 $items = $_SESSION['checkout'];
-$total = $_SESSION['checkout_total'];
+$subtotal = $_SESSION['checkout_subtotal'];
+if ($subtotal <= 75) $total = $subtotal + 10;
+else $total = $subtotal;
 $user_id = $_SESSION['user_id'];
 unset($_SESSION['checkout']);
-unset($_SESSION['checkout_total']);
+unset($_SESSION['checkout_subtotal']);
 
 $name = $_POST['first-name'] . " " . $_POST['last-name'];
+$first_name = $_POST['first-name'];
+$last_name = $_POST['last-name'];
 $address = $_POST['address'];
 $postal_code = $_POST['postal-code'];
 $phone = $_POST['phone'];
-$save_address = $_POST['save-address'];
 
 //Save address to user
-if (isset($save_address)) {
+if (isset($_POST['save-address'])) {
   $stmt = $conn->prepare("UPDATE users SET phone_number = ?, address = ?, postal_code = ? WHERE user_id = ?");
   $stmt->bind_param("ssii", $phone, $address, $postal_code, $user_id);
   $stmt->execute();
 }
 //Add order
-$order_stmt = $conn->prepare("INSERT INTO orders VALUES (NULL,?,?,?,'preparing',DEFAULT)");
-$order_stmt->bind_param("ids", $user_id, $total, $address);
+$order_stmt = $conn->prepare("INSERT INTO orders VALUES (NULL,?,?,?,?,?,?,?,'preparing',DEFAULT)");
+$order_stmt->bind_param("isssssi", $user_id, $total, $address, $first_name, $last_name, $phone, $postal_code);
 $order_stmt->execute();
 $order_id = $order_stmt->insert_id;
 
@@ -73,6 +76,11 @@ foreach ($items as $row) {
     $stmt->bind_param("ii", $user_cart_id, $row['size_id']);
     $stmt->execute();
   }
+
+  // Update stock
+  $stmt = $conn->prepare("UPDATE sizes SET stock = stock - ? WHERE size_id = ?");
+  $stmt->bind_param("ii", $row['quantity'], $row['size_id']);
+  $stmt->execute();
 }
 
 //Insert items into order_items
@@ -148,9 +156,9 @@ $stmt->execute();
           echo      "
                     </div>
                     <div class='text-zinc-700'>
-                      <p>Size: US9</p>
-                      <p>Colour: White</p>
-                      <p>Quantity: 1</p>
+                      <p>Size: US{$row['size']}</p>
+                      <p>Colour: {$row['colour']}</p>
+                      <p>Quantity: {$row['quantity']}</p>
                     </div>
                   </div>
                 </div>";
@@ -184,14 +192,13 @@ $stmt->execute();
             <div class="flex w-full justify-between text-zinc-700">
               <p>Subtotal</p>
               <p>$<?php
-                  if ($total <= 85) $total -= 10;
-                  echo number_format($total, 2);
+                  echo number_format($subtotal, 2);
                   ?></p>
             </div>
             <div class="flex w-full justify-between text-zinc-700">
               <p>Delivery</p>
               <p><?php
-                  if ($total > 85) echo "Free";
+                  if ($subtotal > 75) echo "Free";
                   else echo "$10.00";
                   ?></p>
             </div>
