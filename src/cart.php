@@ -128,8 +128,8 @@ $items = array();
               $items[] = $row;
 
               echo "<div class='flex w-full gap-8'>
-                      <a href='$link' class='aspect-square size-32 bg-neutral-200 md:size-64'>
-                        <img src='{$row['image_url']}' alt='{$row['name']}' class='object-cover size-full'/>
+                      <a href='$link' class='aspect-square size-32 bg-zinc-200 md:size-64 rounded-xl'>
+                        <img src='{$row['image_url']}' alt='{$row['name']}' class='object-cover size-full rounded-xl'/>
                       </a>
                       <div class='flex w-full flex-col gap-6'>
                         <div>
@@ -172,8 +172,8 @@ $items = array();
             } else {
               // No stock
               echo "<div class='flex w-full gap-8'>
-              <a href='$link' class='aspect-square size-32 bg-neutral-200 md:size-64'>
-                <img src='{$row['image_url']}' alt='{$row['name']}' class='object-cover size-full'/>
+              <a href='$link' class='aspect-square size-32 bg-zinc-200 md:size-64 rounded-xl'>
+                <img src='{$row['image_url']}' alt='{$row['name']}' class='object-cover size-full rounded-xl'/>
               </a>
               <div class='flex w-full flex-col gap-6 text-zinc-500'>
                 <div>

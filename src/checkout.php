@@ -302,8 +302,8 @@ $result = $result->fetch_assoc();
           }
           $total += (float)$price * $row['quantity'];
           echo "<div class='flex gap-3'>
-                  <div class='aspect-square size-32 bg-zinc-200'>
-                    <img src='{$row['image_url']}' alt='{$row['name']}' class='object-cover size-full'/>
+                  <div class='aspect-square size-32 bg-zinc-200 rounded-lg'>
+                    <img src='{$row['image_url']}' alt='{$row['name']}' class='object-cover size-full rounded-lg'/>
                   </div>
                   <div class='text-sm text-zinc-700'>
                     <p class='mb-3 text-zinc-900'>{$row['name']}</p>

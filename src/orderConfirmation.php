@@ -17,12 +17,12 @@ $user_id = $_SESSION['user_id'];
 unset($_SESSION['checkout']);
 unset($_SESSION['checkout_subtotal']);
 
-$name = $_POST['first-name'] . " " . $_POST['last-name'];
-$first_name = $_POST['first-name'];
-$last_name = $_POST['last-name'];
-$address = $_POST['address'];
-$postal_code = $_POST['postal-code'];
-$phone = $_POST['phone'];
+$first_name = filter_input(INPUT_POST, 'first-name', FILTER_UNSAFE_RAW);
+$last_name = filter_input(INPUT_POST, 'last-name', FILTER_UNSAFE_RAW);
+$address = filter_input(INPUT_POST, 'address', FILTER_UNSAFE_RAW);
+$postal_code = filter_input(INPUT_POST, 'postal-code', FILTER_UNSAFE_RAW);
+$phone = filter_input(INPUT_POST, 'phone', FILTER_UNSAFE_RAW);
+$name = $first_name . " " . $last_name;
 
 //Save address to user
 if (isset($_POST['save-address'])) {
@@ -142,8 +142,8 @@ $stmt->execute();
         <?php
         foreach ($items as $row) {
           echo "<div class='flex w-full gap-8'>
-                  <div class='aspect-square size-32 bg-neutral-200 md:size-64'>
-                    <img src='{$row['image_url']}' alt='{$row['name']}' class='size-full object-cover'/>
+                  <div class='aspect-square size-32 bg-neutral-200 md:size-64 rounded-xl'>
+                    <img src='{$row['image_url']}' alt='{$row['name']}' class='size-full object-cover rounded-xl'/>
                   </div>
                   <div class='flex w-full flex-col gap-6'>
                     <div>

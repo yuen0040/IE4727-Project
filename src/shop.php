@@ -35,7 +35,7 @@ if ($segment == 'sale') {
 
             echo '<a class="group min-w-48" href="product.html?name=' . urlencode($row['name']) . '">';
             echo '<div class="flex flex-col gap-3">';
-            echo "<div class='aspect-square rounded-lg bg-zinc-200 overflow-hidden'>
+            echo "<div class='aspect-square rounded-xl bg-zinc-200 overflow-hidden'>
                     <img src='{$row['image_url']}' alt='{$row['name']}' class='size-full object-cover group-hover:scale-105 transition-transform duration-300'/>
                 </div>";
             echo "<div class='text-zinc-900 w-full'>";
@@ -79,7 +79,7 @@ if ($segment == 'sale') {
             // HTML output for each product
             echo '<a class="group min-w-48" href="product.html?name=' . urlencode($row['name']) . '">';
             echo '<div class="flex flex-col gap-3">';
-            echo "<div class='aspect-square rounded-lg bg-zinc-200 overflow-hidden'>
+            echo "<div class='aspect-square rounded-xl bg-zinc-200 overflow-hidden'>
                     <img src='{$row['image_url']}' alt='{$row['name']}' class='size-full object-cover group-hover:scale-105 transition-transform duration-300'/>
                 </div>";
             echo "<div class='text-zinc-900 w-full'>";
@@ -130,7 +130,7 @@ else {
             // HTML output for each product
             echo '<a class="group min-w-48" href="product.html?name=' . urlencode($row['name']) . '">';
             echo '<div class="flex flex-col gap-3">';
-            echo "<div class='aspect-square rounded-lg bg-zinc-200 overflow-hidden'>
+            echo "<div class='aspect-square rounded-xl bg-zinc-200 overflow-hidden'>
                     <img src='{$row['image_url']}' alt='{$row['name']}' class='size-full object-cover group-hover:scale-105 transition-transform duration-300'/>
                 </div>";
             echo "<div class='text-zinc-900 w-full'>";
