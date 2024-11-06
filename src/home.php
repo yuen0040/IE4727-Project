@@ -32,17 +32,21 @@ if ($section == 'new-section') {
             $salePrice = $row["sale_price"] ? "$" . $row["sale_price"] : "";
 
             // HTML output for each product
-            echo '<a href="product.html?name=' . urlencode($row['name']) . '">';
-            echo '<div class="transform rounded-lg bg-white p-4 shadow transition-transform duration-300 hover:scale-105 hover:shadow-lg">';
-            echo '<div class="min-w-[200px] h-48 rounded bg-zinc-300" style="background-image: url(\'' . htmlspecialchars($row['image_url']) . '\'); background-size: cover; background-position: center;"></div>';
-            echo '<h3 class="mt-4 font-medium overflow-ellipsis overflow-hidden whitespace-nowrap w-48">' . htmlspecialchars($row['name']) . '</h3>';
-            echo '<p class="text-zinc-500">' . ucfirst($category) . '</p>';
-            echo '<p class="mt-2">';
+            echo '<a class="group min-w-48" href="product.html?name=' . urlencode($row['name']) . '">';
+            echo '<div class="flex flex-col gap-3">';
+            echo "<div class='aspect-square rounded-lg bg-zinc-200 overflow-hidden'>
+                    <img src='{$row['image_url']}' alt='{$row['name']}' class='size-full object-cover group-hover:scale-105 transition-transform duration-300'/>
+                </div>";
+            echo "<div class='text-zinc-900 w-full'>";
+            echo '<h3 class="font-medium mb-1 text-lg line-clamp-1">' . htmlspecialchars($row['name']) . '</h3>';
+            echo '<p class="text-zinc-700">' . ucfirst($category) . '</p>';
+            echo "</div>";
+            echo '<p class="text-lg">';
             if (!empty($salePrice)) {
-                echo "<span class='font-bold text-red-500'>$salePrice</span>";
-                echo "<span class='ml-2 text-zinc-500 line-through'>$price</span>";
+                echo "<span class='font-medium mr-2 text-red-500'>$price</span>";
+                echo "<span class='text-zinc-500 line-through'>$salePrice</span>";
             } else {
-                echo "<span class='font-bold'>$price</span>";
+                echo "<span class='font-medium'>$price</span>";
             }
             echo '</p>';
             echo '</div>';
@@ -52,7 +56,7 @@ if ($section == 'new-section') {
     $stmt->close();
 }
 
-// Fetch random sale items with sale_price not NULL, limit to 3
+// Fetch random sale items with sale_price not NULL, limit to 4
 if ($section == 'sales-section') {
     $sql_random_sales = "
     SELECT p.product_id, p.name, p.category, p.segment, p.price, p.sale_price, i.image_url
@@ -76,15 +80,19 @@ if ($section == 'sales-section') {
             $price = "$" . $row["price"];
             $salePrice = "$" . $row["sale_price"];
 
-            echo '<a href="product.html?name=' . urlencode($row['name']) . '">';
-            echo '<div class="transform rounded-lg bg-white p-4 shadow transition-transform duration-300 hover:scale-105 hover:shadow-lg">';
-            echo '<div class="h-48 rounded bg-zinc-300" style="background-image: url(\'' . htmlspecialchars($row['image_url']) . '\'); background-size: cover; background-position: center;"></div>';
-            echo '<h3 class="mt-4 font-medium overflow-ellipsis overflow-hidden whitespace-nowrap w-48">' . htmlspecialchars($row['name']) . '</h3>';
-            echo '<p class="text-zinc-500">' . ucfirst($category) . '</p>';
-            echo '<div class="mt-2 flex items-center space-x-2">';
-            echo "<span class='font-bold text-red-500'>$salePrice</span>";
-            echo "<span class='text-zinc-400 line-through'>$price</span>";
-            echo '</div>';
+            echo '<a class="group min-w-48" href="product.html?name=' . urlencode($row['name']) . '">';
+            echo '<div class="flex flex-col gap-3">';
+            echo "<div class='aspect-square rounded-lg bg-zinc-200 overflow-hidden'>
+                    <img src='{$row['image_url']}' alt='{$row['name']}' class='size-full object-cover group-hover:scale-105 transition-transform duration-300'/>
+                </div>";
+            echo "<div class='text-zinc-900 w-full'>";
+            echo '<h3 class="font-medium mb-1 text-lg line-clamp-1">' . htmlspecialchars($row['name']) . '</h3>';
+            echo '<p class="text-zinc-700">' . ucfirst($category) . '</p>';
+            echo "</div>";
+            echo '<p class="text-lg">';
+            echo "<span class='mr-2 font-medium text-red-500'>$price</span>";
+            echo "<span class='text-zinc-500 line-through'>$salePrice</span>";
+            echo '</p>';
             echo '</div>';
             echo '</a>';
         }

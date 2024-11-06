@@ -34,60 +34,45 @@
       });
     </script>
   </head>
-  <body class="bg-zinc-100">
+  <body>
     <!-- Header Include -->
     <div id="header"></div>
 
     <div id="main-content" style="display: none">
       <!-- Category Navigation -->
-      <section class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <h1 class="mb-4 text-3xl font-bold" id="segment-title">
+      <section class="mx-auto max-w-[1400px] p-4 md:p-12">
+        <h1 class="mb-12 text-4xl font-medium text-zinc-900" id="segment-title">
           Women's Shoes
         </h1>
-        <nav class="mb-6">
-          <ul id="category-list" class="flex space-x-6 text-lg font-medium">
+        <nav class="mb-12">
+          <ul
+            id="category-list"
+            class="flex border-b border-zinc-200 text-lg font-medium"
+          >
             <li
-              class="cursor-pointer border-b-2 border-transparent hover:text-blue-500"
+              class="cursor-pointer border-b-2 border-transparent px-3 py-2 text-zinc-900 transition-colors hover:bg-zinc-50 hover:text-zinc-900/90"
               onclick="showProducts(selectedSegment, 'all', this, true, false)"
             >
               All
             </li>
             <li
-              class="cursor-pointer border-b-2 border-transparent hover:text-blue-500"
+              class="cursor-pointer border-b-2 border-transparent px-3 py-2 text-zinc-900 transition-colors hover:bg-zinc-50 hover:text-zinc-900/90"
               onclick="showProducts(selectedSegment, 'sneakers', this, true, false)"
             >
               Sneakers
             </li>
             <li
-              class="cursor-pointer border-b-2 border-transparent hover:text-blue-500"
+              class="cursor-pointer border-b-2 border-transparent px-3 py-2 text-zinc-900 transition-colors hover:bg-zinc-50 hover:text-zinc-900/90"
               onclick="showProducts(selectedSegment, 'running', this, true, false)"
             >
               Running
             </li>
             <li
-              class="cursor-pointer border-b-2 border-transparent hover:text-blue-500"
+              class="cursor-pointer border-b-2 border-transparent px-3 py-2 text-zinc-900 transition-colors hover:bg-zinc-50 hover:text-zinc-900/90"
               onclick="showProducts(selectedSegment, 'slides', this, true, false)"
             >
               Slides
             </li>
-            <!-- <li
-              class="cursor-pointer border-b-2 border-transparent hover:text-blue-500"
-              onclick="showProducts(selectedSegment, 'training', this, true, false)"
-            >
-              Training and Gym
-            </li>
-            <li
-              class="cursor-pointer border-b-2 border-transparent hover:text-blue-500"
-              onclick="showProducts(selectedSegment, 'skateboarding', this, true, false)"
-            >
-              Skateboarding
-            </li>
-            <li
-              class="cursor-pointer border-b-2 border-transparent hover:text-blue-500"
-              onclick="showProducts(selectedSegment, 'basketball', this, true, false)"
-            >
-              Basketball
-            </li> -->
           </ul>
         </nav>
 
@@ -97,10 +82,10 @@
           class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
         ></div>
         <!-- Load More Button -->
-        <div class="mt-8 text-center">
+        <div class="mt-12 text-center">
           <button
             id="load-more-button"
-            class="rounded-full bg-black px-6 py-3 text-lg font-medium text-white hover:bg-zinc-500"
+            class="rounded-full bg-zinc-900 px-8 py-3 text-lg font-medium text-white transition-colors hover:bg-zinc-900/90"
           >
             Load More
           </button>
@@ -211,12 +196,15 @@
         const categoryItems = document.querySelectorAll("#category-list li");
         if (!offsetFlag) {
           categoryItems.forEach((item) => {
-            item.classList.remove("border-black");
-            item.classList.add("border-transparent");
+            item.classList.remove("border-black", "text-zinc-900");
+            item.classList.add("border-transparent", "text-zinc-500");
           });
         }
-        selectedCategory.classList.remove("border-transparent");
-        selectedCategory.classList.add("border-black");
+        selectedCategory.classList.remove(
+          "border-transparent",
+          "text-zinc-500",
+        );
+        selectedCategory.classList.add("border-black", "text-zinc-900");
 
         setTimeout(
           () => {

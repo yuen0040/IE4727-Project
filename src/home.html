@@ -57,102 +57,121 @@
       });
     </script>
   </head>
-  <body class="bg-zinc-100">
+  <body>
     <!-- Header Include -->
     <div id="header"></div>
 
     <!-- Main Content -->
-    <div id="main-content" style="display: none">
+    <div id="main-content" style="display: none" class="p-4 md:p-12">
       <!-- Hero Section -->
-      <section class="items-top justify-left relative flex h-96 bg-zinc-200">
-        <a href="#new-section-text">
+      <section class="flex flex-col gap-8">
+        <div class="aspect-[1.92/1] w-full overflow-hidden rounded-2xl">
           <img
             src="../assets/banner_cropped.jpg"
             alt="Banner Image"
-            class="absolute inset-0 h-full w-full object-cover opacity-50"
+            class="size-full object-cover"
           />
-        </a>
-        <div class="relative z-10 ml-10 mt-10 text-left">
-          <h1 class="text-4xl font-bold opacity-65">Street Pulse</h1>
-          <p class="mt-4 text-lg opacity-50">
-            Get the new product, a take on street fashion by Japanese designer
-            Hige Daedric
+        </div>
+        <div>
+          <h1 class="mb-4 text-6xl font-bold text-zinc-900">
+            Step into Style and Comfort
+          </h1>
+          <p class="text-2xl text-zinc-800">
+            The perfect blend of fashion and function.
           </p>
         </div>
       </section>
 
       <!-- New Section -->
-      <section class="py-12">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 id="new-section-text" class="mb-6 text-3xl font-bold">New</h2>
-          <div class="hide-scrollbar overflow-x-scroll overscroll-none">
-            <div id="new-section" class="flex space-x-6 py-4"></div>
-          </div>
+      <section class="py-12 pt-24">
+        <h2
+          id="new-section-text"
+          class="mb-8 text-4xl font-medium text-zinc-900"
+        >
+          New
+        </h2>
+        <div class="hide-scrollbar overflow-x-scroll overscroll-none">
+          <div
+            id="new-section"
+            class="grid grid-cols-[repeat(6,minmax(192px,1fr))] gap-6"
+          ></div>
         </div>
       </section>
 
       <!-- Shop By Category Section -->
-      <section class="bg-zinc-50 py-12">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 class="mb-6 text-3xl font-bold">Shop By Category</h2>
-          <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-            <!-- Category Card -->
-            <a href="shop.html?segment=women">
-              <div
-                class="transform rounded-lg bg-white p-4 shadow transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+      <section class="py-12">
+        <h2 class="mb-8 text-4xl font-medium text-zinc-900">
+          Shop By Category
+        </h2>
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+          <!-- Category Card -->
+          <a href="shop.html?segment=women" class="group">
+            <div
+              class="relative aspect-[3/2] overflow-hidden rounded-2xl sm:aspect-[2/3]"
+            >
+              <h3
+                class="absolute bottom-6 left-6 z-10 text-2xl font-medium text-white"
               >
-                <img
-                  src="../assets/womens_shoes_cropped.jpg"
-                  alt="Women"
-                  class="h-auto w-full rounded object-cover"
-                />
-                <h3 class="mt-4 text-center font-medium">Women</h3>
-              </div>
-            </a>
-            <a href="shop.html?segment=men">
-              <div
-                class="transform rounded-lg bg-white p-4 shadow transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+                Women
+              </h3>
+              <img
+                src="../assets/womens_shoes_cropped.jpg"
+                alt="Women"
+                class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+          </a>
+          <a href="shop.html?segment=men" class="group">
+            <div
+              class="relative aspect-[3/2] overflow-hidden rounded-2xl sm:aspect-[2/3]"
+            >
+              <h3
+                class="absolute bottom-6 left-6 z-10 text-2xl font-medium text-white"
               >
-                <img
-                  src="../assets/mens_shoes_cropped.jpg"
-                  alt="Men"
-                  class="h-auto w-full rounded object-cover"
-                />
-                <h3 class="mt-4 text-center font-medium">Men</h3>
-              </div>
-            </a>
-            <a href="shop.html?segment=kids">
-              <div
-                class="transform rounded-lg bg-white p-4 shadow transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+                Men
+              </h3>
+              <img
+                src="../assets/mens_shoes_cropped.jpg"
+                alt="Men"
+                class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+          </a>
+          <a href="shop.html?segment=kids" class="group">
+            <div
+              class="relative aspect-[3/2] overflow-hidden rounded-2xl sm:aspect-[2/3]"
+            >
+              <h3
+                class="absolute bottom-6 left-6 z-10 text-2xl font-medium text-white"
               >
-                <img
-                  src="../assets/kids_shoes_cropped.jpg"
-                  alt="Kids"
-                  class="h-auto w-full rounded object-cover"
-                />
-                <h3 class="mt-4 text-center font-medium">Kids</h3>
-              </div>
-            </a>
-          </div>
+                Kids
+              </h3>
+              <img
+                src="../assets/kids_shoes_cropped.jpg"
+                alt="Kids"
+                class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+          </a>
         </div>
       </section>
 
       <!-- Sale Section -->
       <section id="sales-bg" class="py-12">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 id="sales-text" class="mb-6 text-3xl font-bold">Sale</h2>
-          <div
-            id="sales-section"
-            class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
-          ></div>
-          <div class="mt-6 text-center">
-            <a
-              href="shop.html?segment=sale"
-              id="view-all-button"
-              class="rounded-full bg-black px-6 py-3 text-lg font-medium text-white hover:bg-zinc-500"
-              >View All</a
-            >
-          </div>
+        <h2 id="sales-text" class="mb-8 text-4xl font-medium text-zinc-900">
+          Sale
+        </h2>
+        <div
+          id="sales-section"
+          class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
+        ></div>
+        <div class="mt-8 text-center">
+          <a
+            href="shop.html?segment=sale"
+            id="view-all-button"
+            class="rounded-full bg-zinc-900 px-8 py-3 text-lg font-medium text-white transition-colors hover:bg-zinc-900/90"
+            >View All</a
+          >
         </div>
       </section>
     </div>
