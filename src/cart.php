@@ -140,7 +140,7 @@ $items = array();
                             </button>
                           </div>";
               if (isset($row['sale_price'])) {
-                echo "<p><span class='font-bold text-red-500'>$" . number_format($row['sale_price'], 2) . "</span> <span class='text-zinc-400 line-through'>$" . number_format($row['price'], 2) . "</span></p>";
+                echo "<p><span class='font-medium text-red-500'>$" . number_format($row['sale_price'], 2) . "</span> <span class='text-zinc-400 line-through'>$" . number_format($row['price'], 2) . "</span></p>";
               } else {
                 echo "<p class='text-lg font-medium'>$" . number_format($price, 2) . "</p>";
               }
@@ -184,7 +184,7 @@ $items = array();
                     </button>
                   </div>";
               if (isset($row['sale_price'])) {
-                echo "<p><span class='font-bold text-red-500'>$" . number_format($row['sale_price'], 2) . "</span> <span class='text-zinc-400 line-through'>$" . number_format($row['price'], 2) . "</span></p>";
+                echo "<p><span class='font-medium text-red-500'>$" . number_format($row['sale_price'], 2) . "</span> <span class='text-zinc-400 line-through'>$" . number_format($row['price'], 2) . "</span></p>";
               } else {
                 echo "<p class='text-lg font-medium'>$" . number_format($price, 2) . "</p>";
               }

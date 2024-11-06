@@ -14,6 +14,7 @@
     <script>
       async function loadContent() {
         // Load header
+        console.log("running");
         const headerResponse = await fetch("header.html");
         const headerData = await headerResponse.text();
         document.getElementById("header").outerHTML = headerData;
@@ -26,13 +27,6 @@
         // Show the main content after loading header and footer
         document.getElementById("main-content").style.display = "block";
       }
-
-      // Load content when the DOM is fully loaded
-      document.addEventListener("DOMContentLoaded", () => {
-        document.getElementById("main-content").style.display = "none"; // Hide main content initially
-        loadContent();
-      });
-
       // Fetch and populate product details
       async function loadProductDetails() {
         const productName = getProductNameFromURL();
@@ -139,6 +133,7 @@
               "size-button rounded-md border border-zinc-200 py-2 transition-all hover:bg-zinc-100/90 disabled:cursor-not-allowed disabled:bg-zinc-200 disabled:text-zinc-400";
             button.textContent = size.size;
             button.dataset.size_id = size.size_id;
+            if (size.stock < 5) button.dataset.stock_low = true;
             button.onclick = () => selectSize(button);
             if (size.stock == 0) button.disabled = true;
             sizeButtons.appendChild(button);
@@ -170,6 +165,11 @@
         button.dataset.selected = true;
         document.getElementById("add-to-bag").disabled = false;
         console.log("Size selected:", button.textContent);
+        if (button.getAttribute("data-stock_low")) {
+          document.getElementById("low-stock").classList.remove("hidden");
+        } else {
+          document.getElementById("low-stock").classList.add("hidden");
+        }
       }
 
       document.addEventListener("DOMContentLoaded", () => {
@@ -211,10 +211,8 @@
     </script>
   </head>
   <body>
-    <!-- Header Include -->
     <div id="header"></div>
-
-    <main id="main-content" style="display: none">
+    <main id="main-content">
       <section
         class="mx-auto grid max-w-[1400px] grid-cols-3 gap-8 p-4 md:p-12"
       >
@@ -252,7 +250,7 @@
             <div id="price-container">
               <span
                 id="product-sale-price"
-                class="text-xl font-bold text-red-500"
+                class="text-xl font-medium text-red-500"
               ></span>
               <span
                 id="product-original-price"
@@ -277,6 +275,9 @@
                 >
               </div>
               <div id="size-buttons" class="group grid grid-cols-4 gap-2"></div>
+              <p id="low-stock" class="mt-2 hidden text-red-500">
+                Low in stock
+              </p>
             </div>
 
             <!-- Add to Bag Button -->
@@ -335,8 +336,6 @@
         </div>
       </section>
     </main>
-
-    <!-- Footer Include -->
     <div id="footer"></div>
   </body>
 </html>
