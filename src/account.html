@@ -69,323 +69,339 @@
           Order History
         </button>
       </div>
-      <section
-        id="details"
-        class="hidden flex-col gap-12 opacity-0 transition-opacity duration-300"
+      <div
+        id="fade-container"
+        class="opacity-0 transition-opacity duration-300"
       >
-        <div class="flex flex-col gap-4 md:flex-row">
-          <h6 class="w-60 text-2xl font-medium text-zinc-900 md:flex-shrink-0">
-            Personal Details
-          </h6>
-          <form
-            id="personal-form"
-            class="hidden max-w-2xl flex-col items-start gap-4"
-            onsubmit="return validatePersonal()"
-          >
-            <div class="grid grid-cols-2 gap-3">
-              <div>
-                <label
-                  class="mb-2 block font-medium text-zinc-900"
-                  for="first-name"
-                  >First Name</label
-                >
-                <input
-                  class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
-                  type="text"
-                  id="first-name"
-                  name="first-name"
-                  placeholder="John"
-                  required
-                  title="Please enter only letters and spaces"
-                />
-                <p
-                  id="first-name-error"
-                  class="mt-1 hidden text-sm text-red-500"
-                >
-                  Invalid first name
-                </p>
+        <section id="details" class="hidden flex-col gap-12">
+          <div class="flex flex-col gap-4 md:flex-row">
+            <h6
+              class="w-60 text-2xl font-medium text-zinc-900 md:flex-shrink-0"
+            >
+              Personal Details
+            </h6>
+            <form
+              id="personal-form"
+              class="hidden max-w-2xl flex-col items-start gap-4"
+              onsubmit="return validatePersonal()"
+            >
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label
+                    class="mb-2 block font-medium text-zinc-900"
+                    for="first-name"
+                    >First Name</label
+                  >
+                  <input
+                    class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
+                    type="text"
+                    id="first-name"
+                    name="first-name"
+                    placeholder="John"
+                    required
+                    title="Please enter only letters and spaces"
+                  />
+                  <p
+                    id="first-name-error"
+                    class="mt-1 hidden text-sm text-red-500"
+                  >
+                    Invalid first name
+                  </p>
+                </div>
+                <div>
+                  <label
+                    class="mb-2 block font-medium text-zinc-900"
+                    for="last-name"
+                    >Last Name</label
+                  >
+                  <input
+                    class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
+                    type="text"
+                    id="last-name"
+                    name="last-name"
+                    placeholder="Appleseed"
+                    required
+                    title="Please enter only letters and spaces"
+                  />
+                  <p
+                    id="last-name-error"
+                    class="mt-1 hidden text-sm text-red-500"
+                  >
+                    Invalid last name
+                  </p>
+                </div>
               </div>
               <div>
-                <label
-                  class="mb-2 block font-medium text-zinc-900"
-                  for="last-name"
-                  >Last Name</label
-                >
-                <input
-                  class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
-                  type="text"
-                  id="last-name"
-                  name="last-name"
-                  placeholder="Appleseed"
-                  required
-                  title="Please enter only letters and spaces"
-                />
-                <p
-                  id="last-name-error"
-                  class="mt-1 hidden text-sm text-red-500"
-                >
-                  Invalid last name
-                </p>
+                <p class="mb-2 font-medium text-zinc-900" for="email">Gender</p>
+                <div class="space-x-2">
+                  <label>
+                    <input
+                      type="radio"
+                      name="gender"
+                      id="gender-male"
+                      value="Male"
+                    />
+                    Male
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="gender"
+                      id="gender-female"
+                      value="Female"
+                    />
+                    Female
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="gender"
+                      id="gender-unspecified"
+                      value="Unspecified"
+                      checked
+                    />
+                    Unspecified
+                  </label>
+                </div>
               </div>
-            </div>
-            <div>
-              <p class="mb-2 font-medium text-zinc-900" for="email">Gender</p>
-              <div class="space-x-2">
-                <label>
-                  <input
-                    type="radio"
-                    name="gender"
-                    id="gender-male"
-                    value="Male"
-                  />
-                  Male
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="gender"
-                    id="gender-female"
-                    value="Female"
-                  />
-                  Female
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="gender"
-                    id="gender-unspecified"
-                    value="Unspecified"
-                    checked
-                  />
-                  Unspecified
-                </label>
+              <div class="space-x-4">
+                <button
+                  class="font-medium text-zinc-700"
+                  onclick="hidePersonalForm()"
+                >
+                  Cancel
+                </button>
+                <button type="submit" class="font-medium underline">
+                  Save
+                </button>
               </div>
-            </div>
-            <div class="space-x-4">
-              <button
-                class="font-medium text-zinc-700"
-                onclick="hidePersonalForm()"
-              >
-                Cancel
-              </button>
-              <button type="submit" class="font-medium underline">Save</button>
-            </div>
-            <p
-              id="alert-error-personal"
-              class="hidden text-center text-red-500"
-            ></p>
-          </form>
-          <div
-            id="personal-display"
-            class="flex flex-col items-start gap-4 text-zinc-900"
-          >
-            <div>
-              <p class="text-sm font-medium text-zinc-700">Name</p>
-              <p id="user-name">Loading...</p>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-zinc-700">Gender</p>
-              <p id="user-gender">Unspecified</p>
-            </div>
-            <button onclick="showPersonalForm()" class="font-medium underline">
-              Edit
-            </button>
-          </div>
-        </div>
-        <div class="flex flex-col gap-4 md:flex-row">
-          <h6 class="w-60 text-2xl font-medium text-zinc-900">Login Details</h6>
-          <form
-            id="login-form"
-            class="hidden max-w-2xl flex-col items-start gap-4"
-            onsubmit="return validateLogin()"
-          >
-            <div class="w-full">
-              <label class="mb-2 block font-medium text-zinc-900" for="email"
-                >Email</label
-              >
-              <input
-                class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
-                type="email"
-                id="email"
-                name="email"
-                placeholder="email@example.com"
-                required
-              />
-              <p id="email-error" class="mt-1 hidden text-sm text-red-500">
-                Invalid email format
-              </p>
-            </div>
-            <div class="w-full">
-              <label class="mb-2 block font-medium text-zinc-900" for="password"
-                >New Password</label
-              >
-              <input
-                class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
-                type="password"
-                id="password"
-                name="password"
-                placeholder="••••••••"
-                required
-                title="Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character."
-              />
-              <p id="password-error" class="mt-1 hidden text-sm text-red-500">
-                Password must be at least 8 characters long, include at least
-                one uppercase letter, one lowercase letter, one number, and one
-                special character
-              </p>
-            </div>
-            <div class="w-full">
-              <label
-                class="mb-2 block font-medium text-zinc-900"
-                for="confirm-password"
-                >Confirm Password</label
-              >
-              <input
-                class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
-                type="password"
-                id="confirm-password"
-                name="confirm-password"
-                placeholder="••••••••"
-                required
-                title="Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character."
-              />
               <p
-                id="confirm-password-error"
-                class="mt-1 hidden text-sm text-red-500"
-              >
-                Passwords do not match
-              </p>
-            </div>
-            <div class="space-x-4">
+                id="alert-error-personal"
+                class="hidden text-center text-red-500"
+              ></p>
+            </form>
+            <div
+              id="personal-display"
+              class="flex flex-col items-start gap-4 text-zinc-900"
+            >
+              <div>
+                <p class="text-sm font-medium text-zinc-700">Name</p>
+                <p id="user-name">Loading...</p>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-zinc-700">Gender</p>
+                <p id="user-gender">Unspecified</p>
+              </div>
               <button
-                class="font-medium text-zinc-700"
-                onclick="hideLoginForm()"
+                onclick="showPersonalForm()"
+                class="font-medium underline"
               >
-                Cancel
+                Edit
               </button>
-              <button type="submit" class="font-medium underline">Save</button>
             </div>
-            <p
-              id="alert-error-login"
-              class="hidden text-center text-red-500"
-            ></p>
-          </form>
-          <div
-            id="login-display"
-            class="flex flex-col items-start gap-4 text-zinc-900"
-          >
-            <div>
-              <p class="text-sm font-medium text-zinc-700">Email</p>
-              <p id="user-email">Loading...</p>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-zinc-700">Password</p>
-              <p>*********</p>
-            </div>
-            <button class="font-medium underline" onclick="showLoginForm()">
-              Edit
-            </button>
           </div>
-        </div>
-        <div class="flex flex-col gap-4 md:flex-row">
-          <h6 class="w-60 text-2xl font-medium text-zinc-900">
-            Address Details
-          </h6>
-          <form
-            id="address-form"
-            class="hidden max-w-2xl flex-col items-start gap-4"
-            onsubmit="return validateAddress()"
-          >
-            <div class="w-full">
-              <label class="mb-2 block font-medium text-zinc-900" for="address"
-                >Address
-              </label>
-              <input
-                type="text"
-                name="address"
-                id="address"
-                required
-                placeholder="e.g. Blk 221 #04-25 Hougang Ave 6"
-                class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
-              />
-              <p id="address-error" class="mt-1 hidden text-sm text-red-500">
-                Invalid address
-              </p>
-            </div>
-            <div class="w-full">
-              <label
-                class="mb-2 block font-medium text-zinc-900"
-                for="postal-code"
-                >Postal Code
-              </label>
-              <input
-                type="number"
-                name="postal-code"
-                id="postal-code"
-                required
-                class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow [appearance:textfield] focus:outline-none focus:ring-2 focus:ring-zinc-900 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-              />
-              <p id="postal-error" class="mt-1 hidden text-sm text-red-500">
-                Invalid postal code
-              </p>
-            </div>
-            <div class="w-full">
-              <label class="mb-2 block font-medium text-zinc-900" for="phone"
-                >Phone Number
-              </label>
-              <input
-                type="tel"
-                name="phone"
-                id="phone"
-                placeholder="+65XXXXXXXX"
-                required
-                class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
-              />
-              <p id="phone-error" class="mt-1 hidden text-sm text-red-500">
-                Invalid phone number
-              </p>
-            </div>
-            <div class="space-x-4">
-              <button
-                class="font-medium text-zinc-700"
-                onclick="hideAddressForm()"
-              >
-                Cancel
+          <div class="flex flex-col gap-4 md:flex-row">
+            <h6 class="w-60 text-2xl font-medium text-zinc-900">
+              Login Details
+            </h6>
+            <form
+              id="login-form"
+              class="hidden max-w-2xl flex-col items-start gap-4"
+              onsubmit="return validateLogin()"
+            >
+              <div class="w-full">
+                <label class="mb-2 block font-medium text-zinc-900" for="email"
+                  >Email</label
+                >
+                <input
+                  class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="email@example.com"
+                  required
+                />
+                <p id="email-error" class="mt-1 hidden text-sm text-red-500">
+                  Invalid email format
+                </p>
+              </div>
+              <div class="w-full">
+                <label
+                  class="mb-2 block font-medium text-zinc-900"
+                  for="password"
+                  >New Password</label
+                >
+                <input
+                  class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="••••••••"
+                  required
+                  title="Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character."
+                />
+                <p id="password-error" class="mt-1 hidden text-sm text-red-500">
+                  Password must be at least 8 characters long, include at least
+                  one uppercase letter, one lowercase letter, one number, and
+                  one special character
+                </p>
+              </div>
+              <div class="w-full">
+                <label
+                  class="mb-2 block font-medium text-zinc-900"
+                  for="confirm-password"
+                  >Confirm Password</label
+                >
+                <input
+                  class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
+                  type="password"
+                  id="confirm-password"
+                  name="confirm-password"
+                  placeholder="••••••••"
+                  required
+                  title="Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character."
+                />
+                <p
+                  id="confirm-password-error"
+                  class="mt-1 hidden text-sm text-red-500"
+                >
+                  Passwords do not match
+                </p>
+              </div>
+              <div class="space-x-4">
+                <button
+                  class="font-medium text-zinc-700"
+                  onclick="hideLoginForm()"
+                >
+                  Cancel
+                </button>
+                <button type="submit" class="font-medium underline">
+                  Save
+                </button>
+              </div>
+              <p
+                id="alert-error-login"
+                class="hidden text-center text-red-500"
+              ></p>
+            </form>
+            <div
+              id="login-display"
+              class="flex flex-col items-start gap-4 text-zinc-900"
+            >
+              <div>
+                <p class="text-sm font-medium text-zinc-700">Email</p>
+                <p id="user-email">Loading...</p>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-zinc-700">Password</p>
+                <p>*********</p>
+              </div>
+              <button class="font-medium underline" onclick="showLoginForm()">
+                Edit
               </button>
-              <button type="submit" class="font-medium underline">Save</button>
             </div>
-            <p
-              id="alert-error-address"
-              class="hidden text-center text-red-500"
-            ></p>
-          </form>
-          <div
-            id="address-display"
-            class="flex flex-col items-start gap-4 text-zinc-900"
-          >
-            <div>
-              <p class="text-sm font-medium text-zinc-700">Address</p>
-              <p id="user-address">Loading...</p>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-zinc-700">Postal Code</p>
-              <p id="user-postal">Loading...</p>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-zinc-700">Phone Number</p>
-              <p id="user-phone">Loading...</p>
-            </div>
-            <button class="font-medium underline" onclick="showAddressForm()">
-              Edit
-            </button>
           </div>
-        </div>
-      </section>
-      <!-- Order history tab -->
-      <section
-        id="history"
-        class="hidden flex-col gap-8 opacity-0 transition-opacity duration-300"
-      ></section>
+          <div class="flex flex-col gap-4 md:flex-row">
+            <h6 class="w-60 text-2xl font-medium text-zinc-900">
+              Address Details
+            </h6>
+            <form
+              id="address-form"
+              class="hidden max-w-2xl flex-col items-start gap-4"
+              onsubmit="return validateAddress()"
+            >
+              <div class="w-full">
+                <label
+                  class="mb-2 block font-medium text-zinc-900"
+                  for="address"
+                  >Address
+                </label>
+                <input
+                  type="text"
+                  name="address"
+                  id="address"
+                  required
+                  placeholder="e.g. Blk 221 #04-25 Hougang Ave 6"
+                  class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
+                />
+                <p id="address-error" class="mt-1 hidden text-sm text-red-500">
+                  Invalid address
+                </p>
+              </div>
+              <div class="w-full">
+                <label
+                  class="mb-2 block font-medium text-zinc-900"
+                  for="postal-code"
+                  >Postal Code
+                </label>
+                <input
+                  type="number"
+                  name="postal-code"
+                  id="postal-code"
+                  required
+                  class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow [appearance:textfield] focus:outline-none focus:ring-2 focus:ring-zinc-900 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                />
+                <p id="postal-error" class="mt-1 hidden text-sm text-red-500">
+                  Invalid postal code
+                </p>
+              </div>
+              <div class="w-full">
+                <label class="mb-2 block font-medium text-zinc-900" for="phone"
+                  >Phone Number
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  id="phone"
+                  placeholder="+65XXXXXXXX"
+                  required
+                  class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
+                />
+                <p id="phone-error" class="mt-1 hidden text-sm text-red-500">
+                  Invalid phone number
+                </p>
+              </div>
+              <div class="space-x-4">
+                <button
+                  class="font-medium text-zinc-700"
+                  onclick="hideAddressForm()"
+                >
+                  Cancel
+                </button>
+                <button type="submit" class="font-medium underline">
+                  Save
+                </button>
+              </div>
+              <p
+                id="alert-error-address"
+                class="hidden text-center text-red-500"
+              ></p>
+            </form>
+            <div
+              id="address-display"
+              class="flex flex-col items-start gap-4 text-zinc-900"
+            >
+              <div>
+                <p class="text-sm font-medium text-zinc-700">Address</p>
+                <p id="user-address">Loading...</p>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-zinc-700">Postal Code</p>
+                <p id="user-postal">Loading...</p>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-zinc-700">Phone Number</p>
+                <p id="user-phone">Loading...</p>
+              </div>
+              <button class="font-medium underline" onclick="showAddressForm()">
+                Edit
+              </button>
+            </div>
+          </div>
+        </section>
+        <!-- Order history tab -->
+        <section id="history" class="hidden flex-col gap-8"></section>
+      </div>
     </main>
     <div id="footer"></div>
     <script>
@@ -635,8 +651,8 @@
         window.location.href = "logout.php";
       };
 
-      const fetchDetails = () => {
-        fetch("getAccountDetails.php?details=true")
+      const fetchDetails = async () => {
+        return fetch("getAccountDetails.php?details=true")
           .then((response) => response.json())
           .then((data) => {
             document.getElementById("first-name").value = data.first_name;
@@ -673,9 +689,9 @@
           });
       };
 
-      const fetchOrders = () => {
+      const fetchOrders = async () => {
         let ordersHtml = "";
-        fetch("getAccountDetails.php")
+        return fetch("getAccountDetails.php")
           .then((response) => response.json())
           .then((data) => {
             data.forEach((order, index) => {
@@ -721,32 +737,47 @@
         const historyView = document.getElementById("history");
         const detailsTab = document.getElementById("details-tab");
         const historyTab = document.getElementById("history-tab");
+        const fadeContainer = document.getElementById("fade-container");
         if (show) {
-          fetchDetails();
-          historyView.classList.replace("opacity-1", "opacity-0");
-          setTimeout(() => {
-            details.classList.replace("hidden", "flex");
-            details.classList.replace("opacity-0", "opacity-1");
-            historyView.classList.replace("flex", "hidden");
-          }, 300);
+          fetchDetails().then(() => {
+            fadeContainer.classList.replace("opacity-100", "opacity-0");
+            setTimeout(() => {
+              fadeContainer.classList.replace("opacity-0", "opacity-100");
+              details.classList.replace("hidden", "flex");
+              historyView.classList.replace("flex", "hidden");
+            }, 300);
 
-          detailsTab.classList.replace("border-transparent", "border-zinc-900");
-          detailsTab.classList.replace("text-zinc-500", "text-zinc-900");
-          historyTab.classList.replace("border-zinc-900", "border-transparent");
-          historyTab.classList.replace("text-zinc-900", "text-zinc-500");
+            detailsTab.classList.replace(
+              "border-transparent",
+              "border-zinc-900",
+            );
+            detailsTab.classList.replace("text-zinc-500", "text-zinc-900");
+            historyTab.classList.replace(
+              "border-zinc-900",
+              "border-transparent",
+            );
+            historyTab.classList.replace("text-zinc-900", "text-zinc-500");
+          });
         } else {
-          fetchOrders();
-          details.classList.replace("opacity-1", "opacity-0");
-          setTimeout(() => {
-            historyView.classList.replace("hidden", "flex");
-            historyView.classList.replace("opacity-0", "opacity-1");
-            details.classList.replace("flex", "hidden");
-          }, 300);
+          fetchOrders().then(() => {
+            fadeContainer.classList.replace("opacity-100", "opacity-0");
+            setTimeout(() => {
+              fadeContainer.classList.replace("opacity-0", "opacity-100");
+              historyView.classList.replace("hidden", "flex");
+              details.classList.replace("flex", "hidden");
+            }, 300);
 
-          historyTab.classList.replace("border-transparent", "border-zinc-900");
-          historyTab.classList.replace("text-zinc-500", "text-zinc-900");
-          detailsTab.classList.replace("border-zinc-900", "border-transparent");
-          detailsTab.classList.replace("text-zinc-900", "text-zinc-500");
+            historyTab.classList.replace(
+              "border-transparent",
+              "border-zinc-900",
+            );
+            historyTab.classList.replace("text-zinc-500", "text-zinc-900");
+            detailsTab.classList.replace(
+              "border-zinc-900",
+              "border-transparent",
+            );
+            detailsTab.classList.replace("text-zinc-900", "text-zinc-500");
+          });
         }
       };
 
