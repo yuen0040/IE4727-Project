@@ -488,15 +488,17 @@
         if (isValid) {
           const form = document.getElementById("personal-form");
           const formData = new FormData(form);
-          document.getElementById("user-name").innerText =
-            formData.get("first-name") + " " + formData.get("last-name");
-          document.getElementById("user-gender").innerText =
-            formData.get("gender");
           fetch("editAccountDetails.php", { method: "POST", body: formData })
             .then((response) => response.json())
             .then((data) => {
-              if (data.success) hidePersonalForm();
-              else if (data.error) showAlert(data.error, "personal");
+              if (data.success) {
+                hidePersonalForm();
+                // Update display with new values
+                document.getElementById("user-name").innerText =
+                  formData.get("first-name") + " " + formData.get("last-name");
+                document.getElementById("user-gender").innerText =
+                  formData.get("gender");
+              } else if (data.error) showAlert(data.error, "personal");
             });
         }
         return false;
@@ -552,13 +554,14 @@
         if (isValid) {
           const form = document.getElementById("login-form");
           const formData = new FormData(form);
-          document.getElementById("user-email").innerText =
-            formData.get("email");
           fetch("editAccountDetails.php", { method: "POST", body: formData })
             .then((response) => response.json())
             .then((data) => {
-              if (data.success) hideLoginForm();
-              else if (data.error) showAlert(data.error, "login");
+              if (data.success) {
+                hideLoginForm();
+                document.getElementById("user-email").innerText =
+                  formData.get("email");
+              } else if (data.error) showAlert(data.error, "login");
             });
         }
         return false;
@@ -610,17 +613,18 @@
         if (isValid) {
           const form = document.getElementById("address-form");
           const formData = new FormData(form);
-          document.getElementById("user-address").innerText =
-            formData.get("address");
-          document.getElementById("user-postal").innerText =
-            formData.get("postal-code");
-          document.getElementById("user-phone").innerText =
-            formData.get("phone");
           fetch("editAccountDetails.php", { method: "POST", body: formData })
             .then((response) => response.json())
             .then((data) => {
-              if (data.success) hideAddressForm();
-              else if (data.error) showAlert(data.error, "address");
+              if (data.success) {
+                hideAddressForm();
+                document.getElementById("user-address").innerText =
+                  formData.get("address");
+                document.getElementById("user-postal").innerText =
+                  formData.get("postal-code");
+                document.getElementById("user-phone").innerText =
+                  formData.get("phone");
+              } else if (data.error) showAlert(data.error, "address");
             });
         }
 
@@ -678,8 +682,8 @@
               let images = "";
               const urls = order.image_urls.split("|");
               urls.forEach((url) => {
-                images += `<div class="size-24 bg-zinc-200 flex-shrink-0">
-                          <img src="${url}" alt="order item" class="size-full object-cover" />
+                images += `<div class="size-24 bg-zinc-200 flex-shrink-0 rounded-lg">
+                          <img src="${url}" alt="order item" class="size-full object-cover rounded-lg" />
                         </div>`;
               });
               ordersHtml += `<div class="flex flex-wrap gap-8">
@@ -693,7 +697,7 @@
                                 </div>
                                 <a
                                   class="flex min-w-fit items-center justify-center rounded-full border border-zinc-200 px-5 py-2 font-medium transition-colors hover:bg-zinc-100"
-                                  href="manageOrder.php?id=${order.id}"
+                                  href="manageOrder.php?no=${order.id}"
                                 >
                                   View or Edit
                                 </a>
