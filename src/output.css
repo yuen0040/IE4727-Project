@@ -1725,6 +1725,10 @@ body {
     display: flex;
   }
 
+  .md\:aspect-\[1\.92\/1\] {
+    aspect-ratio: 1.92/1;
+  }
+
   .md\:size-64 {
     width: 16rem;
     height: 16rem;
@@ -1749,6 +1753,16 @@ body {
   .md\:px-12 {
     padding-left: 3rem;
     padding-right: 3rem;
+  }
+
+  .md\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .md\:text-6xl {
+    font-size: 3.75rem;
+    line-height: 1;
   }
 }
 
