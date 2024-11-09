@@ -87,6 +87,23 @@ foreach ($items as $row) {
 $stmt = $conn->prepare("INSERT INTO order_items VALUES $values");
 $stmt->execute();
 
+$message = "<table align='center' border='0' style='max-width:768px;border:0px;'>
+            <thead>
+              <tr>
+                <td colspan='2'>
+                  <a href='http://localhost/ie4727-project/src' style='margin:0px;'>
+                    <img src='http://localhost/ie4727-project/assets/logos/logo_horizontal_big.png' alt='SoleGood' style='height:48px;'/>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td colspan='2' style='padding-bottom:24px;'>
+                  <h1 style='margin:0px;margin-bottom:8px;font-size:36px;line-height:40px;color:#18181b;'>Your Order Has Been Confirmed!</h1>
+                  <p style='margin:0px;color:#3f3f46;'>Items Ordered:</p>
+                </td>
+              </tr>
+            </thead>
+            <tbody>";
 ?>
 
 <!doctype html>
@@ -147,7 +164,7 @@ $stmt->execute();
                   </div>
                   <div class='flex w-full flex-col gap-6'>
                     <div>
-                      <a class='text-2xl font-medium'>{$row['name']}</a>";
+                      <p class='text-2xl font-medium'>{$row['name']}</p>";
           if (isset($row['sale_price'])) {
             echo "<p><span class='text-lg text-red-500'>$" . number_format($row['sale_price'], 2) . "</span> <span class='text-lg text-zinc-400 line-through'>$" . number_format($row['price'], 2) . "</span></p>";
           } else {
@@ -162,6 +179,26 @@ $stmt->execute();
                     </div>
                   </div>
                 </div>";
+          $message .= "<tr>
+                          <td style='vertical-align:top;'>
+                            <img src='{$row['image_url']}' alt='{$row['name']}' style='width:192px;height:192px;object-fit:cover;border-radius:12px;'/>
+                          </td>
+                          <td style='vertical-align:top;text-align:left;'>
+                            <div style='display:block;margin-bottom:24px;'>
+                              <p style='font-size:24px;line-height:32px;font-weight:500;margin:0px;color:#18181b;'>{$row['name']}</p>";
+          if (isset($row['sale_price'])) {
+            $message .= "<p style='margin:0px;'><span style='font-size:18px;line-height:28px;color:#ef4444;'>$" . number_format($row['sale_price'], 2) . "</span> <span style='font-size:18px;line-height:28px;color:#a1a1aa;text-decoration-line: line-through;'>$" . number_format($row['price'], 2) . "</span></p>";
+          } else {
+            $message .= "<p style='margin:0px;color:#18181b;'>$" . number_format($row['price'], 2) . "</p>";
+          }
+          $message .= "</div>
+                      <div style='color:#3f3f46;'>
+                        <p style='margin:0px;'>Size: US{$row['size']}</p>
+                        <p style='margin:0px;'>Colour: {$row['colour']}</p>
+                        <p style='margin:0px;'>Quantity: {$row['quantity']}</p>
+                      </div>
+                    </td>
+                  </tr>";
         }
         ?>
       </section>
@@ -221,3 +258,102 @@ $stmt->execute();
 </body>
 
 </html>
+
+<?php
+if ($subtotal > 75) $delivery = "Free";
+else $delivery = "$10.00";
+$to = "f31ee@localhost";
+$subject = "Order Has Been Placed Successfully!";
+$message .= "<tr>
+              <td colspan='2' style='padding-top:24px;padding-bottom:16px;text-align:left;'>
+                <h6 style='margin:0px;font-size:24px;line-height:32px;font-weight:500;color:#18181b;'>Order Details</h6>
+              </td>
+            </tr>
+            <tr>
+              <td colspan='2' style='text-align:left'>
+                <p style='margin:0px;color:#3f3f46'>Order Date: " . date("d M Y") . "</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan='2' style='text-align:left'>
+                <p style='margin:0px;color:#3f3f46;padding-bottom:24px;'>Order Number: $order_id</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan='2' style='border:0px;border-bottom:1px solid #e4e4e7;'></td>
+            </tr>
+            <tr>
+              <td colspan='2' style='padding-top:24px;padding-bottom:16px;text-align:left'>
+                <h6 style='margin:0px;font-size:24px;line-height:32px;font-weight:500;color:#18181b;'>Delivery</h6>
+              </td>
+            </tr>
+            <tr>
+              <td colspan='2' style='text-align:left'>
+                <p style='margin:0px;color:#3f3f46;'>$name</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan='2' style='text-align:left'>
+                <p style='margin:0px;color:#3f3f46;'>$address</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan='2' style='text-align:left'>
+                <p style='margin:0px;color:#3f3f46;'>Singapore $postal_code</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan='2' style='text-align:left'>
+                <p style='margin:0px;color:#3f3f46;padding-bottom:24px;'>$phone</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan='2' style='border:0px;border-bottom:1px solid #e4e4e7;'></td>
+            </tr>
+            <tr>
+              <td colspan='2' style='padding-top:24px;padding-bottom:16px;text-align:left'>
+                <h6 style='margin:0px;font-size:24px;line-height:32px;font-weight:500;color:#18181b;'>Totals</h6>
+              </td>
+            </tr>
+            <tr>
+              <td style='text-align:left;'>
+                <p style='margin:0px;color:#3f3f46;'>Subtotal</p>
+              </td>
+              <td style='text-align:right;'>
+                <p style='margin:0px;color:#3f3f46;'>$" . number_format($subtotal, 2) . "</p>
+              </td>
+            </tr>
+            <tr>
+              <td style='text-align:left;'>
+                <p style='margin:0px;color:#3f3f46;'>Delivery</p>
+              </td>
+              <td style='text-align:right;'>
+                <p style='margin:0px;color:#3f3f46;'>$delivery</p>
+              </td>
+            </tr>
+            <tr>
+              <td style='text-align:left;'>
+                <p style='margin:0px;color:#18181b;font-weight:500;'>Total</p>
+              </td>
+              <td style='text-align:right;'>
+                <p style='margin:0px;color:#18181b;font-weight:500;'>$" . number_format($total, 2) . "</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan='2' align='center' style='padding-top:24px;padding-bottom:24px;'>
+                <a href='http://localhost/ie4727-project/src/manageOrder.php?no=$order_id' style='border-radius:64px;border:1px solid #e4e4e7;padding:12px;padding-left:32px;padding-right:32px;font-weight:500;text-decoration:none;color:#18181b;'>Manage Order</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>";
+$headers = 'From: SoleGood@localhost' . "\r\n" . 'Reply-To: SoleGood@localhost' . "\r\n" . 'X-Mailer: PHP/' . phpversion();
+$headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+mail(
+  $to,
+  $subject,
+  $message,
+  $headers,
+  '-fSoleGood@localhost'
+);
+?>
