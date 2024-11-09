@@ -79,13 +79,13 @@
         <!-- Product Grid -->
         <div
           id="product-grid"
-          class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
+          class="grid grid-cols-1 gap-6 transition-opacity duration-300 sm:grid-cols-2 lg:grid-cols-4"
         ></div>
         <!-- Load More Button -->
         <div class="mt-12 text-center">
           <button
             id="load-more-button"
-            class="rounded-full bg-zinc-900 px-8 py-3 text-lg font-medium text-white transition-colors hover:bg-zinc-900/90"
+            class="rounded-full bg-zinc-900 px-8 py-3 text-lg font-medium text-white transition-all hover:bg-zinc-900/90"
           >
             Load More
           </button>
@@ -175,16 +175,8 @@
         loadMoreButton.style.display = "inline-block";
 
         if (fade) {
-          productGrid.classList.add(
-            "opacity-0",
-            "transition-opacity",
-            "duration-300",
-          ); // Start fade out
-          loadMoreButton.classList.add(
-            "opacity-0",
-            "transition-opacity",
-            "duration-300",
-          ); // Start fade out
+          productGrid.classList.add("opacity-0"); // Start fade out
+          loadMoreButton.classList.add("opacity-0", "duration-300"); // Start fade out
         }
         if (data.trim() === "") {
           // If no more products, show the message and hide the button
@@ -221,7 +213,7 @@
               // Cleanup after fade in
               setTimeout(() => {
                 productGrid.classList.remove("opacity-100");
-                loadMoreButton.classList.remove("opacity-100");
+                loadMoreButton.classList.remove("opacity-100", "duration-300");
               }, 300); // Duration of fade-in effect
             }
           },
