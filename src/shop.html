@@ -11,7 +11,10 @@
       rel="stylesheet"
     />
     <link href="./output.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.5/cdn.min.js" defer></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.5/cdn.min.js"
+      defer
+    ></script>
     <script>
       async function loadContent() {
         // Load header
@@ -41,37 +44,213 @@
 
     <div id="main-content" style="display: none">
       <!-- Category Navigation -->
-      <section class="mx-auto max-w-[1400px] p-4 md:p-12">
-        <h1 class="mb-12 text-4xl font-medium text-zinc-900" id="segment-title">
-          Women's Shoes
-        </h1>
+      <section
+        class="mx-auto max-w-[1400px] p-4 md:p-12"
+        x-data="{
+        showFilters: false,
+        priceRange: {
+          min: 0,
+          max: 500,
+          current: [0, 500]
+        },
+        selectedSegment: 'women',
+        selectedCategory: 'all',
+        sortOrder: 'default',
+        
+        applyFilters() {
+          resetProductState();
+          const params = new URLSearchParams(window.location.search);
+          params.set('segment', this.selectedSegment);
+          params.set('category', this.selectedCategory);
+          params.set('minPrice', this.priceRange.current[0]);
+          params.set('maxPrice', this.priceRange.current[1]);
+          params.set('sort', this.sortOrder);
+          window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
+          
+          showProducts(
+            this.selectedSegment,
+            this.selectedCategory,
+            document.querySelector(`[data-category='${this.selectedCategory}']`),
+            true,
+            false,
+            this.priceRange.current[0],
+            this.priceRange.current[1],
+            this.sortOrder
+          );
+          
+          // Close the filters panel
+          this.showFilters = false;
+        },
+
+        // Close filters when clicking outside
+        clickOutside(event) {
+          if (!event.target.closest('.filters-panel') && 
+              !event.target.closest('.filters-button')) {
+            this.showFilters = false;
+          }
+        }
+      }"
+      >
+        <!-- Header Container -->
+        <div class="relative">
+          <div class="flex w-full items-center justify-between">
+            <h1 class="text-4xl font-medium text-zinc-900" id="segment-title">
+              Women's Shoes
+            </h1>
+            <!-- Filters Button -->
+            <button
+              @click="showFilters = !showFilters"
+              class="flex items-center rounded-full bg-zinc-900 px-6 py-2 text-white transition-colors hover:bg-zinc-900/90"
+            >
+              <span>Filters</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="ml-2 h-5 w-5"
+                :class="{'rotate-180': showFilters}"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Filters Panel -->
+          <div
+            x-show="showFilters"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 transform -translate-y-4"
+            x-transition:enter-end="opacity-100 transform translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 transform translate-y-0"
+            x-transition:leave-end="opacity-0 transform -translate-y-4"
+            class="absolute top-full z-50 mt-1 w-auto max-w-md rounded-lg border border-zinc-200 bg-white p-6 shadow-lg"
+            style="right: 0rem; min-width: 32rem"
+            @click.outside="showFilters = false"
+          >
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+              <!-- Segment Filter -->
+              <div>
+                <label class="mb-2 block text-sm font-medium text-zinc-900"
+                  >Segment</label
+                >
+                <select
+                  x-model="selectedSegment"
+                  class="w-full rounded-md border border-zinc-200 px-3 py-2"
+                >
+                  <option value="women">Women</option>
+                  <option value="men">Men</option>
+                  <option value="kids">Kids</option>
+                </select>
+              </div>
+
+              <!-- Category Filter -->
+              <div>
+                <label class="mb-2 block text-sm font-medium text-zinc-900"
+                  >Category</label
+                >
+                <select
+                  x-model="selectedCategory"
+                  class="w-full rounded-md border border-zinc-200 px-3 py-2"
+                >
+                  <option value="all">All</option>
+                  <option value="sneakers">Sneakers</option>
+                  <option value="running">Running</option>
+                  <option value="slides">Slides</option>
+                </select>
+              </div>
+              <!-- Price Range Filter -->
+              <div>
+                <label class="mb-2 block text-sm font-medium text-zinc-900"
+                  >Price Range</label
+                >
+                <div class="flex items-center space-x-4">
+                  <input
+                    type="range"
+                    x-model="priceRange.current[0]"
+                    :min="priceRange.min"
+                    :max="priceRange.max"
+                    class="w-full"
+                  />
+                  <input
+                    type="range"
+                    x-model="priceRange.current[1]"
+                    :min="priceRange.min"
+                    :max="priceRange.max"
+                    class="w-full"
+                  />
+                </div>
+                <div class="mt-2 flex justify-between text-sm text-zinc-600">
+                  <span x-text="`$${priceRange.current[0]}`"></span>
+                  <span x-text="`$${priceRange.current[1]}`"></span>
+                </div>
+              </div>
+
+              <!-- Sort Order -->
+              <div>
+                <label class="mb-2 block text-sm font-medium text-zinc-900"
+                  >Sort By</label
+                >
+                <select
+                  x-model="sortOrder"
+                  class="w-full rounded-md border border-zinc-200 px-3 py-2"
+                >
+                  <option value="default">Featured</option>
+                  <option value="price_asc">Price: Low to High</option>
+                  <option value="price_desc">Price: High to Low</option>
+                  <option value="sale">On Sale</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Apply Filters Button -->
+            <div class="mt-6 flex justify-end">
+              <button
+                @click="applyFilters()"
+                class="rounded-full bg-zinc-900 px-6 py-2 text-white transition-colors hover:bg-zinc-900/90"
+              >
+                Apply Filters
+              </button>
+            </div>
+          </div>
+        </div>
         <nav class="mb-12">
           <ul
             id="category-list"
             class="flex border-b border-zinc-200 text-lg font-medium"
           >
             <li
+              data-category="all"
               class="cursor-pointer border-b-2 border-transparent px-3 py-2 text-zinc-900 transition-colors hover:bg-zinc-50 hover:text-zinc-900/90"
-              onclick="showProducts(selectedSegment, 'all', this, true, false)"
+              onclick="window.history.replaceState({}, '', `${window.location.pathname}?segment=${selectedSegment}&category=all&minPrice=0&maxPrice=500&sort=default`); showProducts(selectedSegment, 'all', this, true, false, 0, 500, 'default')"
             >
               All
             </li>
             <li
+              data-category="sneakers"
               class="cursor-pointer border-b-2 border-transparent px-3 py-2 text-zinc-900 transition-colors hover:bg-zinc-50 hover:text-zinc-900/90"
-              onclick="showProducts(selectedSegment, 'sneakers', this, true, false)"
+              onclick="window.history.replaceState({}, '', `${window.location.pathname}?segment=${selectedSegment}&category=sneakers&minPrice=0&maxPrice=500&sort=default`); showProducts(selectedSegment, 'sneakers', this, true, false, 0, 500, 'default')"
             >
               Sneakers
             </li>
             <li
+              data-category="running"
               class="cursor-pointer border-b-2 border-transparent px-3 py-2 text-zinc-900 transition-colors hover:bg-zinc-50 hover:text-zinc-900/90"
-              onclick="showProducts(selectedSegment, 'running', this, true, false)"
-            >
+              onclick="window.history.replaceState({}, '', `${window.location.pathname}?segment=${selectedSegment}&category=running&minPrice=0&maxPrice=500&sort=default`); showProducts(selectedSegment, 'running', this, true, false, 0, 500, 'default')"
+              >
               Running
             </li>
             <li
+              data-category="slides"
               class="cursor-pointer border-b-2 border-transparent px-3 py-2 text-zinc-900 transition-colors hover:bg-zinc-50 hover:text-zinc-900/90"
-              onclick="showProducts(selectedSegment, 'slides', this, true, false)"
-            >
+              onclick="window.history.replaceState({}, '', `${window.location.pathname}?segment=${selectedSegment}&category=slides&minPrice=0&maxPrice=500&sort=default`); showProducts(selectedSegment, 'slides', this, true, false, 0, 500, 'default')"
+              >
               Slides
             </li>
           </ul>
@@ -103,7 +282,22 @@
       document
         .getElementById("load-more-button")
         .addEventListener("click", () => {
-          showProducts(selectedSegment, previousCategory, this, false);
+          currentMinPrice = getMinPriceFromURL();
+
+          currentMaxPrice = getMaxPriceFromURL();
+
+          currentSortOrder = getSortOrderFromURL();
+
+          showProducts(
+            selectedSegment,
+            previousCategory,
+            this,
+            false,
+            true,
+            currentMinPrice,
+            currentMaxPrice,
+            currentSortOrder,
+          );
         });
 
       document
@@ -113,9 +307,34 @@
           document.getElementById("message-container").innerHTML = "";
         });
 
+      function resetProductState() {
+        // Clear the "no more products" message
+        document.getElementById("message-container").innerHTML = "";
+        // Show the load more button
+        document.getElementById("load-more-button").style.display =
+          "inline-block";
+        // Reset offset
+        offset = 0;
+      }
+
       function getSegmentFromURL() {
         const params = new URLSearchParams(window.location.search);
         return params.get("segment") || "women";
+      }
+
+      function getMinPriceFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("minPrice") || 0;
+      }
+
+      function getMaxPriceFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("maxPrice") || 500;
+      }
+
+      function getSortOrderFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("sortOrder") || "default";
       }
 
       async function showProducts(
@@ -124,6 +343,9 @@
         selectedCategory,
         fade = true,
         offsetFlag = true,
+        minPrice,
+        maxPrice,
+        sortOrder,
       ) {
         if (segment != previousSegment || category != previousCategory) {
           offset = 0;
@@ -138,12 +360,13 @@
           offset = 0;
         }
 
+        // Include the price range and sort parameters in the fetch URL
         const response = await fetch(
-          `shop.php?segment=${segment}&category=${category}&offset=${offset}&limit=${limit}`,
+          `shop.php?segment=${segment}&category=${category}&offset=${offset}&limit=${limit}&minPrice=${minPrice}&maxPrice=${maxPrice}&sort=${sortOrder}`,
         );
 
         const data = await response.text();
-
+        console.log(data);
         // Append the new products to the grid
         if (offsetFlag) {
           document
@@ -231,6 +454,9 @@
         document.querySelector("#category-list li:first-child"),
         false,
         true,
+        0,
+        500,
+        "default",
       );
     </script>
     <!-- Footer Include -->
