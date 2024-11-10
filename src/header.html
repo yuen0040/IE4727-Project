@@ -134,8 +134,8 @@
           x-show="showResults && searchTerm.length >= 2"
           @click.away="showResults = false"
           :class="{
-            'fixed left-4 right-4 top-full mt-2 mx-auto max-w-7xl rounded-lg border border-zinc-200 bg-white shadow-lg': results.length > 0,
-            'absolute w-full left-0 right-0 top-full mt-1 rounded-lg border border-zinc-200 bg-white shadow-lg': results.length === 0
+            'fixed right-2 mt-2 mx-auto max-w-7xl rounded-lg border border-zinc-200 bg-white shadow-lg': results.length > 0,
+            'absolute w-full left-0 right-0 mt-1 rounded-lg border border-zinc-200 bg-white shadow-lg': results.length === 0
           }"
         >
           <template x-if="results.length > 0">
