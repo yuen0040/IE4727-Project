@@ -6,6 +6,7 @@ require 'db.php';
 $session_id = session_id();
 
 unset($_SESSION['checkout']);
+unset($_SESSION['checkout_subtotal']);
 
 if (isset($_SESSION['user_id'])) {
   $user_id = $_SESSION['user_id'];
@@ -204,7 +205,7 @@ $items = array();
           $_SESSION['checkout'] = $items;
           $_SESSION['checkout_subtotal'] = $total;
         } else {
-          echo "<p?>Your bag is empty.</p>";
+          echo "<p>Your bag is empty.</p>";
         }
         ?>
 
