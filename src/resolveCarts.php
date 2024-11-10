@@ -21,10 +21,6 @@ function resolveCarts(mysqli $conn, int|string $user_id)
     $session_cart_data[$row['size_id']] =  $row['quantity'];
   }
 
-  // This should never happen but we handle it anyway
-  if ($user_id == $session_cart_id) {
-    return;
-  }
 
   $stmt = $conn->prepare("SELECT * FROM cart WHERE user_id = ?");
   $stmt->bind_param("i", $user_id);
@@ -42,6 +38,11 @@ function resolveCarts(mysqli $conn, int|string $user_id)
   // user cart exists
   $result = $result->fetch_assoc();
   $user_cart_id = $result['cart_id'];
+
+  // This should never happen but we handle it anyway. Session cart and user cart is the same.
+  if ($user_cart_id == $session_cart_id) {
+    return;
+  }
 
   // select items in user cart
   $stmt = $conn->prepare("SELECT size_id, quantity FROM cart_items WHERE cart_id = ?");
@@ -80,7 +81,7 @@ function resolveCarts(mysqli $conn, int|string $user_id)
   foreach ($session_cart_data as $size_id => $qty) {
     // items already exists in user cart
     if (isset($user_cart_data[$size_id])) {
-      $new_quantity = (int)$user_cart_data[$size_id] + (int)$qty;
+      $new_quantity = min((int)$user_cart_data[$size_id] + (int)$qty, 5);
       $stmt = $conn->prepare("UPDATE cart_items SET quantity = ? WHERE cart_id = ? AND size_id = ?");
       $stmt->bind_param("iii", $new_quantity, $user_cart_id, $size_id);
       $stmt->execute();
