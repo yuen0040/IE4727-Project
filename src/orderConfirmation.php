@@ -119,6 +119,7 @@ $message = "<table align='center' border='0' style='max-width:768px;border:0px;'
     rel="stylesheet" />
   <link href="./output.css" rel="stylesheet" />
   <title>Order Success</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.5/cdn.min.js" defer></script>
   <script>
     async function loadContent() {
       // Load header

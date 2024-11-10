@@ -40,6 +40,7 @@ $result = $result->fetch_assoc();
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,0&icon_names=credit_card" />
   <link href="./output.css" rel="stylesheet" />
   <title>Checkout</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.5/cdn.min.js" defer></script>
   <script>
     async function loadContent() {
       // Load header

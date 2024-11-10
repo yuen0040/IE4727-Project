@@ -1,5 +1,35 @@
 <header
   class="sticky top-0 z-50 border-b border-zinc-200 bg-white px-4 py-3 md:px-12"
+  x-data="{ 
+  searchTerm: '', 
+  results: [],
+  loading: false,
+  showResults: false,
+  timer: null,
+  async search() {
+      if (this.timer) {
+          clearTimeout(this.timer);
+      }
+      
+      if (this.searchTerm.length < 2) {
+          this.results = [];
+          this.showResults = false;
+          return;
+      }
+
+      this.timer = setTimeout(async () => {
+          this.loading = true;
+          try {
+              const response = await fetch(`search.php?term=${encodeURIComponent(this.searchTerm)}`);
+              this.results = await response.json();
+              this.showResults = true;
+          } catch (error) {
+              console.error('Search failed:', error);
+          }
+          this.loading = false;
+      }, 300);
+  }
+}"
 >
   <div class="flex items-center justify-between">
     <a href="home.html">
@@ -63,12 +93,92 @@
 
     <!-- Search Bar and Cart -->
     <div class="flex items-center gap-2">
-      <input
-        type="text"
-        placeholder="Search..."
-        size="14"
-        class="hidden rounded-lg border border-zinc-200 px-3 py-1.5 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900 lg:block"
-      />
+      <!-- Desktop Search -->
+      <div class="relative hidden lg:block">
+        <input
+          type="text"
+          placeholder="Search..."
+          size="14"
+          x-model="searchTerm"
+          @input="search"
+          @focus="if (searchTerm.length >= 2) showResults = true"
+          class="rounded-lg border border-zinc-200 px-3 py-1.5 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
+        />
+
+        <!-- Loading indicator for desktop -->
+        <div x-show="loading" class="absolute right-2 top-2">
+          <svg
+            class="h-4 w-4 animate-spin text-zinc-400"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+        </div>
+
+        <!-- Desktop Search Results -->
+        <div
+          x-show="showResults && searchTerm.length >= 2"
+          @click.away="showResults = false"
+          :class="{
+            'fixed left-4 right-4 top-full mt-2 mx-auto max-w-7xl rounded-lg border border-zinc-200 bg-white shadow-lg': results.length > 0,
+            'absolute w-full left-0 right-0 top-full mt-1 rounded-lg border border-zinc-200 bg-white shadow-lg': results.length === 0
+          }"
+        >
+          <template x-if="results.length > 0">
+            <div class="max-h-[60vh] overflow-y-auto overflow-hidden">
+              <template x-for="product in results.slice(0, 5)" :key="product.product_id">
+                <a
+                  :href="'product.html?name=' + encodeURIComponent(product.name).replace(/%20/g, '+')"
+                  class="flex items-center gap-3 p-2 hover:bg-zinc-50"
+                >
+                  <img
+                    :src="product.image_url"
+                    :alt="product.name"
+                    class="object-cover"
+                    style="height: 12rem; width: 12rem;"
+                  />
+                  <div class="min-w-0 flex-1">
+                    <p
+                      class="truncate font-medium text-zinc-900 mr-2"
+                      x-text="product.name"
+                    ></p>
+                    <div class="flex items-center gap-2">
+                      <span
+                        x-show="product.sale_price"
+                        class="text-sm text-red-600"
+                        x-text="product.sale_price"
+                      ></span>
+                      <span
+                        :class="product.sale_price ? 'text-zinc-400 text-sm line-through' : 'text-zinc-900 text-sm'"
+                        x-text="product.price"
+                      ></span>
+                    </div>
+                  </div>
+                </a>
+              </template>
+            </div>
+          </template>
+          <template x-if="results.length === 0 && !loading">
+            <div class="p-3 text-center text-sm text-zinc-500">
+              No products found matching "<span x-text="searchTerm"></span>"
+            </div>
+          </template>
+        </div>
+      </div>
       <a
         href="account.php"
         class="flex size-8 items-center justify-center rounded-full fill-zinc-700 transition-colors hover:bg-zinc-100 hover:fill-zinc-900"
@@ -130,35 +240,120 @@
     </div>
   </div>
   <div
-    id="mobile-menu"
-    class="absolute inset-x-0 top-[60px] hidden w-full flex-col items-start gap-6 border-b border-zinc-200 bg-white px-4 pb-6 pt-3 shadow-md md:px-12 lg:hidden"
-  >
+  x-data="{ 
+    searchTerm: '', 
+    loading: false,
+    showResults: false,
+    results: []
+  }"
+  id="mobile-menu"
+  class="absolute inset-x-0 top-[60px] hidden w-full flex-col items-start gap-6 border-b border-zinc-200 bg-white px-4 pb-6 pt-3 shadow-md md:px-12 lg:hidden"
+>
+  <!-- Mobile Search -->
+  <div class="relative w-full">
     <input
       type="text"
       placeholder="Search..."
-      class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900 lg:block"
+      x-model="searchTerm"
+      @input="search"
+      @focus="if (searchTerm.length >= 2) showResults = true"
+      class="w-full rounded-lg border border-zinc-200 px-4 py-3 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
     />
-    <nav class="contents">
-      <a
-        href="shop.html?segment=women"
-        class="relative text-lg font-medium text-zinc-700 transition-colors before:absolute before:left-0 before:top-full before:block before:h-0.5 before:w-0 before:bg-zinc-900 before:transition-all hover:text-zinc-900 hover:before:w-full"
-        >Women</a
+
+    <!-- Loading indicator for mobile -->
+    <div x-show="loading" class="absolute right-3 top-3">
+      <svg
+        class="h-5 w-5 animate-spin text-zinc-400"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
       >
-      <a
-        href="shop.html?segment=men"
-        class="relative text-lg font-medium text-zinc-700 transition-colors before:absolute before:left-0 before:top-full before:block before:h-0.5 before:w-0 before:bg-zinc-900 before:transition-all hover:text-zinc-900 hover:before:w-full"
-        >Men</a
-      >
-      <a
-        href="shop.html?segment=kids"
-        class="relative text-lg font-medium text-zinc-700 transition-colors before:absolute before:left-0 before:top-full before:block before:h-0.5 before:w-0 before:bg-zinc-900 before:transition-all hover:text-zinc-900 hover:before:w-full"
-        >Kids</a
-      >
-      <a
-        href="shop.html?segment=sale"
-        class="relative text-lg font-medium text-zinc-700 transition-colors before:absolute before:left-0 before:top-full before:block before:h-0.5 before:w-0 before:bg-zinc-900 before:transition-all hover:text-zinc-900 hover:before:w-full"
-        >Sale</a
-      >
-    </nav>
+        <circle
+          class="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="4"
+        ></circle>
+        <path
+          class="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+        ></path>
+      </svg>
+    </div>
+
+    <!-- Mobile Search Results -->
+    <div
+      x-show="showResults && searchTerm.length >= 2"
+      @click.away="showResults = false"
+      class="absolute w-full left-0 right-0 top-full mt-1 rounded-lg border border-zinc-200 bg-white shadow-lg"
+    >
+      <template x-if="results.length > 0">
+        <div class="max-h-[60vh] overflow-y-auto overflow-hidden">
+          <template x-for="product in results.slice(0, 5)" :key="product.product_id">
+            <a
+              :href="'product.html?name=' + encodeURIComponent(product.name).replace(/%20/g, '+')"
+              class="flex items-center gap-4 border-b border-zinc-100 p-4 transition hover:bg-zinc-50"
+            >
+              <img
+                :src="product.image_url"
+                :alt="product.name"
+                class="object-cover"
+                style="height: 6rem; width: 6rem;"
+              />
+              <div class="min-w-0 flex-1">
+                <p
+                  class="truncate font-medium text-zinc-900"
+                  x-text="product.name"
+                ></p>
+                <div class="flex items-center gap-2">
+                  <span
+                    x-show="product.sale_price"
+                    class="text-red-600"
+                    x-text="product.sale_price"
+                  ></span>
+                  <span
+                    :class="product.sale_price ? 'text-zinc-400 line-through' : 'text-zinc-900'"
+                    x-text="product.price"
+                  ></span>
+                </div>
+              </div>
+            </a>
+          </template>
+        </div>
+      </template>
+      <template x-if="results.length === 0 && !loading">
+        <div class="p-4 text-center text-zinc-500">
+          No products found matching "<span x-text="searchTerm"></span>"
+        </div>
+      </template>
+    </div>
   </div>
+
+  <!-- Navigation - Only shown when not searching -->
+  <nav x-show="searchTerm.length < 2" class="contents">
+    <a
+      href="shop.html?segment=women"
+      class="relative text-lg font-medium text-zinc-700 transition-colors before:absolute before:left-0 before:top-full before:block before:h-0.5 before:w-0 before:bg-zinc-900 before:transition-all hover:text-zinc-900 hover:before:w-full"
+      >Women</a
+    >
+    <a
+      href="shop.html?segment=men"
+      class="relative text-lg font-medium text-zinc-700 transition-colors before:absolute before:left-0 before:top-full before:block before:h-0.5 before:w-0 before:bg-zinc-900 before:transition-all hover:text-zinc-900 hover:before:w-full"
+      >Men</a
+    >
+    <a
+      href="shop.html?segment=kids"
+      class="relative text-lg font-medium text-zinc-700 transition-colors before:absolute before:left-0 before:top-full before:block before:h-0.5 before:w-0 before:bg-zinc-900 before:transition-all hover:text-zinc-900 hover:before:w-full"
+      >Kids</a
+    >
+    <a
+      href="shop.html?segment=sale"
+      class="relative text-lg font-medium text-zinc-700 transition-colors before:absolute before:left-0 before:top-full before:block before:h-0.5 before:w-0 before:bg-zinc-900 before:transition-all hover:text-zinc-900 hover:before:w-full"
+      >Sale</a
+    >
+  </nav>
+</div>
 </header>

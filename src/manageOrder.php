@@ -52,6 +52,7 @@ if ($result->num_rows == 0) {
     rel="stylesheet" />
   <link href="./output.css" rel="stylesheet" />
   <title>Manage Order</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.5/cdn.min.js" defer></script>
   <script>
     async function loadContent() {
       // Load header

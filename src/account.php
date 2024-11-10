@@ -48,6 +48,7 @@ if (!isset($_SESSION['user_id'])) {
       }
     </style>
   <title>My Account</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.5/cdn.min.js" defer></script>
   <script>
     async function loadContent() {
       // Load header
