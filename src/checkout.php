@@ -4,7 +4,7 @@ require 'db.php';
 $session_id = session_id();
 
 if (!isset($_SESSION['user_id'])) {
-  header("Location: login.html?redirect=" . urlencode("checkout.php"));
+  header("Location: login.php?redirect=" . urlencode("checkout.php"));
   exit();
 }
 

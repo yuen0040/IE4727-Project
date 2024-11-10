@@ -11,17 +11,33 @@ $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 4;
 
 // Fetch random sale items with sale_price not NULL
 if ($segment == 'sale') {
-    $sql_random_sales = "
-    SELECT p.product_id, p.name, p.category, p.segment, p.price, p.sale_price, i.image_url
-    FROM products p
-    JOIN images i ON p.product_id = i.product_id
-    WHERE p.sale_price IS NOT NULL AND p.category = ?
-    AND i.image_url IS NOT NULL
-    GROUP BY p.product_id
-    LIMIT ?, ?;
-";
+    if ($category == 'all') {
+        $sql_random_sales = "
+        SELECT p.product_id, p.name, p.category, p.segment, p.price, p.sale_price, i.image_url
+        FROM products p
+        JOIN images i ON p.product_id = i.product_id
+        WHERE p.sale_price IS NOT NULL
+        AND i.image_url IS NOT NULL
+        GROUP BY p.product_id
+        LIMIT ?, ?;
+        ";
+    } else {
+        $sql_random_sales = "
+        SELECT p.product_id, p.name, p.category, p.segment, p.price, p.sale_price, i.image_url
+        FROM products p
+        JOIN images i ON p.product_id = i.product_id
+        WHERE p.sale_price IS NOT NULL AND p.category = ?
+        AND i.image_url IS NOT NULL
+        GROUP BY p.product_id
+        LIMIT ?, ?;
+        ";
+    }
     $stmt_random_sales = $conn->prepare($sql_random_sales);
-    $stmt_random_sales->bind_param('sss', $category, $offset, $limit);
+    if ($category == 'all') {
+        $stmt_random_sales->bind_param('ss', $offset, $limit);
+    } else {
+        $stmt_random_sales->bind_param('sss', $category, $offset, $limit);
+    }
     $stmt_random_sales->execute();
     $result_random_sales = $stmt_random_sales->get_result();
 
@@ -40,11 +56,11 @@ if ($segment == 'sale') {
                 </div>";
             echo "<div class='text-zinc-900 w-full'>";
             echo '<h3 class="font-medium mb-1 text-lg line-clamp-1">' . htmlspecialchars($row['name']) . '</h3>';
-            echo '<p class="text-zinc-700">' . ucfirst($category) . '</p>';
+            echo '<span class="text-zinc-700">' . ucfirst($segment) . '</span> <span class="text-zinc-700">' . ucfirst($category) . '</span>';
             echo "</div>";
             echo '<p class="text-lg">';
-            echo "<span class='mr-2 font-medium text-red-500'>$price</span>";
-            echo "<span class='text-zinc-500 line-through'>$salePrice</span>";
+            echo "<span class='mr-2 font-medium text-red-500'>$salePrice</span>";
+            echo "<span class='text-zinc-500 line-through'>$price</span>";
             echo '</p>';
             echo '</div>';
             echo '</a>';

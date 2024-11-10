@@ -43,8 +43,8 @@ if ($section == 'new-section') {
             echo "</div>";
             echo '<p class="text-lg">';
             if (!empty($salePrice)) {
-                echo "<span class='font-medium mr-2 text-red-500'>$price</span>";
-                echo "<span class='text-zinc-500 line-through'>$salePrice</span>";
+                echo "<span class='font-medium mr-2 text-red-500'>$salePrice</span>";
+                echo "<span class='text-zinc-500 line-through'>$price</span>";
             } else {
                 echo "<span class='font-medium'>$price</span>";
             }
@@ -90,8 +90,8 @@ if ($section == 'sales-section') {
             echo '<p class="text-zinc-700">' . ucfirst($category) . '</p>';
             echo "</div>";
             echo '<p class="text-lg">';
-            echo "<span class='mr-2 font-medium text-red-500'>$price</span>";
-            echo "<span class='text-zinc-500 line-through'>$salePrice</span>";
+            echo "<span class='mr-2 font-medium text-red-500'>$salePrice</span>";
+            echo "<span class='text-zinc-500 line-through'>$price</span>";
             echo '</p>';
             echo '</div>';
             echo '</a>';

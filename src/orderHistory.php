@@ -20,12 +20,12 @@ if (!isset($_SESSION['user_id'])) {
         } else {
             // Expire session if not valid
             setcookie('session_id', '', time() - 3600, "/"); // Delete cookie
-            header("Location: login.html");
+            header("Location: login.php");
             exit();
         }
     } else {
         // Redirect to login if no session
-        header("Location: login.html");
+        header("Location: login.php");
         exit();
     }
 }
