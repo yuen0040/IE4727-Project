@@ -1,34 +1,58 @@
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+  }
+  .hide-scrollbar:hover::-webkit-scrollbar {
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: #e0e0e0; /* Light grey background */
+    border-radius: 10px; /* Rounded edges */
+  }
+  .hide-scrollbar:hover::-webkit-scrollbar-thumb {
+    background: #8e8e8e; /* Muted grey for thumb */
+    border-radius: 10px; /* Rounded edges */
+  }
+</style>
 <header
   class="sticky top-0 z-50 border-b border-zinc-200 bg-white px-4 py-3 md:px-12"
   x-data="{ 
-  searchTerm: '', 
-  results: [],
-  loading: false,
-  showResults: false,
-  timer: null,
-  async search() {
-      if (this.timer) {
-          clearTimeout(this.timer);
-      }
-      
-      if (this.searchTerm.length < 2) {
-          this.results = [];
-          this.showResults = false;
-          return;
-      }
+    searchTerm: '', 
+    results: [],
+    loading: false,
+    showResults: false,
+    timer: null,
+    async search() {
+        if (this.timer) {
+            clearTimeout(this.timer);
+        }
+        
+        if (this.searchTerm.length < 2) {
+            this.results = [];
+            this.showResults = false;
+            return;
+        }
 
-      this.timer = setTimeout(async () => {
-          this.loading = true;
-          try {
-              const response = await fetch(`search.php?term=${encodeURIComponent(this.searchTerm)}`);
-              this.results = await response.json();
-              this.showResults = true;
-          } catch (error) {
-              console.error('Search failed:', error);
-          }
-          this.loading = false;
-      }, 300);
-  }
+        this.timer = setTimeout(async () => {
+            this.loading = true;
+            this.showResults = false;  // Hide results while loading
+            try {
+                const response = await fetch(`search.php?term=${encodeURIComponent(this.searchTerm)}`);
+                this.results = await response.json();
+                this.showResults = true; // Only show results after new data is loaded
+            } catch (error) {
+                console.error('Search failed:', error);
+            }
+            this.loading = false;
+        }, 300);
+    }
 }"
 >
   <div class="flex items-center justify-between">
@@ -101,7 +125,7 @@
           size="14"
           x-model="searchTerm"
           @input="search"
-          @focus="if (searchTerm.length >= 2) showResults = true"
+          @focus="if (searchTerm.length >= 2) { search(); }"
           class="rounded-lg border border-zinc-200 px-3 py-1.5 transition-shadow focus:outline-none focus:ring-2 focus:ring-zinc-900"
         />
 
@@ -139,7 +163,7 @@
           }"
         >
           <template x-if="results.length > 0">
-            <div class="max-h-[60vh] overflow-y-auto overflow-hidden">
+            <div class="max-h-[60vh] overflow-y-auto overflow-hidden hide-scrollbar">
               <template x-for="product in results.slice(0, 5)" :key="product.product_id">
                 <a
                   :href="'product.html?name=' + encodeURIComponent(product.name).replace(/%20/g, '+')"

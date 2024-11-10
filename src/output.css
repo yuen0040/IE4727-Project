@@ -897,6 +897,14 @@ body {
   height: 1px;
 }
 
+.h-16 {
+  height: 4rem;
+}
+
+.h-14 {
+  height: 3.5rem;
+}
+
 .max-h-\[60vh\] {
   max-height: 60vh;
 }
@@ -928,6 +936,18 @@ body {
 
 .w-full {
   width: 100%;
+}
+
+.w-16 {
+  width: 4rem;
+}
+
+.w-14 {
+  width: 3.5rem;
+}
+
+.w-\[300px\] {
+  width: 300px;
 }
 
 .min-w-0 {
@@ -1561,6 +1581,10 @@ body {
 
 .brightness-90 {
   --tw-brightness: brightness(.9);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
