@@ -27,7 +27,7 @@ $stmt = $conn->prepare("SELECT users.user_id, orders.first_name, orders.last_nam
                         INNER JOIN images ON images.product_id = products.product_id 
                         INNER JOIN users ON users.user_id = orders.user_id 
                         WHERE orders.order_id = ? 
-                        GROUP BY products.product_id; ");
+                        GROUP BY sizes.size_id; ");
 $stmt->bind_param("i",  $order_id);
 $stmt->execute();
 $result = $stmt->get_result();
