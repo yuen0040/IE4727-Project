@@ -100,22 +100,17 @@
             <!-- Filters Button -->
             <button
               @click="showFilters = !showFilters"
-              class="flex items-center m-2 rounded-full bg-zinc-900 px-6 py-2 text-white transition-colors hover:bg-zinc-900/90"
+              class="flex items-center gap-2 rounded-full border border-zinc-200 fill-zinc-900 py-2 pl-5 pr-3 font-medium text-zinc-900 transition-colors hover:bg-zinc-100"
             >
               <span>Filters</span>
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
+                width="24"
+                height="24"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="ml-2 h-5 w-5"
-                :class="{'rotate-180': showFilters}"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                  d="M3 17V19H9V17H3ZM3 5V7H13V5H3ZM13 21V19H21V17H13V15H11V21H13ZM7 9V11H3V13H7V15H9V9H7ZM21 13V11H11V13H21ZM15 9H17V7H21V5H17V3H15V9Z"
                 />
               </svg>
             </button>
@@ -142,7 +137,7 @@
                 >
                 <select
                   x-model="selectedSegment"
-                  class="w-full rounded-md border border-zinc-200 px-3 py-2"
+                  class="w-full rounded-md border border-zinc-200 bg-transparent px-3 py-2"
                 >
                   <option value="women">Women</option>
                   <option value="men">Men</option>
@@ -157,7 +152,7 @@
                 >
                 <select
                   x-model="selectedCategory"
-                  class="w-full rounded-md border border-zinc-200 px-3 py-2"
+                  class="w-full rounded-md border border-zinc-200 bg-transparent px-3 py-2"
                 >
                   <option value="all">All</option>
                   <option value="sneakers">Sneakers</option>
@@ -176,14 +171,14 @@
                     x-model="priceRange.current[0]"
                     :min="priceRange.min"
                     :max="priceRange.max"
-                    class="w-full"
+                    class="w-full accent-emerald-500 transition-colors"
                   />
                   <input
                     type="range"
                     x-model="priceRange.current[1]"
                     :min="priceRange.min"
                     :max="priceRange.max"
-                    class="w-full"
+                    class="w-full accent-emerald-500 transition-colors"
                   />
                 </div>
                 <div class="mt-2 flex justify-between text-sm text-zinc-600">
@@ -199,7 +194,7 @@
                 >
                 <select
                   x-model="sortOrder"
-                  class="w-full rounded-md border border-zinc-200 px-3 py-2"
+                  class="w-full rounded-md border border-zinc-200 bg-transparent px-3 py-2"
                 >
                   <option value="default">Featured</option>
                   <option value="price_asc">Price: Low to High</option>
@@ -213,7 +208,7 @@
             <div class="mt-6 flex justify-end">
               <button
                 @click="applyFilters()"
-                class="rounded-full bg-zinc-900 px-6 py-2 text-white transition-colors hover:bg-zinc-900/90"
+                class="rounded-full bg-zinc-900 px-5 py-2 font-medium text-white transition-colors hover:bg-zinc-900/90"
               >
                 Apply Filters
               </button>
@@ -243,14 +238,14 @@
               data-category="running"
               class="cursor-pointer border-b-2 border-transparent px-3 py-2 text-zinc-900 transition-colors hover:bg-zinc-50 hover:text-zinc-900/90"
               onclick="window.history.replaceState({}, '', `${window.location.pathname}?segment=${selectedSegment}&category=running&minPrice=0&maxPrice=500&sort=default`); showProducts(selectedSegment, 'running', this, true, false, 0, 500, 'default')"
-              >
+            >
               Running
             </li>
             <li
               data-category="slides"
               class="cursor-pointer border-b-2 border-transparent px-3 py-2 text-zinc-900 transition-colors hover:bg-zinc-50 hover:text-zinc-900/90"
               onclick="window.history.replaceState({}, '', `${window.location.pathname}?segment=${selectedSegment}&category=slides&minPrice=0&maxPrice=500&sort=default`); showProducts(selectedSegment, 'slides', this, true, false, 0, 500, 'default')"
-              >
+            >
               Slides
             </li>
           </ul>
