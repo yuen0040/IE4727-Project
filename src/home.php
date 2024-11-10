@@ -39,7 +39,7 @@ if ($section == 'new-section') {
                 </div>";
             echo "<div class='text-zinc-900 w-full'>";
             echo '<h3 class="font-medium mb-1 text-lg line-clamp-1">' . htmlspecialchars($row['name']) . '</h3>';
-            echo '<p class="text-zinc-700">' . ucfirst($category) . '</p>';
+            echo '<p class="text-zinc-700">' . ucfirst($segment) . " " . ucfirst($category) . '</p>';
             echo "</div>";
             echo '<p class="text-lg">';
             if (!empty($salePrice)) {
@@ -87,7 +87,7 @@ if ($section == 'sales-section') {
                 </div>";
             echo "<div class='text-zinc-900 w-full'>";
             echo '<h3 class="font-medium mb-1 text-lg line-clamp-1">' . htmlspecialchars($row['name']) . '</h3>';
-            echo '<p class="text-zinc-700">' . ucfirst($category) . '</p>';
+            echo '<p class="text-zinc-700">' . ucfirst($segment) . " " . ucfirst($category) . '</p>';
             echo "</div>";
             echo '<p class="text-lg">';
             echo "<span class='mr-2 font-medium text-red-500'>$salePrice</span>";

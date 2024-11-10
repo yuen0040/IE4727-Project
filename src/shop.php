@@ -11,7 +11,7 @@ $maxPrice = isset($_GET['maxPrice']) ? (float)$_GET['maxPrice'] : 500;
 $sortOrder = isset($_GET['sort']) ? $_GET['sort'] : 'default';
 
 // Set the sort clause based on price sorting
-$sortClause = match($sortOrder) {
+$sortClause = match ($sortOrder) {
     'price_asc' => 'ORDER BY COALESCE(p.sale_price, p.price) ASC',
     'price_desc' => 'ORDER BY COALESCE(p.sale_price, p.price) DESC',
     'sale' => 'AND p.sale_price IS NOT NULL ORDER BY p.product_id',
@@ -105,7 +105,7 @@ $result = $stmt->get_result();
 // Output products
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $segment = strtolower($row['segment']);
+        $shoeSegment = strtolower($row['segment']);
         $category = strtolower($row['category']);
         $price = "$" . $row["price"];
         $salePrice = $row["sale_price"] ? "$" . $row["sale_price"] : "";
@@ -117,19 +117,19 @@ if ($result->num_rows > 0) {
             </div>";
         echo "<div class='text-zinc-900 w-full'>";
         echo '<h3 class="font-medium mb-1 text-lg line-clamp-1">' . htmlspecialchars($row['name']) . '</h3>';
-        
+
         // Show category for non-sale items, segment and category for sale items
         if ($segment == 'sale') {
-            echo '<span class="text-zinc-700">' . ucfirst($row['segment']) . '</span> <span class="text-zinc-700">' . ucfirst($category) . '</span>';
+            echo '<span class="text-zinc-700">' . ucfirst($shoeSegment) . " " . ucfirst($category) . '</span>';
         } else {
             echo '<p class="text-zinc-700">' . ucfirst($category) . '</p>';
         }
-        
+
         echo "</div>";
         echo '<p class="text-lg">';
         if ($segment == 'sale' || !empty($salePrice)) {
-            echo "<span class='mr-2 font-medium text-red-500'>" . ($segment == 'sale' ? $price : $salePrice) . "</span>";
-            echo "<span class='text-zinc-500 line-through'>" . ($segment == 'sale' ? $salePrice : $salePrice) . "</span>";
+            echo "<span class='mr-2 font-medium text-red-500'>" . $salePrice . "</span>";
+            echo "<span class='text-zinc-500 line-through'>" . $price . "</span>";
         } else {
             echo "<span class='font-medium'>$price</span>";
         }
@@ -141,4 +141,3 @@ if ($result->num_rows > 0) {
 
 $stmt->close();
 $conn->close();
-?>

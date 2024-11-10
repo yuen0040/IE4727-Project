@@ -170,13 +170,13 @@
                     type="range"
                     x-model="priceRange.current[0]"
                     :min="priceRange.min"
-                    :max="priceRange.max"
+                    :max="priceRange.current[1]"
                     class="w-full accent-emerald-500 transition-colors"
                   />
                   <input
                     type="range"
                     x-model="priceRange.current[1]"
-                    :min="priceRange.min"
+                    :min="priceRange.current[0]"
                     :max="priceRange.max"
                     class="w-full accent-emerald-500 transition-colors"
                   />
