@@ -25,28 +25,35 @@ if (!isset($_SESSION['user_id'])) {
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=logout" />
   <link href="./output.css" rel="stylesheet" />
   <style>
-      html {
-        scroll-behavior: smooth;
-      }
-      .hide-scrollbar::-webkit-scrollbar {
-        display: block;
-        width: 8px;
-        height: 8px;
-        background: #fff;
-        background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-      }
-      .hide-scrollbar:hover::-webkit-scrollbar {
-        display: block;
-        width: 8px;
-        height: 8px;
-        background-color: #e0e0e0; /* Light grey background */
-        border-radius: 10px; /* Rounded edges */
-      }
-      .hide-scrollbar:hover::-webkit-scrollbar-thumb {
-        background: #8e8e8e; /* Muted grey for thumb */
-        border-radius: 10px; /* Rounded edges */
-      }
-    </style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+      display: block;
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+    }
+
+    .hide-scrollbar:hover::-webkit-scrollbar {
+      display: block;
+      width: 8px;
+      height: 8px;
+      background-color: #e0e0e0;
+      /* Light grey background */
+      border-radius: 10px;
+      /* Rounded edges */
+    }
+
+    .hide-scrollbar:hover::-webkit-scrollbar-thumb {
+      background: #8e8e8e;
+      /* Muted grey for thumb */
+      border-radius: 10px;
+      /* Rounded edges */
+    }
+  </style>
   <title>My Account</title>
   <script>
     async function loadContent() {
@@ -716,7 +723,7 @@ if (!isset($_SESSION['user_id'])) {
                                   View or Edit
                                 </a>
                               </div>
-                              <div class="flex w-full gap-3 hide-scrollbar overflow-x-scroll">
+                              <div class="flex w-full gap-3 hide-scrollbar overflow-x-auto">
                                 ${images}
                               </div>
                             </div>
