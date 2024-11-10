@@ -205,7 +205,7 @@ $items = array();
           $_SESSION['checkout'] = $items;
           $_SESSION['checkout_subtotal'] = $total;
         } else {
-          echo "<p?>Your bag is empty.</p>";
+          echo "<p>Your bag is empty.</p>";
         }
         ?>
 
