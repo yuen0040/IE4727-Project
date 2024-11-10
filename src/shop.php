@@ -129,7 +129,7 @@ if ($result->num_rows > 0) {
         echo '<p class="text-lg">';
         if ($segment == 'sale' || !empty($salePrice)) {
             echo "<span class='mr-2 font-medium text-red-500'>" . ($segment == 'sale' ? $price : $salePrice) . "</span>";
-            echo "<span class='text-zinc-500 line-through'>" . ($segment == 'sale' ? $salePrice : $salePrice) . "</span>";
+            echo "<span class='text-zinc-500 line-through'>" . ($segment == 'sale' ? $salePrice : $price) . "</span>";
         } else {
             echo "<span class='font-medium'>$price</span>";
         }
