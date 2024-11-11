@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2024 at 05:08 AM
+-- Generation Time: Nov 11, 2024 at 04:16 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,8 +38,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `session_id`, `user_id`) VALUES
-(9, 'u19imuadbfsgas1jq2tvgcv6cg', 3),
-(10, '95uf28bq0gu4gkcs561r7l0k66', 2);
+(9, 'jv37r65tq9khob47e0m8r7pd2v', 3),
+(15, 'fqg27qco6ridrfficc055h1i8f', 2);
 
 -- --------------------------------------------------------
 
@@ -53,6 +53,14 @@ CREATE TABLE `cart_items` (
   `size_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cart_items`
+--
+
+INSERT INTO `cart_items` (`cart_item_id`, `cart_id`, `size_id`, `quantity`) VALUES
+(85, 9, 71, 2),
+(96, 15, 86, 1);
 
 -- --------------------------------------------------------
 
@@ -142,7 +150,31 @@ INSERT INTO `images` (`image_id`, `product_id`, `image_url`) VALUES
 (69, 18, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/94711ac2-b2b9-4432-908a-4d5b8d9bf564/WMNS+NIKE+GAMMA+FORCE.png'),
 (70, 18, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/852358d4-3329-44b2-af07-2f8132d7f51b/WMNS+NIKE+GAMMA+FORCE.png'),
 (71, 18, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/ccd1a564-08d3-4058-af13-71c04669d4d9/WMNS+NIKE+GAMMA+FORCE.png'),
-(72, 18, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/ab2e4ce8-eca2-4f2d-9e29-564dbcd0db4d/WMNS+NIKE+GAMMA+FORCE.png');
+(72, 18, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/ab2e4ce8-eca2-4f2d-9e29-564dbcd0db4d/WMNS+NIKE+GAMMA+FORCE.png'),
+(73, 19, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/49f0723a-abfe-4e31-b5a5-26c09ee0afe9/NIKE+ZOOMX+VAPORFLY+NEXT%25+3.png'),
+(74, 19, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/2ab87548-2105-48f6-9ad3-e26a5b015e85/NIKE+ZOOMX+VAPORFLY+NEXT%25+3.png'),
+(75, 19, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/b2564f9f-4e6d-4f0a-a021-df81fd905fb1/NIKE+ZOOMX+VAPORFLY+NEXT%25+3.png'),
+(76, 19, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/f37c35b0-cd81-4113-a302-ab539cf82115/NIKE+ZOOMX+VAPORFLY+NEXT%25+3.png'),
+(77, 20, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/20544254-305c-4ec6-8347-da1259be4bc6/NIKE+FREE+METCON+5.png'),
+(78, 20, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/f9efd2d0-6c72-4666-869c-81e85ff2182c/NIKE+FREE+METCON+5.png'),
+(79, 20, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/99706541-6f4e-435d-bb89-4dae2ca2ffb0/NIKE+FREE+METCON+5.png'),
+(80, 20, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/31705639-f347-4634-b4b5-2ef272352861/NIKE+FREE+METCON+5.png'),
+(81, 21, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/f535ed7c-6ccc-4dd5-8e78-07495b4892b1/W+NIKE+ZOOMX+ZEGAMA+TRAIL+2.png'),
+(82, 21, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/136905cb-f040-4e33-a9d4-65d0c2b30fda/W+NIKE+ZOOMX+ZEGAMA+TRAIL+2.png'),
+(83, 21, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/2c87439d-eda8-41c8-b4e6-7b502134edcd/W+NIKE+ZOOMX+ZEGAMA+TRAIL+2.png'),
+(84, 21, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/54642879-2caf-485b-999d-37faf4c98e18/W+NIKE+ZOOMX+ZEGAMA+TRAIL+2.png'),
+(85, 22, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/3baa2ee5-45c3-41cd-853f-6265f5fb01f8/W+AIR+MAX+97+FUTURA.png'),
+(86, 22, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/c099b5e1-cdd2-4dfa-ae0e-3292b7e7006f/W+AIR+MAX+97+FUTURA.png'),
+(87, 22, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/ec575ec7-4847-49a3-8104-fcfa668a9bb8/W+AIR+MAX+97+FUTURA.png'),
+(88, 22, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/9ddad2c6-c011-4a25-8157-edc7269b19a1/W+AIR+MAX+97+FUTURA.png'),
+(89, 23, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/d80566eb-63ab-49d4-89b2-530a93b52075/NIKE+REVOLUTION+7+%28GS%29.png'),
+(90, 23, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/64a8a41d-f592-4cb8-b9e4-7569b5f42c5a/NIKE+REVOLUTION+7+%28GS%29.png'),
+(91, 23, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/75ed43cb-5320-4585-9d4b-29b70bb72cdc/NIKE+REVOLUTION+7+%28GS%29.png'),
+(92, 23, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/7bfd7e5d-67ef-4133-a291-eeac89f6851c/NIKE+REVOLUTION+7+%28GS%29.png'),
+(93, 24, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/e46ec572-fdef-42d6-812f-85b208ffd65a/NIKE+AIR+MAX+EXCEE+GS.png'),
+(94, 24, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/cf037353-1065-4db1-8fea-d7dea0cff91f/NIKE+AIR+MAX+EXCEE+GS.png'),
+(95, 24, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/3f3f6e22-581b-439f-9a3a-4f7c0582799b/NIKE+AIR+MAX+EXCEE+GS.png'),
+(96, 24, 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/34a051f6-fc30-4d84-b4ec-37b3da1dcae8/NIKE+AIR+MAX+EXCEE+GS.png');
 
 -- --------------------------------------------------------
 
@@ -170,14 +202,26 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`order_id`, `user_id`, `order_total`, `shipping_address`, `first_name`, `last_name`, `phone_number`, `postal_code`, `order_status`, `created_at`) VALUES
 (1, 2, 1216.00, 'Blk 221 Hougang Ave 4', 'Hello', 'World', '+6598989', 123456, 'preparing', '2024-11-06 03:44:33'),
 (2, 2, 304.00, 'Blk 221 Hougang Ave 4', 'Name', 'Teo', '999', 123456, 'preparing', '2024-11-06 03:44:33'),
-(3, 3, 1349.00, 'Blk 301 Hougang', 'Jeremy', 'Lee', '+9873839', 345678, 'preparing', '2024-11-06 03:44:33'),
+(3, 3, 1349.00, 'Blk 301 Hougang 4243234', 'Jeremy', 'Lee', '+9873839', 345678, 'preparing', '2024-11-10 05:48:54'),
 (4, 2, 75.00, 'Blk 221 Hougang Ave 4', 'Update', 'Update', '+65111111', 347271, 'preparing', '2024-11-06 03:50:18'),
 (5, 2, 85.00, 'Blk 221 Hougang Ave 4', 'Lance', 'Yeo', '+65111111', 347271, 'preparing', '2024-11-06 03:57:02'),
 (6, 2, 85.00, 'Blk 221 Hougang Ave 4', 'Lance', 'Yeo', '+650000', 123343, 'preparing', '2024-11-06 04:01:15'),
 (7, 2, 85.00, 'Blk 221 Hougang Ave 4', 'Lance', 'Yeo', '+60000', 347271, 'preparing', '2024-11-06 04:01:51'),
 (8, 2, 99.00, 'Blk 221 Hougang Ave 4', 'Update', 'Update', '+65111111', 347271, 'preparing', '2024-11-06 04:03:01'),
 (9, 2, 85.00, 'Blk 221 Hougang Ave 4', 'Update', 'Update', '+65111111', 347271, 'preparing', '2024-11-06 04:04:21'),
-(10, 2, 85.00, 'Blk 221 Hougang Ave 4', 'Update', 'Update', '+65111111', 323423, 'preparing', '2024-11-06 04:04:41');
+(10, 2, 85.00, 'Blk 221 Hougang Ave 4', 'Update', 'Update', '+65111111', 323423, 'preparing', '2024-11-06 04:04:41'),
+(12, 2, 158.00, 'Blk 221 Hougang Ave 4', 'Lance', 'Lance', '+65111111', 347271, 'preparing', '2024-11-09 09:57:01'),
+(13, 2, 99.00, 'Blk 221 Hougang Ave 4', 'Lance', 'Lance', '+65111111', 347271, 'preparing', '2024-11-09 13:39:43'),
+(14, 2, 229.00, 'Blk 221 Hougang Ave 4', 'Lance', 'Lance', '+65111111', 347271, 'preparing', '2024-11-09 13:40:27'),
+(15, 2, 154.00, 'Blk 221 Hougang Ave 4', 'Lance', 'Lance', '+65111111', 347271, 'preparing', '2024-11-09 14:05:15'),
+(16, 2, 280.00, 'Blk 221 Hougang Ave 4', 'Lance', 'Lance', '+65111111', 347271, 'preparing', '2024-11-09 14:14:58'),
+(18, 2, 268.00, 'Blk 221 Hougang Ave 4', 'Lance', 'Lance', '+65111111', 347271, 'preparing', '2024-11-09 14:33:01'),
+(19, 2, 393.00, 'Blk 221 Hougang Ave 4', 'Lance', 'Lance', '+65111111', 347271, 'preparing', '2024-11-09 14:38:08'),
+(20, 2, 747.00, 'Blk 221 Hougang Ave 4', 'Lance', 'Yeo', '+65111111', 347271, 'preparing', '2024-11-09 14:40:44'),
+(21, 2, 443.00, 'Blk 221 Hougang Ave 4', 'Lance', 'Yeo', '+65111111', 347271, 'preparing', '2024-11-09 15:01:40'),
+(22, 2, 304.00, 'Blk 221 Hougang Ave 5', 'Lance', 'Yeo', '+6592893193', 123456, 'preparing', '2024-11-09 15:09:40'),
+(23, 2, 624.00, 'Blk 221 Hougang Ave 7', 'Lance', 'Yeo', '+6592893193', 123456, 'preparing', '2024-11-09 15:13:21'),
+(24, 2, 135.00, 'Blk 221 Hougang Ave 7', 'Lance', 'Lance', '+6592893193', 123456, 'preparing', '2024-11-10 07:55:08');
 
 -- --------------------------------------------------------
 
@@ -217,7 +261,33 @@ INSERT INTO `order_items` (`order_item_id`, `order_id`, `size_id`, `quantity`, `
 (17, 7, 1, 1, 99.00),
 (18, 8, 1, 1, 99.00),
 (19, 9, 113, 1, 75.00),
-(20, 10, 61, 1, 85.00);
+(20, 10, 61, 1, 85.00),
+(22, 12, 122, 2, 79.00),
+(23, 13, 6, 1, 99.00),
+(24, 14, 102, 1, 229.00),
+(25, 15, 53, 1, 99.00),
+(26, 15, 77, 1, 55.00),
+(27, 16, 46, 1, 145.00),
+(28, 16, 106, 1, 135.00),
+(31, 18, 38, 1, 49.00),
+(32, 18, 134, 1, 219.00),
+(33, 19, 85, 1, 119.00),
+(34, 19, 95, 1, 129.00),
+(35, 19, 142, 1, 145.00),
+(36, 20, 21, 1, 249.00),
+(37, 20, 24, 1, 249.00),
+(38, 20, 62, 2, 85.00),
+(39, 20, 121, 1, 79.00),
+(40, 21, 46, 1, 145.00),
+(41, 21, 121, 1, 79.00),
+(42, 21, 134, 1, 219.00),
+(43, 22, 59, 1, 85.00),
+(44, 22, 134, 1, 219.00),
+(45, 23, 13, 1, 205.00),
+(46, 23, 15, 1, 205.00),
+(47, 23, 111, 1, 135.00),
+(48, 23, 126, 1, 79.00),
+(49, 24, 111, 1, 135.00);
 
 -- --------------------------------------------------------
 
@@ -235,7 +305,7 @@ CREATE TABLE `products` (
   `category` enum('Sneakers','Running','Slides') NOT NULL,
   `segment` enum('Men','Women','Kids') NOT NULL,
   `colour` varchar(50) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -244,23 +314,29 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`product_id`, `name`, `description`, `details`, `price`, `sale_price`, `category`, `segment`, `colour`, `created_at`) VALUES
 (1, 'Nike Legend Essential 2', 'The Nike Legend Essential 2 comes equipped with a flat, stable heel, flexibility under the toes and side-to-side support. With tons of grip, you are ready to lift, HIIT, conquer a class or get stronger on the machines.', 'Country/Region of Origin: Indonesia', 99.00, NULL, 'Sneakers', 'Men', 'Pure Platinum', '2024-11-02 07:01:43'),
-(2, 'Nike Air Force 1 07 LV8', 'Comfortable, durable and timeless—it is number 1 for a reason. The classic 80s construction pairs with bold details for style that tracks whether you are on court or on the go.', 'Country/Region of Origin: Indonesia', 205.00, NULL, 'Sneakers', 'Men', 'Pure Platinum', '2024-11-02 07:01:43'),
-(3, 'Nike Pegasus 41 GORE-TEX', 'Responsive cushioning in the winterized Pegasus provides an energised ride for wet-weather road running. Experience lighter-weight energy return with dual Air Zoom units and a ReactX foam midsole. Plus, a waterproof GORE-TEX upper and reflective design details throughout help you comfortably take on the elements.', 'Waterproof GORE-TEX upper and technical mesh help keep water out so your feet dry.|ReactX foam midsole surrounds forefoot and heel Air Zoom units for an energised ride.|Storm Tread outsole provides traction in wet weather.|Heathered material around the collar helps keep your ankle warm.|All-new ReactX foam midsole is 13% more responsive than previous React technology.|Crafted for performance and planet, ReactX foam is engineered to reduce its carbon footprint by at least 43% in a pair of midsoles due to reduced manufacturing process energy compared with prior React foam. The carbon footprint of ReactX is based on cradle-to-gate assessment reviewed by PRé Sustainability B.V. and Intertek China. Other midsole components such as airbags, plates or other foam formulations were not considered.|Reflective design GORE-TEX logo and Swoosh logo|Reflective design graphics and overlays|Not intended for use as personal protective equipment (PPE)|Weight: approx. 297g (mens size 9)|Heel-to-toe drop: 10mm|MR-10 last—our best, most consistent fit (same as Pegasus 40)|Plush collar, tongue and sockliner|Country/Region of Origin: Vietnam', 249.00, NULL, 'Running', 'Men', 'Summit White', '2024-11-03 11:11:13'),
+(2, 'Nike Air Force 1 07 LV8', 'Comfortable, durable and timeless—it is number 1 for a reason. The classic 80s construction pairs with bold details for style that tracks whether you are on court or on the go.', 'Country/Region of Origin: Indonesia', 205.00, 129.00, 'Sneakers', 'Men', 'Pure Platinum', '2024-11-11 02:58:13'),
+(3, 'Nike Pegasus 41 GORE-TEX', 'Responsive cushioning in the winterized Pegasus provides an energised ride for wet-weather road running. Experience lighter-weight energy return with dual Air Zoom units and a ReactX foam midsole. Plus, a waterproof GORE-TEX upper and reflective design details throughout help you comfortably take on the elements.', 'Waterproof GORE-TEX upper and technical mesh help keep water out so your feet dry.|ReactX foam midsole surrounds forefoot and heel Air Zoom units for an energised ride.|Storm Tread outsole provides traction in wet weather.|Heathered material around the collar helps keep your ankle warm.|All-new ReactX foam midsole is 13% more responsive than previous React technology.|Crafted for performance and planet, ReactX foam is engineered to reduce its carbon footprint by at least 43% in a pair of midsoles due to reduced manufacturing process energy compared with prior React foam. The carbon footprint of ReactX is based on cradle-to-gate assessment reviewed by PRé Sustainability B.V. and Intertek China. Other midsole components such as airbags, plates or other foam formulations were not considered.|Reflective design GORE-TEX logo and Swoosh logo|Reflective design graphics and overlays|Not intended for use as personal protective equipment (PPE)|Weight: approx. 297g (mens size 9)|Heel-to-toe drop: 10mm|MR-10 last—our best, most consistent fit (same as Pegasus 40)|Plush collar, tongue and sockliner|Country/Region of Origin: Vietnam', 249.00, NULL, 'Running', 'Men', 'Summit White', '2024-11-11 03:02:58'),
 (4, 'Nike Run Swift 3', 'Whatever the run, the Swift 3 will be there with undying support and devotion. It can help you get out the door for an easy 3 at the end of the day or an intense 2-mile there-and-back with a modified design that iss supportive, durable and all-round comfortable. They will help you conquer short distances, sure, but also get you from point A to point B as you navigate the ever-changing rhythms of everyday life.', 'Foam cushioning delivers a soft underfoot feel. A higher foam height gives you a plush sensation with every step.|Flywire cables help secure your feet and provide support when you tighten the laces, so you can stay stable.|Heel overlay for added security|Mesh by the toe for breathability|Flex grooves on rugged rubber outsole for flexibility|Country/Region of Origin: Vietnam', 119.00, NULL, 'Running', 'Men', 'Black', '2024-11-03 11:10:14'),
 (5, 'Jordan Post', 'Quick, comfy, cool. These slides are made from robust, flexible foam that will stay secure as you rack up those steps. Wide foot coverage holds your feet in place while the asymmetrical design gives you a distinct look.', 'Foam platform provides lightweight, durable cushioning.|Flexible, textured outsole gives you ample everyday traction.|Country/Region of Origin: Vietnam', 49.00, NULL, 'Slides', 'Men', 'Football Grey', '2024-11-03 11:11:24'),
-(6, 'Nike Air More Uptempo', 'Keeping the graffiti-styled graphics from the original, your favourite hoops look gets transformed into slides. The Air More Uptempo combines Nike Air cushioning and a plush strap with airy perforations, providing breathable comfort you can slip on and go.', 'A padded strap with perforations feels plush and airy.|Visible Nike Air technology provides cushioning with every step.|The foam footbed is contoured to help keep your foot in place.|Durable rubber outsole features the grip pattern from the original Uptempo.|Foam midsole|Rubber outsole|Country/Region of Origin: Vietnam', 145.00, NULL, 'Slides', 'Men', 'Flax', '2024-11-03 11:11:58'),
+(6, 'Nike Air More Uptempo', 'Keeping the graffiti-styled graphics from the original, your favourite hoops look gets transformed into slides. The Air More Uptempo combines Nike Air cushioning and a plush strap with airy perforations, providing breathable comfort you can slip on and go.', 'A padded strap with perforations feels plush and airy.|Visible Nike Air technology provides cushioning with every step.|The foam footbed is contoured to help keep your foot in place.|Durable rubber outsole features the grip pattern from the original Uptempo.|Foam midsole|Rubber outsole|Country/Region of Origin: Vietnam', 145.00, 89.00, 'Slides', 'Men', 'Flax', '2024-11-11 02:58:20'),
 (7, 'Nike Flex Plus 2', 'The Nike Flex Plus 2 wastes no time so you can get out the door to run and play. We\'re talking break time, PE class and all of your favourite activities. The innovative elastic band system makes getting these shoes on a breeze. They\'re breathable and durable in all the right places. Best of all: Our designers made these super flexible so every move feels like your best and most natural.', 'Heel and tongue pull tabs|Reinforced rubber toe tip|Country/Region of Origin: Indonesia', 99.00, NULL, 'Running', 'Kids', 'Black', '2024-11-02 07:01:53'),
-(8, 'Nike Star Runner 4', 'Because ice-cream vans, games of tig and races to the end of the street and back can only wait for so long, we made it easy for you to slip the Star Runner on and get going. Soft cushioning in the midsole provides a comfortable, springy feel so every skip, hop and stride you take is one closer to the finishing line. The tread grabs at pavement, grass and gravel to give you extra grip while a rubber-wrapped toe toughens up the construction so you can go further in the same pair of Star Runners.', 'Classic laces|Country/Region of Origin: Vietnam', 85.00, NULL, 'Running', 'Kids', 'Blue', '2024-11-02 07:01:53'),
+(8, 'Nike Star Runner 4', 'Because ice-cream vans, games of tig and races to the end of the street and back can only wait for so long, we made it easy for you to slip the Star Runner on and get going. Soft cushioning in the midsole provides a comfortable, springy feel so every skip, hop and stride you take is one closer to the finishing line. The tread grabs at pavement, grass and gravel to give you extra grip while a rubber-wrapped toe toughens up the construction so you can go further in the same pair of Star Runners.', 'Classic laces|Country/Region of Origin: Vietnam', 85.00, 55.00, 'Running', 'Kids', 'Blue', '2024-11-11 02:57:54'),
 (9, 'Jordan Post Kids', 'Cool comfort, packaged in an asymmetrical design. These secure-fitting slides are made from one piece of foam, bringing sleek versatility to your everyday activities.', 'Country/Region of Origin: Vietnam', 35.00, NULL, 'Slides', 'Kids', 'Industrial Blue', '2024-11-02 07:01:53'),
-(10, 'Jordan Jumpman', 'Easy, breezy, classic slides with hoops DNA. A Jumpman logo on the strap makes it clear—they\'re anything but average.', 'Country/Region of Origin: Vietnam', 55.00, NULL, 'Slides', 'Kids', 'Black', '2024-11-02 07:01:53'),
-(11, 'Nike Force 1 Low LV8 EasyOn', 'The look of laces without the struggle of having to tie them? Now, that\'s easy. The laces on these sneakers are just for show—the top lace loop is attached to a hook-and-loop strap so kids can fasten them fast while still enjoying the traditional look of the AF-1.', 'Elastic laces|Perforations on the toe|Country/Region of Origin: India', 119.00, NULL, 'Sneakers', 'Kids', 'White', '2024-11-02 07:01:53'),
-(12, 'Nike Dunk Low Kids', 'Designed for basketball but adopted by skaters, the Nike Dunk Low helped define sneaker culture. Now this mid-80s icon is an easy score for your wardrobe. With ankle padding and durable rubber traction, these are a slam dunk whether you\'re learning to skate or getting ready for school.', 'Classic laces|Cupsole construction|Country/Region of Origin: Indonesia', 129.00, NULL, 'Sneakers', 'Kids', 'White/Navy', '2024-11-02 07:01:53'),
-(13, 'Nike Pegasus 41 Premium', 'Responsive cushioning in the Pegasus provides an energised ride for everyday road running. Experience lighter-weight energy return with dual Air Zoom units and a ReactX foam midsole. Plus, improved engineered mesh on the upper decreases weight and increases breathability.', 'Weight: approx. 251g (Women\'s size 5.5)|Heel-to-toe drop: 10mm|MR-10 last—our best, most consistent fit (same as Pegasus 40)|Reflective design details|Not intended for use as personal protective equipment (PPE)|Country/Region of Origin: China', 229.00, NULL, 'Running', 'Women', 'Ivory', '2024-11-02 07:01:59'),
-(14, 'Nike Interact Run', 'Can you see the future? Fast-forward your footsteps in the cutting-edge Nike Interact Run. It\'s set up with all the running goodness you need: a lightweight Flyknit upper, soft foam midsole and comfort where it counts. Scan the QR code on the tongue with your phone, and check out our online introduction to the Nike Interact Run\'s ins and outs.', 'Country/Region of Origin: Indonesia', 135.00, NULL, 'Running', 'Women', 'Pale Blue', '2024-11-02 07:01:59'),
-(15, 'Nike Calm', 'Enjoy a calm, comfortable experience—wherever your day off takes you. Made from soft yet responsive foam, these lightweight slides are easy to style and easy to pack. While the water-friendly design makes them ideal for the beach or pool, the minimalist look is elevated enough to wear around the city. Time to slide in and check out.', 'Country/Region of Origin: Indonesia', 75.00, NULL, 'Slides', 'Women', 'Lime', '2024-11-02 07:01:59'),
+(10, 'Jordan Jumpman', 'Easy, breezy, classic slides with hoops DNA. A Jumpman logo on the strap makes it clear—they\'re anything but average.', 'Country/Region of Origin: Vietnam', 55.00, 35.00, 'Slides', 'Kids', 'Black', '2024-11-11 02:58:55'),
+(11, 'Nike Force 1 Low LV8 EasyOn', 'The look of laces without the struggle of having to tie them? Now, that\'s easy. The laces on these sneakers are just for show—the top lace loop is attached to a hook-and-loop strap so kids can fasten them fast while still enjoying the traditional look of the AF-1.', 'Elastic laces|Perforations on the toe|Country/Region of Origin: India', 129.00, NULL, 'Sneakers', 'Kids', 'White', '2024-11-11 03:02:49'),
+(12, 'Nike Dunk Low Kids', 'Designed for basketball but adopted by skaters, the Nike Dunk Low helped define sneaker culture. Now this mid-80s icon is an easy score for your wardrobe. With ankle padding and durable rubber traction, these are a slam dunk whether you\'re learning to skate or getting ready for school.', 'Classic laces|Cupsole construction|Country/Region of Origin: Indonesia', 129.00, 69.00, 'Sneakers', 'Kids', 'White/Navy', '2024-11-11 02:58:26'),
+(13, 'Nike Pegasus 41 Premium', 'Responsive cushioning in the Pegasus provides an energised ride for everyday road running. Experience lighter-weight energy return with dual Air Zoom units and a ReactX foam midsole. Plus, improved engineered mesh on the upper decreases weight and increases breathability.', 'Weight: approx. 251g (Women\'s size 5.5)|Heel-to-toe drop: 10mm|MR-10 last—our best, most consistent fit (same as Pegasus 40)|Reflective design details|Not intended for use as personal protective equipment (PPE)|Country/Region of Origin: China', 229.00, 189.00, 'Running', 'Women', 'Ivory', '2024-11-11 02:58:49'),
+(14, 'Nike Interact Run', 'Can you see the future? Fast-forward your footsteps in the cutting-edge Nike Interact Run. It\'s set up with all the running goodness you need: a lightweight Flyknit upper, soft foam midsole and comfort where it counts. Scan the QR code on the tongue with your phone, and check out our online introduction to the Nike Interact Run\'s ins and outs.', 'Country/Region of Origin: Indonesia', 135.00, NULL, 'Running', 'Women', 'Pale Blue', '2024-11-11 03:02:44'),
+(15, 'Nike Calm', 'Enjoy a calm, comfortable experience—wherever your day off takes you. Made from soft yet responsive foam, these lightweight slides are easy to style and easy to pack. While the water-friendly design makes them ideal for the beach or pool, the minimalist look is elevated enough to wear around the city. Time to slide in and check out.', 'Country/Region of Origin: Indonesia', 79.00, NULL, 'Slides', 'Women', 'Lime', '2024-11-11 03:02:36'),
 (16, 'Jordan Sophia', 'What does stepping into luxury feel like? Well, a little like slipping on the Jordan Sophia. Premium leather, embroidered accents, plush foam and comfortable Air cushioning elevate these slides to a whole new level.', 'Country/Region of Origin: China', 139.00, 79.00, 'Slides', 'Women', 'Pale Brown', '2024-11-02 13:14:55'),
-(17, 'Nike TC 7900 Premium', 'We\'ve taken the look of early 2000s running and made it durable for everyday wear. Webbing details and rubber accents on the heel add to a rugged look, while an exaggerated midsole and soft foam cushioning help keep you comfortable. By pairing durable materials with soft cushioning, the TC 7900 is ready for your journey.', 'Country/Region of Origin: Vietnam', 219.00, NULL, 'Sneakers', 'Women', 'Ivory', '2024-11-02 07:01:59'),
-(18, 'Nike Gamma Force', 'Layers upon layers of dimensional style—that\'s a force to be reckoned with. Offering both comfort and versatility, these kicks are rooted in heritage basketball culture. Collar materials pay homage to vintage sport while the subtle platform elevates your look, literally. The Gamma Force is forging its own legacy: court style that can be worn all day, wherever you go.', 'Rubber midsole|Rubber outsole|Country/Region of Origin: India', 145.00, NULL, 'Sneakers', 'Women', 'Off-White', '2024-11-02 07:01:59');
+(17, 'Nike TC 7900 Premium', 'We\'ve taken the look of early 2000s running and made it durable for everyday wear. Webbing details and rubber accents on the heel add to a rugged look, while an exaggerated midsole and soft foam cushioning help keep you comfortable. By pairing durable materials with soft cushioning, the TC 7900 is ready for your journey.', 'Country/Region of Origin: Vietnam', 219.00, 149.00, 'Sneakers', 'Women', 'Ivory', '2024-11-11 02:58:04'),
+(18, 'Nike Gamma Force', 'Layers upon layers of dimensional style—that\'s a force to be reckoned with. Offering both comfort and versatility, these kicks are rooted in heritage basketball culture. Collar materials pay homage to vintage sport while the subtle platform elevates your look, literally. The Gamma Force is forging its own legacy: court style that can be worn all day, wherever you go.', 'Rubber midsole|Rubber outsole|Country/Region of Origin: India', 145.00, NULL, 'Sneakers', 'Women', 'Off-White', '2024-11-02 07:01:59'),
+(19, 'Nike Vaporfly 3', 'Catch \'em if you can. Giving you race-day speed to conquer any distance, the Nike Vaporfly 3 is made for the chasers, the racers and the elevated pacers who can\'t turn down the thrill of the pursuit. We reworked the leader of the super shoe pack and tuned the engine underneath to help you chase personal bests from a 10K to marathon. From elite runners to those new to racing, this versatile road-racing workhorse is for those who see speed as a gateway to more miles and more seemingly uncatchable highs.', 'Weight: Approx. 200g (men\'s size 9)|Heel-to-toe drop: 8mm|Wider toe area for a roomier fit|Internal foam pod on the heel for extra cushioning|Country/Region of Origin: China', 319.00, NULL, 'Running', 'Men', 'Black/Oatmeal/Metallic Gold Grain', '2024-11-11 02:53:31'),
+(20, 'Nike Free Metcon 5', 'When your workouts wade into the nitty-gritty, the Nike Free Metcon 5 can meet you in the depths, help you dig deep to find that final ounce of force and come out of the other side on a high. It matches style with substance, forefoot flexibility with back-end stability, perfect for flying through a cardio day or enhancing your agility. A revamped upper offers easier entry with a collar made just for your ankle.', 'Not intended for use as personal protective equipment (PPE)|Country/Region of Origin: Vietnam', 205.00, NULL, 'Sneakers', 'Men', 'Smoke Grey', '2024-11-11 02:53:31'),
+(21, 'Nike Zegama 2', 'Up the mountain, through the woods, to the top of the trail you can go. Equipped with an ultra-responsive ZoomX foam midsole, the Zegama 2 is designed to conquer steep ridges, jagged rocks and races from trailhead to tip. Optimal cushioning complements a rugged outsole made for your trail running journey.', 'Weight: 264g approx. (Women\'s UK 5.5)|Heel-to-toe drop: 4mm|Reflective design details|Not intended for use as personal protective equipment (PPE)|Country/Region of Origin: China', 269.00, NULL, 'Running', 'Women', 'Daybreak/Cosmic Clay/Sundial/White', '2024-11-11 02:53:31'),
+(22, 'Nike Air Max 97 Futura', 'We saw into your future, and it\'s looking … cosy. This version of the AM97 mixes layers of leather, textile and fluffy suede—putting a crafty spin on the classic water-inspired design. Flowing with a Nike Air Max unit, this kind of comfort you have to feel to believe. Our prediction? You\'ve never looked better (or comfier).', 'Not intended for use as Personal Protective Equipment (PPE)|Country/Region of Origin: Vietnam', 279.00, NULL, 'Sneakers', 'Women', 'Glacier Blue/Crimson Tint/Guava Ice/Trace Blue', '2024-11-11 02:53:31'),
+(23, 'Nike Revolution 7', 'Flash, dash and blast into every day with the help of these Revolution Running Shoes that are made especially for fun. No, they\'re not loaded with sugar or fireworks, but they do come in awesome colours and designs that\'ll have you reaching for them every day of the year.', 'Classic laces|Country/Region of Origin: Indonesia', 85.00, NULL, 'Running', 'Kids', 'Echo Pink', '2024-11-11 02:53:31'),
+(24, 'Nike Air Max Excee', 'When you lace up the Air Max Excee, you\'re walking on Air. Delivering the support and grip you need to fly through the school year, it\'s the shoe you want on your feet when you\'re running to the swings or sitting down for school photograph day. We used a tight knit mesh on the uppers and switched up the Swoosh design to give this season\'s Excee an even cleaner look.', 'Classic laces|Flexible rubber sole|Country/Region of Origin: Vietnam', 125.00, NULL, 'Sneakers', 'Kids', 'Off-White', '2024-11-11 03:03:06');
 
 -- --------------------------------------------------------
 
@@ -280,36 +356,36 @@ CREATE TABLE `sizes` (
 --
 
 INSERT INTO `sizes` (`size_id`, `product_id`, `stock`, `size`) VALUES
-(1, 1, 8, 4),
+(1, 1, 5, 4),
 (2, 1, 10, 5),
 (3, 1, 10, 6),
 (4, 1, 10, 7),
 (5, 1, 10, 8),
-(6, 1, 10, 9),
+(6, 1, 9, 9),
 (7, 1, 10, 10),
 (8, 1, 10, 11),
 (9, 2, 10, 4),
 (10, 2, 10, 5),
 (11, 2, 10, 6),
 (12, 2, 10, 7),
-(13, 2, 10, 8),
+(13, 2, 9, 8),
 (14, 2, 10, 9),
-(15, 2, 10, 10),
+(15, 2, 9, 10),
 (16, 2, 10, 11),
 (17, 3, 10, 4),
 (18, 3, 10, 5),
 (19, 3, 10, 6),
 (20, 3, 10, 7),
-(21, 3, 10, 8),
+(21, 3, 9, 8),
 (22, 3, 10, 9),
 (23, 3, 10, 10),
-(24, 3, 10, 11),
+(24, 3, 9, 11),
 (25, 4, 10, 4),
 (26, 4, 10, 5),
 (27, 4, 10, 6),
 (28, 4, 10, 7),
 (29, 4, 10, 8),
-(30, 4, 10, 9),
+(30, 4, 9, 9),
 (31, 4, 10, 10),
 (32, 4, 10, 11),
 (33, 5, 10, 4),
@@ -317,31 +393,31 @@ INSERT INTO `sizes` (`size_id`, `product_id`, `stock`, `size`) VALUES
 (35, 5, 10, 6),
 (36, 5, 10, 7),
 (37, 5, 10, 8),
-(38, 5, 10, 9),
-(39, 5, 10, 10),
+(38, 5, 9, 9),
+(39, 5, 9, 10),
 (40, 5, 10, 11),
 (41, 6, 10, 4),
 (42, 6, 10, 5),
 (43, 6, 10, 6),
 (44, 6, 10, 7),
 (45, 6, 10, 8),
-(46, 6, 10, 9),
+(46, 6, 8, 9),
 (47, 6, 10, 10),
 (48, 6, 10, 11),
 (49, 7, 10, 4),
 (50, 7, 10, 5),
 (51, 7, 10, 6),
 (52, 7, 10, 7),
-(53, 7, 10, 8),
+(53, 7, 9, 8),
 (54, 7, 10, 9),
 (55, 7, 10, 10),
 (56, 7, 10, 11),
 (57, 8, 10, 4),
 (58, 8, 10, 5),
-(59, 8, 10, 6),
+(59, 8, 9, 6),
 (60, 8, 10, 7),
 (61, 8, 9, 8),
-(62, 8, 10, 9),
+(62, 8, 8, 9),
 (63, 8, 10, 10),
 (64, 8, 10, 11),
 (65, 9, 10, 4),
@@ -349,14 +425,14 @@ INSERT INTO `sizes` (`size_id`, `product_id`, `stock`, `size`) VALUES
 (67, 9, 10, 6),
 (68, 9, 10, 7),
 (69, 9, 10, 8),
-(70, 9, 10, 9),
+(70, 9, 7, 9),
 (71, 9, 10, 10),
 (72, 9, 10, 11),
 (73, 10, 10, 4),
 (74, 10, 10, 5),
 (75, 10, 10, 6),
 (76, 10, 10, 7),
-(77, 10, 10, 8),
+(77, 10, 9, 8),
 (78, 10, 10, 9),
 (79, 10, 10, 10),
 (80, 10, 10, 11),
@@ -364,7 +440,7 @@ INSERT INTO `sizes` (`size_id`, `product_id`, `stock`, `size`) VALUES
 (82, 11, 10, 5),
 (83, 11, 10, 6),
 (84, 11, 10, 7),
-(85, 11, 10, 8),
+(85, 11, 9, 8),
 (86, 11, 10, 9),
 (87, 11, 10, 10),
 (88, 11, 10, 11),
@@ -374,23 +450,23 @@ INSERT INTO `sizes` (`size_id`, `product_id`, `stock`, `size`) VALUES
 (92, 12, 10, 7),
 (93, 12, 10, 8),
 (94, 12, 10, 9),
-(95, 12, 10, 10),
+(95, 12, 9, 10),
 (96, 12, 10, 11),
 (97, 13, 10, 4),
 (98, 13, 10, 5),
 (99, 13, 10, 6),
 (100, 13, 10, 7),
 (101, 13, 10, 8),
-(102, 13, 10, 9),
+(102, 13, 9, 9),
 (103, 13, 10, 10),
 (104, 13, 10, 11),
 (105, 14, 10, 4),
-(106, 14, 10, 5),
+(106, 14, 9, 5),
 (107, 14, 10, 6),
 (108, 14, 10, 7),
 (109, 14, 10, 8),
 (110, 14, 10, 9),
-(111, 14, 10, 10),
+(111, 14, 8, 10),
 (112, 14, 10, 11),
 (113, 15, 9, 4),
 (114, 15, 10, 5),
@@ -400,12 +476,12 @@ INSERT INTO `sizes` (`size_id`, `product_id`, `stock`, `size`) VALUES
 (118, 15, 10, 9),
 (119, 15, 10, 10),
 (120, 15, 10, 11),
-(121, 16, 10, 4),
-(122, 16, 10, 5),
+(121, 16, 8, 4),
+(122, 16, 8, 5),
 (123, 16, 10, 6),
 (124, 16, 3, 7),
 (125, 16, 0, 8),
-(126, 16, 10, 9),
+(126, 16, 9, 9),
 (127, 16, 10, 10),
 (128, 16, 10, 11),
 (129, 17, 10, 4),
@@ -413,7 +489,7 @@ INSERT INTO `sizes` (`size_id`, `product_id`, `stock`, `size`) VALUES
 (131, 17, 10, 6),
 (132, 17, 10, 7),
 (133, 17, 10, 8),
-(134, 17, 10, 9),
+(134, 17, 6, 9),
 (135, 17, 10, 10),
 (136, 17, 10, 11),
 (137, 18, 10, 4),
@@ -421,9 +497,57 @@ INSERT INTO `sizes` (`size_id`, `product_id`, `stock`, `size`) VALUES
 (139, 18, 10, 6),
 (140, 18, 10, 7),
 (141, 18, 10, 8),
-(142, 18, 10, 9),
+(142, 18, 9, 9),
 (143, 18, 10, 10),
-(144, 18, 10, 11);
+(144, 18, 10, 11),
+(145, 19, 10, 4),
+(146, 19, 10, 5),
+(147, 19, 10, 6),
+(148, 19, 10, 7),
+(149, 19, 10, 8),
+(150, 19, 10, 9),
+(151, 19, 10, 10),
+(152, 19, 10, 11),
+(153, 20, 10, 4),
+(154, 20, 10, 5),
+(155, 20, 10, 6),
+(156, 20, 10, 7),
+(157, 20, 10, 8),
+(158, 20, 10, 9),
+(159, 20, 10, 10),
+(160, 20, 10, 11),
+(161, 21, 10, 4),
+(162, 21, 10, 5),
+(163, 21, 10, 6),
+(164, 21, 10, 7),
+(165, 21, 10, 8),
+(166, 21, 10, 9),
+(167, 21, 10, 10),
+(168, 21, 10, 11),
+(169, 22, 10, 4),
+(170, 22, 10, 5),
+(171, 22, 10, 6),
+(172, 22, 10, 7),
+(173, 22, 10, 8),
+(174, 22, 10, 9),
+(175, 22, 10, 10),
+(176, 22, 10, 11),
+(177, 23, 10, 4),
+(178, 23, 10, 5),
+(179, 23, 10, 6),
+(180, 23, 10, 7),
+(181, 23, 10, 8),
+(182, 23, 10, 9),
+(183, 23, 10, 10),
+(184, 23, 10, 11),
+(185, 24, 10, 4),
+(186, 24, 10, 5),
+(187, 24, 10, 6),
+(188, 24, 10, 7),
+(189, 24, 10, 8),
+(190, 24, 10, 9),
+(191, 24, 10, 10),
+(192, 24, 10, 11);
 
 -- --------------------------------------------------------
 
@@ -448,7 +572,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password_hash`, `phone_number`, `address`, `postal_code`, `gender`) VALUES
-(2, 'Update', 'One', 'test@test1.com', '$2y$10$BLSGcvkKI8tijBYfqnJQV.B7iT6dQhQj9IS0xZ807B8HDeni4/M6C', '+65111111', 'Blk 221 Hougang Ave 4', 347271, NULL),
+(2, 'Lance', 'Yeo', 'test@test1.com', '$2y$10$BLSGcvkKI8tijBYfqnJQV.B7iT6dQhQj9IS0xZ807B8HDeni4/M6C', '+6592893193', 'Blk 221 Hougang Ave 7', 123453, 1),
 (3, 'Test', 'Two', 'test@test2.com', '$2y$10$2LiuM9Rlcihjar5VHl499u6JvoRA/ymwqrwGvynJvVH.v5TDLoEke', '1212212', 'Blk 301 Hougang', 192793, NULL),
 (4, 'test', 'test', 'test@test3.com', '$2y$10$QnaZOtmlRRAI/FWhXeGe5OsGZ73mXY.obiCi8my4bOYxBC.zcGjZO', '', NULL, NULL, NULL);
 
@@ -524,43 +648,43 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `sizes`
 --
 ALTER TABLE `sizes`
-  MODIFY `size_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
+  MODIFY `size_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=193;
 
 --
 -- AUTO_INCREMENT for table `users`
